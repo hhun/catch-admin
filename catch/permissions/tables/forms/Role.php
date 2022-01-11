@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\permissions\tables\forms;
 
 use catchAdmin\permissions\model\Department as DepartmentModel;
@@ -33,7 +34,10 @@ class Role extends Form
                 ->clearable(true)->placeholder('请填写角色描述'),
 
             self::tree('_permissions', '角色权限', [])
-                ->props(self::props('permission_name', 'id', [],
+                ->props(self::props(
+                    'permission_name',
+                    'id',
+                    [],
                     Permissions::field(['id', 'parent_id', 'permission_name'])->select()->toTree()
                 ))
                 ->required(),
@@ -63,5 +67,4 @@ class Role extends Form
                 ])
         ];
     }
-
 }

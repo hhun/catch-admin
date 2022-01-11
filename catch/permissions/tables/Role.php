@@ -1,6 +1,6 @@
 <?php
-namespace catchAdmin\permissions\tables;
 
+namespace catchAdmin\permissions\tables;
 
 use catcher\CatchTable;
 use catchAdmin\permissions\tables\forms\Factory;

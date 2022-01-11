@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\domain\support\driver\qcloud;
 
 use catchAdmin\domain\support\contract\DomainActionInterface;
@@ -24,7 +26,7 @@ class Domain implements DomainActionInterface
         $length = $params['limit'] ?? 10;
 
         // TODO: Implement getList() method.
-       return Transformer::qcloudDomainPaginate($this->get([
+        return Transformer::qcloudDomainPaginate($this->get([
             'Action' => 'DomainList',
             'offset' => $offset,
             'length' => $length

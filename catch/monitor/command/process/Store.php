@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -25,7 +26,7 @@ trait Store
     {
         $path = config('catch.crontab.store_path');
 
-        if (!Filesystem::exists($path)) {
+        if (! Filesystem::exists($path)) {
             FileSystem::makeDirectory($path, 0777, true);
         }
 
@@ -40,12 +41,12 @@ trait Store
      */
     protected function saveTaskInfo()
     {
-         FileSystem::put(self::storeTaskPath() . 'information.json', \json_encode([
-             'name' => $this->name,
-             'static' => $this->static,
-             'dynamic' => $this->dynamic,
-             'interval' => $this->interval,
-        ], JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
+        FileSystem::put(self::storeTaskPath().'information.json', \json_encode([
+            'name' => $this->name,
+            'static' => $this->static,
+            'dynamic' => $this->dynamic,
+            'interval' => $this->interval,
+        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
     }
 
     /**
@@ -56,7 +57,7 @@ trait Store
      */
     public static function masterPidStorePath()
     {
-        return self::storeTaskPath() . 'master.pid';
+        return self::storeTaskPath().'master.pid';
     }
 
     /**
@@ -67,7 +68,7 @@ trait Store
      */
     public static function statusPath()
     {
-        return self::storeTaskPath() . 'master.status';
+        return self::storeTaskPath().'master.status';
     }
 
 
@@ -80,13 +81,13 @@ trait Store
      */
     public static function workerStatusPath($name)
     {
-        $path = self::storeTaskPath() . 'status/';
+        $path = self::storeTaskPath().'status/';
 
-        if (!FileSystem::exists($path)) {
+        if (! FileSystem::exists($path)) {
             FileSystem::makeDirectory($path, 0777, true);
         }
 
-        return $path . $name . '.status';
+        return $path.$name.'.status';
     }
 
     /**
@@ -96,7 +97,7 @@ trait Store
      */
     public static function getWorkerStatusPath()
     {
-        return self::storeTaskPath() . 'status/';
+        return self::storeTaskPath().'status/';
     }
 
     /**
@@ -107,7 +108,7 @@ trait Store
      */
     public static function stdoutPath()
     {
-        return self::storeTaskPath() . 'errors.log';
+        return self::storeTaskPath().'errors.log';
     }
 
 
@@ -121,7 +122,7 @@ trait Store
     {
         $pidFile = config('catch.crontab.master_pid_file');
 
-        if (!FileSystem::exists($pidFile)) {
+        if (! FileSystem::exists($pidFile)) {
             return 0;
         }
 
@@ -151,7 +152,7 @@ trait Store
         $day = 3600 * 24;
         if ($runtime > $day) {
             $days = floor($runtime / $day);
-            return $days . '天:' . gmstrftime('%H:%M:%S', $runtime % $day);
+            return $days.'天:'.gmstrftime('%H:%M:%S', $runtime % $day);
         } else {
             return gmstrftime('%H:%M:%S', $runtime);
         }
@@ -167,7 +168,7 @@ trait Store
     {
         usleep(500 * 1000);
 
-        $files = FileSystem::glob(self::storeTaskPath() . 'status/*.status');
+        $files = FileSystem::glob(self::storeTaskPath().'status/*.status');
 
         $workerStatus = [];
 
@@ -189,13 +190,13 @@ trait Store
      */
     protected function setWorkerStatus($name, $dealNum = 0, $status = 'running')
     {
-        $startAt = strpos($name, 'worker') ? $this->worker_start_at : $this->start_at;
+        $startAt = mb_strpos($name, 'worker') ? $this->worker_start_at : $this->start_at;
 
         if ($this->daemon) {
             FileSystem::put($this->workerStatusPath($this->workerStatusFileName($name)), implode("\t", [
                 posix_getpid(),
                 $name,
-                floor(memory_get_usage() / 1024 / 1024) . 'M',
+                floor(memory_get_usage() / 1024 / 1024).'M',
                 $dealNum,
                 date('Y-m-d H:i:s', $startAt),
                 $this->getRunningTime(time() - $startAt),
@@ -213,7 +214,7 @@ trait Store
      */
     protected function workerStatusFileName($name)
     {
-        return $name . '_' . posix_getpid();
+        return $name.'_'.posix_getpid();
     }
 
     /**
@@ -225,7 +226,7 @@ trait Store
      */
     protected function deleteWorkerStatusFile($pid)
     {
-        @unlink(self::workerStatusPath($this->name . ' worker_' . $pid));
+        @unlink(self::workerStatusPath($this->name.' worker_'.$pid));
     }
 
     /**

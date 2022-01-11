@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,15 +9,14 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\wechat\repository;
 
-use catchAdmin\permissions\middleware\PermissionsMiddleware;
 use catchAdmin\wechat\model\WechatMenus;
 use catcher\base\CatchRepository;
 use catcher\exceptions\FailedException;
 use catcher\library\WeChat;
 use catcher\Tree;
-use catcher\Utils;
 
 class WechatMenusRepository extends CatchRepository
 {
@@ -56,7 +56,7 @@ class WechatMenusRepository extends CatchRepository
         $this->checkMenuNum($parentId);
 
         $data['parent_id'] = $parentId;
-        $data['key'] = $data['type'] . '_' . rand(10000, 999999);
+        $data['key'] = $data['type'].'_'.rand(10000, 999999);
 
         $data['created_at'] = $data['updated_at'] = time();
 
@@ -104,7 +104,7 @@ class WechatMenusRepository extends CatchRepository
         $menu = $this->findBy($id);
 
         // 父级菜单
-        if (!$menu->parent_id) {
+        if (! $menu->parent_id) {
             if ($this->menus->where('parent_id', $id)->count()) {
                 throw new FailedException('请先删除子级菜单');
             }
@@ -134,7 +134,7 @@ class WechatMenusRepository extends CatchRepository
         foreach ($menus as $menu) {
             $id = $this->menus->createBy($this->menuToLocal($menu));
 
-            if (!empty($menu['sub_button'])) {
+            if (! empty($menu['sub_button'])) {
                 foreach ($menu['sub_button'] as $button) {
                     $button['parent_id'] = $id;
                     $this->menus->createBy($this->menuToLocal($button));
@@ -190,25 +190,25 @@ class WechatMenusRepository extends CatchRepository
      */
     protected function syncToWechat()
     {
-       $menus =  $this->menus->field([
-           'id', 'parent_id', 'key', 'name', 'type', 'url', 'appid', 'pagepath', 'media_id'
-       ])->select()->toArray();
+        $menus = $this->menus->field([
+            'id', 'parent_id', 'key', 'name', 'type', 'url', 'appid', 'pagepath', 'media_id'
+        ])->select()->toArray();
 
-       foreach ($menus as &$menu) {
-           if ($menu['type'] == 'view') {
-               unset($menu['appid'], $menu['media_id'], $menu['pagepath']);
-           } elseif ($menu['type'] == 'miniprogram') {
-               unset($menu['media_id']);
-           } else {
-               unset($menu['url'], $menu['appid'], $menu['pagepath'], $menu['media_id']);
-           }
-       }
+        foreach ($menus as &$menu) {
+            if ($menu['type'] == 'view') {
+                unset($menu['appid'], $menu['media_id'], $menu['pagepath']);
+            } elseif ($menu['type'] == 'miniprogram') {
+                unset($menu['media_id']);
+            } else {
+                unset($menu['url'], $menu['appid'], $menu['pagepath'], $menu['media_id']);
+            }
+        }
 
-       $wechatMenus = Tree::done($menus, 0, 'parent_id', 'sub_button');
+        $wechatMenus = Tree::done($menus, 0, 'parent_id', 'sub_button');
 
-       WeChat::throw(WeChat::officialAccount()->menu->create($wechatMenus));
+        WeChat::throw(WeChat::officialAccount()->menu->create($wechatMenus));
 
-       return true;
+        return true;
     }
 
     /**
@@ -221,7 +221,7 @@ class WechatMenusRepository extends CatchRepository
     protected function checkMenuNum($parentId)
     {
         // 父级别分类
-        if (!$parentId) {
+        if (! $parentId) {
             if ($this->menus->where('parent_id', 0)->count() >= 3) {
                 throw new FailedException('只支持三个一级菜单');
             }

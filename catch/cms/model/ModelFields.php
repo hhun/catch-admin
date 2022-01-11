@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -24,7 +25,7 @@ class ModelFields extends BaseModel
     // 表名
     public $name = 'cms_model_fields';
     // 数据库字段映射
-    public $field = array(
+    public $field = [
         'id',
         // 字段中文名称
         'title',
@@ -59,14 +60,14 @@ class ModelFields extends BaseModel
         'updated_at',
         // 软删除
         'deleted_at',
-    );
+    ];
 
 
-    const IS_UNIQUE = 1;
-    const NOT_UNIQUE = 2;
+    public const IS_UNIQUE = 1;
+    public const NOT_UNIQUE = 2;
 
-    const IS_INDEX = 1;
-    const NOT_INDEX = 2;
+    public const IS_INDEX = 1;
+    public const NOT_INDEX = 2;
 
     /**
      * 获取模型的动态字段

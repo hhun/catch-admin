@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -13,10 +14,7 @@ namespace catchAdmin\monitor\command\process;
 
 use catchAdmin\monitor\model\Crontab;
 use catcher\enums\Status;
-use catcher\facade\FileSystem;
 use Cron\CronExpression;
-use EasyWeChat\Kernel\Messages\News;
-use think\cache\driver\Redis;
 
 trait RegisterSignal
 {
@@ -72,7 +70,6 @@ trait RegisterSignal
     protected function waitWorkersExit()
     {
         Process::signal(SIGCHLD, function ($signal) {
-
         });
     }
 
@@ -94,7 +91,7 @@ trait RegisterSignal
                 // 任务
                 foreach ($crontabs as $crontab) {
                     $can = date('Y-m-d H:i', CronExpression::factory(trim($crontab['cron']))
-                                ->getNextRunDate(date('Y-m-d H:i:s'), 0 , true)
+                                ->getNextRunDate(date('Y-m-d H:i:s'), 0, true)
                                 ->getTimestamp()) == date('Y-m-d H:i', time());
 
                     if ($can) {
@@ -148,12 +145,10 @@ trait RegisterSignal
     protected function showStatus()
     {
         Process::signal(SIGUSR2, function ($signal) {
-            $this->setWorkerStatus($this->name . ' master');
+            $this->setWorkerStatus($this->name.' master');
             foreach ($this->workerIds as $pid => $v) {
                 Process::kill($pid, SIGUSR2);
             }
         });
     }
 }
-
-

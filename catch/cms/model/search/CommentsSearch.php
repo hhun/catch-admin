@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\cms\model\search;
 
 trait CommentsSearch

@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\wechat\library\messages;
 
 class Factory
@@ -35,12 +37,12 @@ class Factory
     {
         // 事件类型
         if ($message['MsgType'] == 'event') {
-            $event = __NAMESPACE__ . '\\events\\' . ucfirst($message['Event']);
+            $event = __NAMESPACE__.'\\events\\'.ucfirst($message['Event']);
 
             return new $event($message);
         }
 
-        $messageClass = __NAMESPACE__ . '\\' . ucfirst($message['MsgType']);
+        $messageClass = __NAMESPACE__.'\\'.ucfirst($message['MsgType']);
         return new $messageClass($message);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,13 +9,13 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher\library\crontab;
 
 use catcher\exceptions\FailedException;
 
 class Schedule
 {
-
     protected $crons = [];
 
     /**
@@ -43,11 +44,11 @@ class Schedule
     public function task($task, $argument = []): Cron
     {
         if (is_string($task)) {
-           if (!class_exists($task)) {
-               throw new FailedException("[$task] not found");
-           }
+            if (! class_exists($task)) {
+                throw new FailedException("[$task] not found");
+            }
 
-           $task = new $task(...$argument);
+            $task = new $task(...$argument);
         }
 
         $this->crons[] = $cron = new Cron($task);
@@ -61,5 +62,3 @@ class Schedule
         return $this->crons;
     }
 }
-
-

@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,11 +9,11 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\wechat\library\messages;
 
 class ShortVideo extends Message
 {
-
     public function reply()
     {
         // TODO: Implement reply() method.

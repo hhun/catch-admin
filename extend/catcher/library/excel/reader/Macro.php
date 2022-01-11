@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher\library\excel\reader;
@@ -30,7 +31,7 @@ trait Macro
      */
     public function memory(int $memory)
     {
-        ini_set('memory_limit', $memory . 'M');
+        ini_set('memory_limit', $memory.'M');
 
         return $this;
     }
@@ -51,9 +52,9 @@ trait Macro
         foreach ($this->sheets as &$sheet) {
             $d = [];
             foreach ($headers as $k => $header) {
-                $d[$header] = method_exists($this, 'deal' . ucfirst($header)) ?
+                $d[$header] = method_exists($this, 'deal'.ucfirst($header)) ?
 
-                        $this->{'deal' . ucfirst($header)}($sheet) : $sheet[$k];
+                        $this->{'deal'.ucfirst($header)}($sheet) : $sheet[$k];
             }
 
             $data[] = $d;

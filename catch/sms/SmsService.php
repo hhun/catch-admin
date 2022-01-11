@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -18,6 +19,6 @@ class SmsService extends ModuleService
     public function loadRouteFrom()
     {
         // TODO: Implement loadRouteFrom() method.
-        return __DIR__ . DIRECTORY_SEPARATOR . 'route.php';
+        return __DIR__.DIRECTORY_SEPARATOR.'route.php';
     }
 }

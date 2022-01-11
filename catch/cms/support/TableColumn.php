@@ -1,8 +1,8 @@
 <?php
+
 namespace catchAdmin\cms\support;
 
 use catchAdmin\cms\model\ModelFields;
-use catchAdmin\permissions\model\search\DepartmentSearch;
 use think\migration\db\Column;
 
 class TableColumn
@@ -37,20 +37,20 @@ class TableColumn
      */
     public function __construct(array $field)
     {
-       /* $column \think\migration\db\Column */
-       $length =  $field['length'] ?? 0;
+        /* $column \think\migration\db\Column */
+        $length = $field['length'] ?? 0;
 
-       $column = $this->{$field['type']}($field['name'], (int)$length);
+        $column = $this->{$field['type']}($field['name'], (int) $length);
 
-       if ($field['default_value']) {
-           $column->setDefault($field['default_value'] ?: '');
-       }
+        if ($field['default_value']) {
+            $column->setDefault($field['default_value'] ?: '');
+        }
 
-       $column->setComment($field['title'] ? : '');
+        $column->setComment($field['title'] ?: '');
 
-       if (isset($field['is_unique']) && $field['is_unique'] == ModelFields::IS_UNIQUE) {
-           $column->setUnique();
-       }
+        if (isset($field['is_unique']) && $field['is_unique'] == ModelFields::IS_UNIQUE) {
+            $column->setUnique();
+        }
 
         if (isset($field['is_index']) && $field['is_index'] == ModelFields::IS_INDEX) {
             $column->be_index = true;
@@ -316,6 +316,6 @@ class TableColumn
     public function area(string $name, int $length): Column
     {
         // province_name/city_name/district_name
-       return Column::string($name)->setLimit(255);
+        return Column::string($name)->setLimit(255);
     }
 }

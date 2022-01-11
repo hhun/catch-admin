@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\permissions\tables\forms;
 
 use catchAdmin\permissions\model\Department as DepartmentModel;
@@ -39,5 +40,4 @@ class User extends Form
                 ->required(),
         ];
     }
-
 }

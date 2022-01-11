@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -11,7 +12,6 @@
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
 
-
 namespace catchAdmin\cms\model;
 
 use catcher\exceptions\FailedException;
@@ -21,7 +21,7 @@ class ModelAuxiliaryTable extends BaseModel
     // 表名
     public $name = 'cms_model_auxiliary_table';
     // 数据库字段映射
-    public $field = array(
+    public $field = [
         'id',
         // 模型ID
         'model_id',
@@ -35,10 +35,10 @@ class ModelAuxiliaryTable extends BaseModel
         'updated_at',
         // 软删除
         'deleted_at',
-    );
+    ];
 
-    const USED = 1;
-    const NOT_USE = 2;
+    public const USED = 1;
+    public const NOT_USE = 2;
 
 
     /**
@@ -99,6 +99,5 @@ class ModelAuxiliaryTable extends BaseModel
         return $this->where('model_id', $modelId)
                     ->where('used', self::USED)
                     ->find();
-
     }
 }

@@ -1,11 +1,11 @@
 <?php
+
 namespace catchAdmin\system\controller;
 
 use catchAdmin\system\request\sensitiveWord\CreateRequest;
 use catchAdmin\system\request\sensitiveWord\UpdateRequest;
 use catcher\base\CatchController;
 use catchAdmin\system\model\SensitiveWord as Model;
-use catcher\base\CatchRequest;
 use catcher\CatchResponse;
 
 class SensitiveWord extends CatchController
@@ -51,7 +51,6 @@ class SensitiveWord extends CatchController
     public function update($id, UpdateRequest $request)
     {
         return CatchResponse::success($this->sensitiveWord->updateBy($id, $request->param()));
-
     }
 
     /**
@@ -65,5 +64,4 @@ class SensitiveWord extends CatchController
     {
         return CatchResponse::success($this->sensitiveWord->deleteBy($id));
     }
-
 }

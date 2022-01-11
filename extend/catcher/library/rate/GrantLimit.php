@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 // +----------------------------------------------------------------------
@@ -10,7 +11,9 @@ declare(strict_types=1);
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher\library\rate;
+
 use catcher\exceptions\FailedException;
 
 /**
@@ -70,7 +73,7 @@ class GrantLimit
      */
     protected function init()
     {
-        if (!$this->getRedis()->exists($this->key)) {
+        if (! $this->getRedis()->exists($this->key)) {
             $this->getRedis()->setex($this->key, $this->ttl, 0);
         }
     }

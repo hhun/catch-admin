@@ -1,5 +1,6 @@
 <?php
-declare (strict_types = 1);
+
+declare(strict_types=1);
 
 namespace catcher\command\Tools;
 
@@ -27,7 +28,7 @@ class CompressPackageCommand extends Command
 
     protected function execute(Input $input, Output $output)
     {
-       $package = $this->input->getArgument('module');
+        $package = $this->input->getArgument('module');
 
         try {
             (new Compress())->moduleToZip($package);
@@ -35,6 +36,6 @@ class CompressPackageCommand extends Command
             exit($output->error($e->getMessage()));
         }
 
-        $output->info($package . ' zip successfully~');
+        $output->info($package.' zip successfully~');
     }
 }

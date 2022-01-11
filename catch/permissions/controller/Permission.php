@@ -1,13 +1,11 @@
 <?php
-namespace catchAdmin\permissions\controller;
 
+namespace catchAdmin\permissions\controller;
 
 use catcher\base\CatchRequest as Request;
 use catcher\base\CatchController;
 use catcher\CatchResponse;
 use catcher\exceptions\FailedException;
-use catcher\library\ParseClass;
-use catcher\Tree;
 use catchAdmin\permissions\model\Permissions;
 use think\helper\Str;
 use think\response\Json;
@@ -40,27 +38,27 @@ class Permission extends CatchController
         $this->permissions
              ->whereIn('parent_id', array_unique($menuList->column('id')))
              ->where('type', Permissions::BTN_TYPE)
-             ->select()->each(function ($item) use (&$buttonList){
+             ->select()->each(function ($item) use (&$buttonList) {
                  $buttonList[$item['parent_id']][] = $item->toArray();
              });
 
         // 子节点的 key
         $children = $request->param('actionList') ?? 'children';
         // 返回树结构
-        return CatchResponse::success($menuList->each(function (&$item) use ($buttonList, $children){
+        return CatchResponse::success($menuList->each(function (&$item) use ($buttonList, $children) {
             $item[$children] = $buttonList[$item['id']] ?? [];
         })->toTree());
     }
 
-  /**
-   *
-   * @time 2019年12月11日
-   * @param Request $request
-   * @return Json
-   * @throws \think\db\exception\DbException
-   * @throws \think\db\exception\ModelNotFoundException
-   * @throws \think\db\exception\DataNotFoundException
-   */
+    /**
+     *
+     * @time 2019年12月11日
+     * @param Request $request
+     * @return Json
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\db\exception\DataNotFoundException
+     */
     public function save(Request $request): Json
     {
         $params = $request->param();
@@ -76,9 +74,9 @@ class Permission extends CatchController
             if ($parentPermission->parent_id) {
                 if (Str::contains($parentPermission->permission_mark, '@')) {
                     list($controller, $action) = explode('@', $parentPermission->permission_mark);
-                    $permissionMark = $controller . '@' . $permissionMark;
+                    $permissionMark = $controller.'@'.$permissionMark;
                 } else {
-                    $permissionMark = $parentPermission->permission_mark .'@'. $permissionMark;
+                    $permissionMark = $parentPermission->permission_mark.'@'.$permissionMark;
                 }
             }
             $params['permission_mark'] = $permissionMark;
@@ -108,7 +106,7 @@ class Permission extends CatchController
 
         $params = array_merge($params, [
             'parent_id' => $permission->parent_id,
-            'level'     => $permission->level
+            'level' => $permission->level
         ]);
 
         if ($this->permissions->updateMenu($id, $params)) {
@@ -153,5 +151,3 @@ class Permission extends CatchController
         return CatchResponse::success($this->permissions->show($id));
     }
 }
-
-

@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -28,7 +29,7 @@ class Helper
     {
         $options = [];
 
-        if (!$value) {
+        if (! $value) {
             return $value;
         }
 
@@ -59,7 +60,7 @@ class Helper
     {
         $array = trim(trim($arrayString, '['), ']');
 
-        if (!$array) {
+        if (! $array) {
             return [];
         }
 

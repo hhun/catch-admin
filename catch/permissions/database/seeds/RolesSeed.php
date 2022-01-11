@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -24,13 +25,13 @@ class RolesSeed extends Seeder
     {
         \catchAdmin\permissions\model\Roles::create([
             'role_name' => '超级管理员',
-            'identify'  => 'admin',
+            'identify' => 'admin',
             'description' => 'super user',
             'data_range' => 1,
             'creator_id' => 1,
         ]);
 
-        \think\facade\Db::name( 'user_has_roles')->insert([
+        \think\facade\Db::name('user_has_roles')->insert([
             'role_id' => 1,
             'uid' => 1,
         ]);

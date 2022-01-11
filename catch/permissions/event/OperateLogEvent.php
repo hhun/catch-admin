@@ -4,8 +4,6 @@ namespace catchAdmin\permissions\event;
 
 use catchAdmin\permissions\model\Permissions;
 use catchAdmin\system\model\OperateLog;
-use catcher\CatchAdmin;
-use think\facade\Db;
 
 class OperateLogEvent
 {
@@ -18,19 +16,19 @@ class OperateLogEvent
         $requestParams = request()->param();
 
         // 如果参数过长则不记录
-        if (!empty($requestParams) && strlen(\json_encode($requestParams)) > 1000) {
-                $requestParams = [];
+        if (! empty($requestParams) && mb_strlen(\json_encode($requestParams)) > 1000) {
+            $requestParams = [];
         }
 
         app(OperateLog::class)->storeBy([
             'creator_id' => $params['creator_id'],
-            'module'     => $parentPermission ? : '',
-            'method'     => request()->method(),
-            'operate'    => $permission->permission_name,
-            'route'      => $permission->permission_mark,
-            'params'     => !empty($requestParams) ? json_encode($requestParams, JSON_UNESCAPED_UNICODE) : '',
+            'module' => $parentPermission ?: '',
+            'method' => request()->method(),
+            'operate' => $permission->permission_name,
+            'route' => $permission->permission_mark,
+            'params' => ! empty($requestParams) ? json_encode($requestParams, JSON_UNESCAPED_UNICODE) : '',
             'created_at' => time(),
-            'ip'         => request()->ip(),
+            'ip' => request()->ip(),
         ]);
     }
 }

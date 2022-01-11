@@ -1,6 +1,6 @@
 <?php
-namespace catchAdmin\permissions\tables;
 
+namespace catchAdmin\permissions\tables;
 
 use catcher\CatchTable;
 use catchAdmin\permissions\tables\forms\Factory;
@@ -40,8 +40,8 @@ class User extends CatchTable
                     ->withExportRoute('user/export')
                     ->withFilterParams([
                         'username' => '',
-                        'email'    => '',
-                        'status'   => '',
+                        'email' => '',
+                        'status' => '',
                         'department_id' => ''
                     ])
                     ->selectionChange()

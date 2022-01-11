@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\domain\support\driver\aliyun;
 
 use catchAdmin\domain\support\contract\DomainRecordInterface;
@@ -141,7 +143,7 @@ class DomainRecord implements DomainRecordInterface
         return $this->get([
             'Action' => 'SetDomainRecordStatus',
             'RecordId' => $recordId,
-            'Status' => ucfirst(strtolower($status))
+            'Status' => ucfirst(mb_strtolower($status))
         ]);
     }
 }

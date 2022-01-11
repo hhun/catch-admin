@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\sms;
 
 use catchAdmin\sms\model\SmsConfig;
@@ -60,7 +62,7 @@ class Sms
     {
         $config['timeout'] = $this->timeout;
 
-        $config['gateways']['errorlog'] = runtime_path('log') . 'sms.log';
+        $config['gateways']['errorlog'] = runtime_path('log').'sms.log';
 
         $this->config = $config;
     }
@@ -181,11 +183,10 @@ class Sms
             if ($c) {
                 $c->hasConfig()
                     ->select()
-                    ->each(function ($item) use (&$gatewaysConfig, $gate){
-                         $gatewaysConfig[$gate][$item['key']] = $item['value'];
+                    ->each(function ($item) use (&$gatewaysConfig, $gate) {
+                        $gatewaysConfig[$gate][$item['key']] = $item['value'];
                     });
             }
-
         }
 
         return $gatewaysConfig;

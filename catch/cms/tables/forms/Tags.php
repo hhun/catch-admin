@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\cms\tables\forms;
 
 class Tags extends BaseForm

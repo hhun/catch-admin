@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\permissions\model\search;
 
 use catchAdmin\permissions\model\Roles;
@@ -12,7 +13,7 @@ trait PermissionsSearch
 
     public function searchIdAttr($query, $value, $data)
     {
-      $query->where('parent_id', $value)->whereOr('id', $value);
+        $query->where('parent_id', $value)->whereOr('id', $value);
     }
 
     public function searchRoleIdAttr($query, $value, $data)
@@ -21,11 +22,11 @@ trait PermissionsSearch
         $permissions = Roles::where('id', $value)->find()->getPermissions();
 
         foreach ($permissions as $_permission) {
-          $permissionIds[] = $_permission->pivot->permission_id;
+            $permissionIds[] = $_permission->pivot->permission_id;
         }
-        
-        if(!empty($permissionIds)) {
-          $query->whereIn('id', $permissionIds);
+
+        if (! empty($permissionIds)) {
+            $query->whereIn('id', $permissionIds);
         }
     }
 }

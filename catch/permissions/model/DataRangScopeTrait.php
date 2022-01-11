@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\permissions\model;
 
 use catcher\Utils;
@@ -19,7 +20,7 @@ trait DataRangScopeTrait
             return $this;
         }
 
-        $userIds =  $this->getDepartmentUserIdsBy($roles);
+        $userIds = $this->getDepartmentUserIdsBy($roles);
 
         if (empty($userIds)) {
             return $this;

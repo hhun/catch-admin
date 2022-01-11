@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher\library\crontab;
 
 use Swoole\Process;
@@ -100,11 +102,11 @@ trait RegisterSignal
     protected function workerStatus()
     {
         return function () {
-           foreach ($this->processes as $pid => $process) {
+            foreach ($this->processes as $pid => $process) {
                 Process::kill($pid, SIGUSR1);
-           }
-           usleep(100);
-           $this->saveProcessStatus();
+            }
+            usleep(100);
+            $this->saveProcessStatus();
         };
     }
 
@@ -119,7 +121,7 @@ trait RegisterSignal
         return function () {
             // 使用队列， 会发生主进程往一个不存在的进程发送消息吗？
             foreach ($this->processes as $process) {
-                Process::kill((int)$process['pid'], SIGTERM);
+                Process::kill((int) $process['pid'], SIGTERM);
             }
         };
     }
@@ -133,7 +135,7 @@ trait RegisterSignal
     public function catchPipeError()
     {
         return function () {
-           // todo
+            // todo
         };
     }
 }

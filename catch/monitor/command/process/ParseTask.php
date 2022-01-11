@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,9 +9,9 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\monitor\command\process;
 
-use catcher\facade\FileSystem;
 use think\exception\ClassNotFoundException;
 use think\helper\Str;
 
@@ -25,13 +26,13 @@ trait ParseTask
      */
     protected function getTaskObject($crontab)
     {
-        $class = $this->getTaskNamespace() . ucfirst(Str::camel($crontab['task']));
+        $class = $this->getTaskNamespace().ucfirst(Str::camel($crontab['task']));
 
         if (class_exists($class)) {
             return app()->make($class)->setCrontab($crontab);
         }
 
-        throw new ClassNotFoundException('Task '. $crontab['task'] . ' not found');
+        throw new ClassNotFoundException('Task '.$crontab['task'].' not found');
     }
 
     /**

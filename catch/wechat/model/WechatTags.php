@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -23,13 +24,13 @@ class WechatTags extends Model
     protected $name = 'wechat_tags';
 
     protected $field = [
-        'id', // 
-		'tag_id', // 微信 tagId
-		'name', // 标签名称
+        'id', //
+        'tag_id', // 微信 tagId
+        'name', // 标签名称
         'fans_amount', // 粉丝数量
-		'created_at', // 创建时间
-		'updated_at', // 更新时间
-		'deleted_at', // 软删除
+        'created_at', // 创建时间
+        'updated_at', // 更新时间
+        'deleted_at', // 软删除
     ];
 
     public function hasUsers()

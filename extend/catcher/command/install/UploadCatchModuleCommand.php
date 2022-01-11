@@ -8,6 +8,7 @@
  * @copyright By CatchAdmin
  * @license  https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt
  */
+
 namespace catcher\command\install;
 
 use catcher\CatchAdmin;
@@ -34,14 +35,13 @@ class UploadCatchModuleCommand extends Command
     {
         $this->setName('upload:module')
             ->addArgument('module', Argument::REQUIRED, 'module name')
-            ->addOption('path', '-p',Option::VALUE_OPTIONAL, 'path that you need')
+            ->addOption('path', '-p', Option::VALUE_OPTIONAL, 'path that you need')
             ->setDescription('install catch module');
     }
 
     protected function execute(Input $input, Output $output)
     {
         try {
-
             $this->module = $this->input->getArgument('module');
             $this->path = $this->getCompressPath($this->input->getOption('path'));
 
@@ -57,8 +57,8 @@ class UploadCatchModuleCommand extends Command
             // 上传
             $this->upload($token, $moduleZip);
             $this->output->info('upload successfully!');
-        }catch (\Throwable $e) {
-            $this->error($e->getMessage(). ': Error happens at ' .$e->getFile() .  ' '. $e->getLine() . '行');
+        } catch (\Throwable $e) {
+            $this->error($e->getMessage().': Error happens at '.$e->getFile().' '.$e->getLine().'行');
         }
     }
 
@@ -70,25 +70,25 @@ class UploadCatchModuleCommand extends Command
      */
     public function checking()
     {
-        if (!file_exists($this->path . 'module.json')) {
+        if (! file_exists($this->path.'module.json')) {
             $this->error('there is no module.json file');
         }
 
-        if (!file_exists($this->path . 'route.php')) {
-           $this->error('there is no route.php file');
+        if (! file_exists($this->path.'route.php')) {
+            $this->error('there is no route.php file');
         }
 
-        $module = \json_decode(file_get_contents($this->path . 'module.json'), true);
+        $module = \json_decode(file_get_contents($this->path.'module.json'), true);
 
-        if (!isset($module['name']) && !$module['name']) {
-           $this->error('module.json not set name');
+        if (! isset($module['name']) && ! $module['name']) {
+            $this->error('module.json not set name');
         }
 
-        if (!isset($module['version']) && !$module['name']) {
+        if (! isset($module['version']) && ! $module['name']) {
             $this->error('module.json not set version');
         }
 
-        if (!isset($module['services']) && empty($module['services'])) {
+        if (! isset($module['services']) && empty($module['services'])) {
             $this->error('module.json not set services');
         }
 
@@ -98,7 +98,7 @@ class UploadCatchModuleCommand extends Command
             $s = explode('\\', $service);
             $serviceName = array_pop($s);
 
-            if (!file_exists($this->path. $serviceName . '.php')) {
+            if (! file_exists($this->path.$serviceName.'.php')) {
                 $this->error("[$serviceName] Service not found");
             }
         }
@@ -118,7 +118,7 @@ class UploadCatchModuleCommand extends Command
      */
     protected function authenticate($name, $password)
     {
-        $response =  Http::form([
+        $response = Http::form([
             'username' => $name,
             'password' => $password,
         ])->post($this->authenticateAddress());
@@ -140,12 +140,12 @@ class UploadCatchModuleCommand extends Command
      */
     protected function uploadAddress()
     {
-        return env('API_URL') . '/upload/module';
+        return env('API_URL').'/upload/module';
     }
 
     protected function authenticateAddress()
     {
-        return env('API_URL') . '/developer/authenticate';
+        return env('API_URL').'/developer/authenticate';
     }
 
     /**
@@ -171,11 +171,11 @@ class UploadCatchModuleCommand extends Command
      */
     protected function compressModule()
     {
-        $composerZip = $this->compressZipPath() . $this->module . '_' . time() . '.zip';
+        $composerZip = $this->compressZipPath().$this->module.'_'.time().'.zip';
 
         (new Compress())->moduleToZip($this->path, $composerZip);
 
-        $this->output->info('compress module ' . $this->module . ' successfully');
+        $this->output->info('compress module '.$this->module.' successfully');
         return $composerZip;
     }
 
@@ -189,7 +189,7 @@ class UploadCatchModuleCommand extends Command
     protected function getCompressPath($path)
     {
         if ($path) {
-            return root_path($path) . $this->module. DIRECTORY_SEPARATOR;
+            return root_path($path).$this->module.DIRECTORY_SEPARATOR;
         }
 
         return CatchAdmin::moduleDirectory($this->module);
@@ -217,5 +217,4 @@ class UploadCatchModuleCommand extends Command
     {
         exit($this->output->error($message));
     }
-
 }

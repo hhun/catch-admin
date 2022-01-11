@@ -1,4 +1,5 @@
 <?php
+
 namespace catcher\library\table\components;
 
 class Component
@@ -23,7 +24,7 @@ class Component
      * @param $params
      * @return $this
      */
-    public function __call($method, $params): Component
+    public function __call($method, $params): self
     {
         $this->attributes[$method] = $params[0];
 

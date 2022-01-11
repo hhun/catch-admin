@@ -1,5 +1,6 @@
 <?php
-declare (strict_types = 1);
+
+declare(strict_types=1);
 
 namespace catcher\command\Tools;
 
@@ -25,7 +26,7 @@ class BackupCommand extends Command
     {
         $tables = $this->input->getArgument('tables');
 
-        (new BackUpDatabase)->done($tables);
+        (new BackUpDatabase())->done($tables);
 
         $output->info('succeed!');
     }

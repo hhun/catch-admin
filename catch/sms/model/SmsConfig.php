@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -18,20 +19,20 @@ class SmsConfig extends Model
     protected $name = 'sms_config';
 
     protected $field = [
-        'id', // 
-		'name', // 运营商名称
-		'pid', // 父级ID
-		'key', // key
-		'value', // value
-		'creator_id', // 创建人ID
-		'created_at', // 创建时间
-		'updated_at', // 更新时间
-		'deleted_at', // 软删除
+        'id', //
+        'name', // 运营商名称
+        'pid', // 父级ID
+        'key', // key
+        'value', // value
+        'creator_id', // 创建人ID
+        'created_at', // 创建时间
+        'updated_at', // 更新时间
+        'deleted_at', // 软删除
     ];
 
     public function hasConfig()
     {
-        return $this->hasMany(SmsConfig::class, 'pid', 'id');
+        return $this->hasMany(self::class, 'pid', 'id');
     }
 
     /**
@@ -125,15 +126,15 @@ class SmsConfig extends Model
     {
         $config = [];
 
-        if (!$this->findByName($id)) {
+        if (! $this->findByName($id)) {
             return [];
         }
 
         $this->findByName($id)
              ->hasConfig()
              ->select()
-             ->each(function ($item) use (&$config){
-                $config[$item['key']] = $item['value'];
+             ->each(function ($item) use (&$config) {
+                 $config[$item['key']] = $item['value'];
              });
 
         return $config;

@@ -8,6 +8,7 @@
  * @copyright By CatchAdmin
  * @license  https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt
  */
+
 namespace catchAdmin\wechat\model\search;
 
 trait UserSearchTrait
@@ -64,7 +65,7 @@ trait UserSearchTrait
      */
     public function searchStartAtAttr($query, $value, $data)
     {
-        return $query->where('subscribe_time', '>=', strtotime($value . ' 00:00:00'));
+        return $query->where('subscribe_time', '>=', strtotime($value.' 00:00:00'));
     }
 
     /**
@@ -78,6 +79,6 @@ trait UserSearchTrait
      */
     public function searchEndAtAttr($query, $value, $data)
     {
-        return $query->where('subscribe_time', '<=', strtotime($value . ' 23:59:59'));
+        return $query->where('subscribe_time', '<=', strtotime($value.' 23:59:59'));
     }
 }

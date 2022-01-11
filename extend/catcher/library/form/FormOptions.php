@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -13,7 +14,6 @@
 
 namespace catcher\library\form;
 
-
 class FormOptions
 {
     protected $options = [];
@@ -26,7 +26,7 @@ class FormOptions
      * @param $value
      * @return $this
      */
-    public function add($label, $value): FormOptions
+    public function add($label, $value): self
     {
         $this->options[] = [
             'value' => $value,

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher\library\excel\reader;
@@ -34,9 +35,9 @@ abstract class Reader
      * @param $file
      * @return Reader
      */
-    public function import($file): Reader
+    public function import($file): self
     {
-        $file = (new CatchUpload)->setPath('excel')->toLocal($file);
+        $file = (new CatchUpload())->setPath('excel')->toLocal($file);
 
         $reader = Factory::make($file);
 

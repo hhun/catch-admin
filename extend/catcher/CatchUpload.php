@@ -1,10 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher;
 
-use catchAdmin\system\model\Attachments;
-use catchAdmin\system\model\Config;
 use catcher\exceptions\FailedException;
 use catcher\exceptions\ValidateFailedException;
 use think\exception\ValidateException;
@@ -64,8 +63,7 @@ class CatchUpload
             $path = Filesystem::disk($this->getDriver())->putFile($this->getPath(), $file);
 
             if ($path) {
-
-                $url = self::getCloudDomain($this->getDriver()) . '/' . $this->getLocalPath($path);
+                $url = self::getCloudDomain($this->getDriver()).'/'.$this->getLocalPath($path);
 
                 event('attachment', [
                     'path' => $path,
@@ -78,7 +76,6 @@ class CatchUpload
             }
 
             throw new FailedException('Upload Failed, Try Again!');
-
         } catch (\Exception $exception) {
             throw new FailedException($exception->getMessage());
         }
@@ -95,7 +92,7 @@ class CatchUpload
     {
         $path = Filesystem::disk(self::LOCAL)->putFile($this->getPath(), $file);
 
-        return public_path() . $this->getLocalPath($path);
+        return public_path().$this->getLocalPath($path);
     }
 
 
@@ -109,8 +106,7 @@ class CatchUpload
     protected function getLocalPath($path): string
     {
         if ($this->getDriver() === self::LOCAL) {
-
-            $path = str_replace(root_path('public'),  '', \config('filesystem.disks.local.root')) . DIRECTORY_SEPARATOR .$path;
+            $path = str_replace(root_path('public'), '', \config('filesystem.disks.local.root')).DIRECTORY_SEPARATOR.$path;
 
             return str_replace('\\', '/', $path);
         }
@@ -129,7 +125,7 @@ class CatchUpload
      */
     public function multiUpload($attachments)
     {
-        if (!is_array($attachments)) {
+        if (! is_array($attachments)) {
             return $this->upload($attachments);
         }
 
@@ -170,7 +166,7 @@ class CatchUpload
      */
     public function setDriver($driver): self
     {
-        if (!in_array($driver, [self::OSS, self::QCLOUD, self::QIQNIU, self::LOCAL])) {
+        if (! in_array($driver, [self::OSS, self::QCLOUD, self::QIQNIU, self::LOCAL])) {
             throw new \Exception(sprintf('Upload Driver [%s] Not Supported', $driver));
         }
 
@@ -219,7 +215,7 @@ class CatchUpload
             'mime_type' => $file->getMime(),
             'file_ext' => $file->getOriginalExtension(),
             'filename' => $file->getOriginalName(),
-            'driver'  => $this->getDriver(),
+            'driver' => $this->getDriver(),
         ];
     }
 
@@ -283,15 +279,15 @@ class CatchUpload
      */
     public static function getCloudDomain($driver): ?string
     {
-        $driver = \config('filesystem.disks.' . $driver);
+        $driver = \config('filesystem.disks.'.$driver);
 
         switch ($driver['type']) {
-            case CatchUpload::QIQNIU:
-            case CatchUpload::LOCAL:
+            case self::QIQNIU:
+            case self::LOCAL:
                 return $driver['domain'];
-            case CatchUpload::OSS:
+            case self::OSS:
                 return self::getOssDomain();
-            case CatchUpload::QCLOUD:
+            case self::QCLOUD:
                 return $driver['cdn'];
             default:
                 throw new FailedException(sprintf('Driver [%s] Not Supported.', $driver));
@@ -308,7 +304,7 @@ class CatchUpload
     {
         $oss = \config('filesystem.disks.oss');
         if ($oss['is_cname'] === false) {
-            return 'https://' . $oss['bucket'] . '.' . $oss['end_point'];
+            return 'https://'.$oss['bucket'].'.'.$oss['end_point'];
         }
 
         return $oss['end_point'];

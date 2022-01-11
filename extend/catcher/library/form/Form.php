@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -43,27 +44,27 @@ use FormBuilder\UI\Elm\Validate;
 
 abstract class Form
 {
+    use AreaTrait;
     use CascaderFactoryTrait;
     use CheckBoxFactoryTrait;
     use ColorPickerFactoryTrait;
     use DatePickerFactoryTrait;
+    use FormStyleFactoryTrait;
+    use FormValidates;
     use FrameFactoryTrait;
+    use GroupFactoryTrait;
     use HiddenFactoryTrait;
-    use InputNumberFactoryTrait;
     use InputFactoryTrait;
+    use InputNumberFactoryTrait;
     use RadioFactoryTrait;
     use RateFactoryTrait;
-    use SliderFactoryTrait;
     use SelectFactoryTrait;
-    use FormStyleFactoryTrait;
+    use SliderFactoryTrait;
     use SwitchesFactoryTrait;
     use TimePickerFactoryTrait;
     use TreeFactoryTrait;
     use UploadFactoryTrait;
     use ValidateFactoryTrait;
-    use GroupFactoryTrait;
-    use FormValidates;
-    use AreaTrait;
 
     protected $primaryKeyField = 'id';
 
@@ -145,10 +146,10 @@ abstract class Form
      */
     public function rule(array $rules): array
     {
-        try{
+        try {
             return Elm::createForm('', $rules)->formRule();
         } catch (FormBuilderException $e) {
-            throw new FailedException('Form Created Failed: ' .$e->getMessage());
+            throw new FailedException('Form Created Failed: '.$e->getMessage());
         }
     }
 
@@ -161,7 +162,7 @@ abstract class Form
      */
     public static function uploadImageUrl(): string
     {
-        return env('app.domain') . '/upload/image';
+        return env('app.domain').'/upload/image';
     }
 
     /**
@@ -172,7 +173,7 @@ abstract class Form
      */
     public static function uploadFileUrl(): string
     {
-        return env('app.domain') . '/upload/file';
+        return env('app.domain').'/upload/file';
     }
 
 
@@ -185,7 +186,7 @@ abstract class Form
     public static function authorization(): array
     {
         return [
-            'authorization' => 'Bearer ' . request()->user()->remember_token,
+            'authorization' => 'Bearer '.request()->user()->remember_token,
         ];
     }
 
@@ -245,7 +246,7 @@ abstract class Form
      * @param array $value
      * @return Upload
      */
-    public static function files(string $title, $field = 'files',array $value = []): Upload
+    public static function files(string $title, $field = 'files', array $value = []): Upload
     {
         return self::uploadFiles($field, $title, self::uploadFileUrl(), $value)
                     ->uploadName($field)
@@ -302,9 +303,9 @@ abstract class Form
     public static function treeProps($label, $value = 'id', array $extra = []): array
     {
         return array_merge([
-                'label' => $label,
-                'value' => $value,
-            ], $extra);
+            'label' => $label,
+            'value' => $value,
+        ], $extra);
     }
 
     /**

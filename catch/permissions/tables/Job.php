@@ -1,6 +1,6 @@
 <?php
-namespace catchAdmin\permissions\tables;
 
+namespace catchAdmin\permissions\tables;
 
 use catcher\CatchTable;
 use catchAdmin\permissions\tables\forms\Factory;
@@ -25,7 +25,7 @@ class Job extends CatchTable
                         ])
                     ])
                     ->withActions([
-                      Actions::create()
+                        Actions::create()
                     ])
                     ->withSearch([
                         Search::label('岗位名称')->text('job_name', '岗位名称')

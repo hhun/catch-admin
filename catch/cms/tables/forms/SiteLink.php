@@ -1,7 +1,7 @@
 <?php
+
 namespace catchAdmin\cms\tables\forms;
 
-use catchAdmin\cms\model\BaseModel;
 use catcher\enums\Status;
 
 class SiteLink extends BaseForm

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher;
@@ -19,7 +20,7 @@ class CatchAdmin
      */
     public static function directory(): string
     {
-        return app()->getRootPath() . self::$root . DIRECTORY_SEPARATOR;
+        return app()->getRootPath().self::$root.DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -29,7 +30,7 @@ class CatchAdmin
      * @param string $root
      * @return CatchAdmin
      */
-    public static function setRoot(string $root): CatchAdmin
+    public static function setRoot(string $root): self
     {
         self::$root = $root;
 
@@ -45,7 +46,7 @@ class CatchAdmin
      */
     public static function makeDirectory(string $directory): string
     {
-        if (!is_dir($directory) && !mkdir($directory, 0777, true) && !is_dir($directory)) {
+        if (! is_dir($directory) && ! mkdir($directory, 0777, true) && ! is_dir($directory)) {
             throw new \RuntimeException(sprintf('Directory "%s" was not created', $directory));
         }
 
@@ -60,7 +61,7 @@ class CatchAdmin
      */
     public static function moduleDirectory(string $module): string
     {
-        return self::makeDirectory(self::directory() . $module . DIRECTORY_SEPARATOR);
+        return self::makeDirectory(self::directory().$module.DIRECTORY_SEPARATOR);
     }
 
     /**
@@ -70,7 +71,7 @@ class CatchAdmin
      */
     public static function cacheDirectory(): string
     {
-        return self::makeDirectory(app()->getRuntimePath() . self::$root . DIRECTORY_SEPARATOR);
+        return self::makeDirectory(app()->getRuntimePath().self::$root.DIRECTORY_SEPARATOR);
     }
 
     /**
@@ -81,7 +82,7 @@ class CatchAdmin
      */
     public static function backupDirectory(): string
     {
-        return self::makeDirectory(self::cacheDirectory() . 'backup' .DIRECTORY_SEPARATOR);
+        return self::makeDirectory(self::cacheDirectory().'backup'.DIRECTORY_SEPARATOR);
     }
 
     /**
@@ -92,7 +93,7 @@ class CatchAdmin
      */
     public static function moduleMigrationsDirectory(string $module): string
     {
-        return self::directory() . $module . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR. 'migrations' . DIRECTORY_SEPARATOR;
+        return self::directory().$module.DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'migrations'.DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -103,7 +104,7 @@ class CatchAdmin
      */
     public static function moduleSeedsDirectory(string $module): string
     {
-        $seedPath = self::directory() . $module . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR. 'seeds' . DIRECTORY_SEPARATOR;
+        $seedPath = self::directory().$module.DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'seeds'.DIRECTORY_SEPARATOR;
 
         self::makeDirectory($seedPath);
 
@@ -119,7 +120,7 @@ class CatchAdmin
      */
     public static function getModuleViewPath(string $module): string
     {
-        return self::makeDirectory(self::directory() . $module . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR);
+        return self::makeDirectory(self::directory().$module.DIRECTORY_SEPARATOR.'view'.DIRECTORY_SEPARATOR);
     }
 
     /**
@@ -130,7 +131,7 @@ class CatchAdmin
      */
     public static function getModuleModelDirectory(string $module): string
     {
-        return self::makeDirectory(self::directory() . $module . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR);
+        return self::makeDirectory(self::directory().$module.DIRECTORY_SEPARATOR.'model'.DIRECTORY_SEPARATOR);
     }
     /**
      *
@@ -139,10 +140,10 @@ class CatchAdmin
      */
     public static function getModulesDirectory(): array
     {
-        $modules = glob(self::directory() . '*');
+        $modules = glob(self::directory().'*');
 
         foreach ($modules as $key => &$module) {
-            if (!is_dir($module)) {
+            if (! is_dir($module)) {
                 unset($modules[$key]);
             }
 
@@ -191,7 +192,7 @@ class CatchAdmin
         foreach (self::getModulesDirectory() as $module) {
             if (is_dir($module)) {
                 $moduleInfo = self::getModuleInfo($module);
-                if (isset($moduleInfo['services']) && !empty($moduleInfo['services'])) {
+                if (isset($moduleInfo['services']) && ! empty($moduleInfo['services'])) {
                     $services = array_merge($services, $moduleInfo['services']);
                 }
             }
@@ -215,7 +216,7 @@ class CatchAdmin
                 $moduleInfo = self::getModuleInfo($module);
                 // 如果没有设置 module.json 默认加载
                 $moduleServices = $moduleInfo['services'] ?? [];
-                if (!empty($moduleServices) && $moduleInfo['enable']) {
+                if (! empty($moduleServices) && $moduleInfo['enable']) {
                     $services = array_merge($services, $moduleServices);
                 }
             }
@@ -234,10 +235,10 @@ class CatchAdmin
     public static function getModuleJson($module): string
     {
         if (is_dir($module)) {
-            return $module . DIRECTORY_SEPARATOR . 'module.json';
+            return $module.DIRECTORY_SEPARATOR.'module.json';
         }
 
-        return self::moduleDirectory($module) . 'module.json';
+        return self::moduleDirectory($module).'module.json';
     }
 
     /**
@@ -251,7 +252,7 @@ class CatchAdmin
     {
         $moduleJson = self::getModuleJson($module);
 
-        if (!file_exists($moduleJson)) {
+        if (! file_exists($moduleJson)) {
             return [];
         }
 
@@ -270,7 +271,7 @@ class CatchAdmin
     {
         $moduleInfo = self::getModuleInfo($module);
 
-        if (!count($moduleInfo)) {
+        if (! count($moduleInfo)) {
             return false;
         }
 
@@ -284,7 +285,7 @@ class CatchAdmin
             chmod(self::getModuleJson($module), 666);
         }
 
-        FileSystem::put(self::getModuleJson($module), \json_encode($moduleInfo, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
+        FileSystem::put(self::getModuleJson($module), \json_encode($moduleInfo, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
         return true;
     }
@@ -330,8 +331,8 @@ class CatchAdmin
         foreach (self::getModulesDirectory() as $module) {
             $moduleInfo = self::getModuleInfo($module);
             $moduleAlias = $moduleInfo['alias'] ?? '';
-            if (!in_array($moduleAlias, ['login']) && file_exists($module . 'route.php')) {
-                $routeFiles[] = $module . 'route.php';
+            if (! in_array($moduleAlias, ['login']) && file_exists($module.'route.php')) {
+                $routeFiles[] = $module.'route.php';
             }
         }
 
@@ -348,10 +349,10 @@ class CatchAdmin
         $routes = '';
 
         foreach (self::getModuleRoutes() as $route) {
-            $routes .= trim(str_replace('<?php', '',  file_get_contents($route))) . PHP_EOL;
+            $routes .= trim(str_replace('<?php', '', file_get_contents($route))).PHP_EOL;
         }
 
-        return file_put_contents(self::getCacheRoutesFile(), "<?php\r\n " . $routes);
+        return file_put_contents(self::getCacheRoutesFile(), "<?php\r\n ".$routes);
     }
 
     /**
@@ -362,7 +363,7 @@ class CatchAdmin
     public static function cacheServices(): bool|int
     {
         return file_put_contents(self::getCacheServicesFile(), "<?php\r\n return "
-            . var_export(self::getEnabledService(), true) . ';');
+            .var_export(self::getEnabledService(), true).';');
     }
 
     /**
@@ -382,7 +383,7 @@ class CatchAdmin
      */
     public static function getCacheServicesFile(): string
     {
-        return self::cacheDirectory() . 'services.php';
+        return self::cacheDirectory().'services.php';
     }
 
     /**
@@ -392,9 +393,6 @@ class CatchAdmin
      */
     protected static function getCacheRoutesFile(): string
     {
-        return self::cacheDirectory() . 'routes.php';
+        return self::cacheDirectory().'routes.php';
     }
-
 }
-
-

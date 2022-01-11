@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\permissions\controller;
 
 use catchAdmin\permissions\model\Permissions;
@@ -7,7 +8,6 @@ use catcher\base\CatchRequest as Request;
 use catcher\base\CatchController;
 use catcher\CatchResponse;
 use catcher\exceptions\FailedException;
-use catcher\Utils;
 use think\response\Json;
 use catchAdmin\permissions\model\Roles as RoleModel;
 
@@ -20,14 +20,14 @@ class Role extends CatchController
         $this->role = $role;
     }
 
-  /**
-   *
-   * @time 2019年12月09日
-   * @return string|Json
-   */
+    /**
+     *
+     * @time 2019年12月09日
+     * @return string|Json
+     */
     public function index()
     {
-      return CatchResponse::success($this->role->getList());
+        return CatchResponse::success($this->role->getList());
     }
 
     /**
@@ -42,7 +42,7 @@ class Role extends CatchController
         $params = $request->param();
 
         if (Roles::where('identify', $params['identify'])->find()) {
-            throw new FailedException('角色标识 [' . $params['identify'] . ']已存在');
+            throw new FailedException('角色标识 ['.$params['identify'].']已存在');
         }
 
         $this->role->storeBy($params);
@@ -60,10 +60,10 @@ class Role extends CatchController
 
     public function read($id)
     {
-      $role = $this->role->findBy($id);
-      $role->permissions = $role->getPermissions();
-      $role->departments = $role->getDepartments();
-      return CatchResponse::success($role);
+        $role = $this->role->findBy($id);
+        $role->permissions = $role->getPermissions();
+        $role->departments = $role->getDepartments();
+        return CatchResponse::success($role);
     }
 
     /**
@@ -77,7 +77,7 @@ class Role extends CatchController
     public function update($id, Request $request): Json
     {
         if (Roles::where('identify', $request->param('identify'))->where('id', '<>', $id)->find()) {
-            throw new FailedException('角色标识 [' . $request->param('identify') . ']已存在');
+            throw new FailedException('角色标识 ['.$request->param('identify').']已存在');
         }
 
         $this->role->updateBy($id, $request->param());
@@ -98,16 +98,16 @@ class Role extends CatchController
         $attachIds = array_diff($permissionIds, $existedPermissionIds);
         $detachIds = array_diff($hasPermissionIds, $existedPermissionIds);
 
-        if (!empty($detachIds)) {
+        if (! empty($detachIds)) {
             $role->detachPermissions($detachIds);
         }
-        if (!empty($attachIds)) {
+        if (! empty($attachIds)) {
             $role->attachPermissions(array_unique($attachIds));
         }
 
         // 更新department
         $hasDepartmentIds = $role->getDepartments()->column('id');
-        $departmentIds = $request->param('departments',[]);
+        $departmentIds = $request->param('departments', []);
 
         // 已存在部门 IDS
         $existedDepartmentIds = [];
@@ -120,10 +120,10 @@ class Role extends CatchController
         $attachDepartmentIds = array_diff($departmentIds, $existedDepartmentIds);
         $detachDepartmentIds = array_diff($hasDepartmentIds, $existedDepartmentIds);
 
-        if (!empty($detachDepartmentIds)) {
+        if (! empty($detachDepartmentIds)) {
             $role->detachDepartments($detachDepartmentIds);
         }
-        if (!empty($attachDepartmentIds)) {
+        if (! empty($attachDepartmentIds)) {
             $role->attachDepartments(array_unique($attachDepartmentIds));
         }
 
@@ -176,7 +176,6 @@ class Role extends CatchController
             $permissions = Permissions::field(['id', 'parent_id', 'permission_name'])->select()->toTree();
         } else {
             $permissions = Permissions::whereIn('id', $permissionIds)->field(['id', 'parent_id', 'permission_name'])->select()->toTree();
-
         }
 
         return CatchResponse::success($permissions);

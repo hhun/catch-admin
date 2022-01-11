@@ -1,4 +1,5 @@
 <?php
+
 namespace catcher\generate\factory;
 
 use catcher\base\CatchController;
@@ -38,7 +39,7 @@ class Controller extends Factory
             return $controllerPath;
         }
 
-        throw new FailedException($params['controller'] . ' generate failed~');
+        throw new FailedException($params['controller'].' generate failed~');
     }
 
     /**
@@ -50,7 +51,7 @@ class Controller extends Factory
      */
     public function getContent($params)
     {
-        if (!$params['controller']) {
+        if (! $params['controller']) {
             throw new FailedException('params has lost～');
         }
 
@@ -59,13 +60,13 @@ class Controller extends Factory
 
         [$model, $modelNamespace] = $this->parseFilename($params['model']);
 
-        $asModel = lcfirst(Str::contains($model, 'Model') ? : $model . 'Model');
+        $asModel = lcfirst(Str::contains($model, 'Model') ?: $model.'Model');
 
         if (! $className) {
             throw new FailedException('未填写控制器名称');
         }
 
-        $this->uses[] = sprintf('%s as %s',  $modelNamespace . '\\' . ucfirst($model), ucfirst($asModel));
+        $this->uses[] = sprintf('%s as %s', $modelNamespace.'\\'.ucfirst($model), ucfirst($asModel));
         $this->uses[] = Response::class;
 
         try {
@@ -103,12 +104,12 @@ class Controller extends Factory
                                 Params::name('request')->setType('Request')
                             ])
                             ->body([
-                            $generator->call('success', [
-                                $generator->methodCall([Define::propertyDefineIdentifier($asModel), 'storeBy'], [
-                                    $generator->methodCall(['request', 'post'], [])
-                                ])
-                            ], 'CatchResponse')->call()
-                        ])->makePublic()->return('Response');
+                                $generator->call('success', [
+                                    $generator->methodCall([Define::propertyDefineIdentifier($asModel), 'storeBy'], [
+                                        $generator->methodCall(['request', 'post'], [])
+                                    ])
+                                ], 'CatchResponse')->call()
+                            ])->makePublic()->return('Response');
                     });
 
                     // read 方法
@@ -135,13 +136,13 @@ class Controller extends Factory
                                 Params::name('request')->setType('Request')
                             ])
                             ->body([
-                            $generator->call('success', [
-                                $generator->methodCall([Define::propertyDefineIdentifier($asModel), 'updateBy'], [
-                                    Define::variable('id'),
-                                    $generator->methodCall(['request', 'post'], [])
-                                ])
-                            ], 'CatchResponse')->call()
-                        ])->makePublic()->return('Response');
+                                $generator->call('success', [
+                                    $generator->methodCall([Define::propertyDefineIdentifier($asModel), 'updateBy'], [
+                                        Define::variable('id'),
+                                        $generator->methodCall(['request', 'post'], [])
+                                    ])
+                                ], 'CatchResponse')->call()
+                            ])->makePublic()->return('Response');
                     });
 
                     // read 方法
@@ -158,10 +159,9 @@ class Controller extends Factory
                                 ], 'CatchResponse')->call()
                             ])->makePublic()->return('Response');
                     });
-
                 })->uses($this->uses)->print();
         } catch (\Exception $e) {
-           throw new FailedException($e->getMessage());
+            throw new FailedException($e->getMessage());
         }
 
         return $content;

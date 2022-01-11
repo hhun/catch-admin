@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -9,13 +10,12 @@
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace catchAdmin\monitor\command;
 
 use catchAdmin\monitor\command\process\Master;
 use catchAdmin\monitor\command\process\Process;
-use catcher\facade\FileSystem;
 use think\console\Command;
 use think\console\Input;
 use think\console\input\Argument;
@@ -42,13 +42,13 @@ class CatchCrontabCommand extends Command
 
     protected function execute(Input $input, Output $output)
     {
-        if (!$input->hasOption('pid')) {
+        if (! $input->hasOption('pid')) {
             $this->pid = Master::getMasterPid();
         } else {
             $this->pid = $input->getOption('pid');
         }
 
-        if (!extension_loaded('pcntl') || !extension_loaded('posix')) {
+        if (! extension_loaded('pcntl') || ! extension_loaded('posix')) {
             $output->error('you should install extension [pcntl && posix]');
         } else {
             $this->{$input->getArgument('action')}();
@@ -88,7 +88,7 @@ class CatchCrontabCommand extends Command
             // 睡眠 1 秒
             $this->output->info('⌛️ killing catch crontab service, please waiting...');
             sleep(1);
-            if (!Process::isAlive($this->pid)) {
+            if (! Process::isAlive($this->pid)) {
                 $this->output->info('🎉 catch crontab stopped!');
             } else {
                 while (true) {
@@ -157,8 +157,8 @@ class CatchCrontabCommand extends Command
 
                 usleep(100000);
 
-                $worker = new Master;
-                $table = new Table;
+                $worker = new Master();
+                $table = new Table();
 
                 $table->setHeader(['PID', '名称', '内存', '处理任务', '开始时间', '运行时间', '状态'], Table::ALIGN_CENTER);
 

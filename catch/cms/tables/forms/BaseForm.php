@@ -1,7 +1,7 @@
 <?php
+
 namespace catchAdmin\cms\tables\forms;
 
-use catchAdmin\cms\model\Category as CategoryModel;
 use catchAdmin\cms\support\DynamicFormFields;
 use catcher\library\form\Form;
 use catcher\Utils;

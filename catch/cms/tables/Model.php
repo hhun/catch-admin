@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\cms\tables;
 
 use catchAdmin\cms\tables\forms\Factory;
@@ -43,6 +44,4 @@ class Model extends CatchTable
         // TODO: Implement form() method.
         return Factory::create('model');
     }
-
-
 }

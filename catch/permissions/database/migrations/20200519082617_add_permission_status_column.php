@@ -1,7 +1,6 @@
 <?php
 
 use think\migration\Migrator;
-use think\migration\db\Column;
 
 class AddPermissionStatusColumn extends Migrator
 {
@@ -32,10 +31,10 @@ class AddPermissionStatusColumn extends Migrator
             $table = $this->table('permissions');
 
             $table->addColumn('status', 'integer', [
-                            'limit' => \Phinx\Db\Adapter\MysqlAdapter::INT_TINY,
-                            'default' => 1,
-                            'comment' => '1 显示 2 隐藏',
-                            'after' => 'type'])
+                'limit' => \Phinx\Db\Adapter\MysqlAdapter::INT_TINY,
+                'default' => 1,
+                'comment' => '1 显示 2 隐藏',
+                'after' => 'type'])
                             ->update();
         }
     }

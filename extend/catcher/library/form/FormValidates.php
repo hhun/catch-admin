@@ -1,4 +1,5 @@
 <?php
+
 namespace catcher\library\form;
 
 use FormBuilder\UI\Elm\Validate;

@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -21,59 +22,59 @@ use catchAdmin\cms\model\Comments as commentsModel;
 class Comments extends CatchController
 {
     protected $commentsModel;
-    
+
     public function __construct(CommentsModel $commentsModel)
     {
         $this->commentsModel = $commentsModel;
     }
-    
+
     /**
      * 列表
      * @time 2020年12月27日 19:53
-     * @param Request $request 
+     * @param Request $request
      */
-    public function index(Request $request) : \think\Response
+    public function index(Request $request): \think\Response
     {
         return CatchResponse::paginate($this->commentsModel->getList());
     }
-    
+
     /**
      * 保存信息
      * @time 2020年12月27日 19:53
-     * @param Request $request 
+     * @param Request $request
      */
-    public function save(Request $request) : \think\Response
+    public function save(Request $request): \think\Response
     {
         return CatchResponse::success($this->commentsModel->storeBy($request->post()));
     }
-    
+
     /**
      * 读取
      * @time 2020年12月27日 19:53
-     * @param $id 
+     * @param $id
      */
-    public function read($id) : \think\Response
+    public function read($id): \think\Response
     {
         return CatchResponse::success($this->commentsModel->findBy($id));
     }
-    
+
     /**
      * 更新
      * @time 2020年12月27日 19:53
-     * @param Request $request 
+     * @param Request $request
      * @param $id
      */
-    public function update(Request $request, $id) : \think\Response
+    public function update(Request $request, $id): \think\Response
     {
         return CatchResponse::success($this->commentsModel->updateBy($id, $request->post()));
     }
-    
+
     /**
      * 删除
      * @time 2020年12月27日 19:53
      * @param $id
      */
-    public function delete($id) : \think\Response
+    public function delete($id): \think\Response
     {
         return CatchResponse::success($this->commentsModel->deleteBy($id));
     }

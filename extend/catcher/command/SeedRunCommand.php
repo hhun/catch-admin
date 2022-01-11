@@ -1,12 +1,10 @@
 <?php
+
 namespace catcher\command;
 
 use catcher\CatchAdmin;
-use think\console\Command;
 use think\console\Input;
 use think\console\input\Argument;
-use think\console\input\Argument as InputArgument;
-use think\console\input\Option;
 use think\console\input\Option as InputOption;
 use think\console\Output;
 use think\migration\command\seed\Run;
@@ -22,7 +20,8 @@ class SeedRunCommand extends Run
             ->setDescription('the catch-seed:run command to Run database seeders')
             ->addArgument('module', Argument::REQUIRED, 'seed the module database')
             ->addOption('--seed', '-s', InputOption::VALUE_REQUIRED, 'What is the name of the seeder?')
-            ->setHelp(<<<EOT
+            ->setHelp(
+                <<<EOT
                 The <info>catch-seed:run</info> command runs all available or individual seeders
 <info>php think catch-seed:run module</info>
 <info>php think catch-seed:run -s UserSeeder</info>
@@ -30,12 +29,11 @@ class SeedRunCommand extends Run
 
 EOT
             );
-
     }
 
     protected function execute(Input $input, Output $output)
     {
-        $this->module = strtolower($input->getArgument('module'));
+        $this->module = mb_strtolower($input->getArgument('module'));
         $seed = $input->getOption('seed');
 
         // run the seed(ers)
@@ -43,8 +41,7 @@ EOT
         $this->seed($seed);
         $end = microtime(true);
         $this->seeds = null;
-        $output->writeln('<comment>All Done. Took ' . sprintf('%.4fs', $end - $start) . '</comment>');
-
+        $output->writeln('<comment>All Done. Took '.sprintf('%.4fs', $end - $start).'</comment>');
     }
 
     /**
@@ -58,6 +55,4 @@ EOT
     {
         return CatchAdmin::moduleSeedsDirectory($this->module);
     }
-
-
 }

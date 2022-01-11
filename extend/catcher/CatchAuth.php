@@ -1,9 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher;
 
-use catchAdmin\permissions\model\Users;
 use catcher\enums\Status;
 use catcher\exceptions\FailedException;
 use catcher\exceptions\LoginFailedException;
@@ -15,26 +15,26 @@ class CatchAuth
     /**
      * @var mixed
      */
-    protected $auth;
+    protected mixed $auth;
 
     /**
      * @var mixed
      */
-    protected $guard;
+    protected mixed $guard;
 
     // 默认获取
-    protected $username = 'email';
+    protected string $username = 'email';
 
     // 校验字段
-    protected $password = 'password';
+    protected string $password = 'password';
 
     // 保存用户信息
-    protected $user = [];
+    protected array $user = [];
 
     /**
      * @var bool
      */
-    protected $checkPassword = true;
+    protected bool $checkPassword = true;
 
     public function __construct()
     {
@@ -50,7 +50,7 @@ class CatchAuth
      * @param $guard
      * @return $this
      */
-    public function guard($guard)
+    public function guard($guard): static
     {
         $this->guard = $guard;
 
@@ -63,19 +63,19 @@ class CatchAuth
      * @param $condition
      * @return mixed
      */
-    public function attempt($condition)
+    public function attempt($condition): mixed
     {
         $user = $this->authenticate($condition);
 
-        if (!$user) {
+        if (! $user) {
             throw new LoginFailedException();
         }
         if ($user->status == Status::Disable) {
-            throw new LoginFailedException('该用户已被禁用|' . $user->username, Code::USER_FORBIDDEN);
+            throw new LoginFailedException('该用户已被禁用|'.$user->username, Code::USER_FORBIDDEN);
         }
 
-        if ($this->checkPassword && !password_verify($condition['password'], $user->password)) {
-            throw new LoginFailedException('登录失败|' . $user->username);
+        if ($this->checkPassword && ! password_verify($condition['password'], $user->password)) {
+            throw new LoginFailedException('登录失败|'.$user->username);
         }
 
         return $this->{$this->getDriver()}($user);
@@ -88,11 +88,11 @@ class CatchAuth
      * @time 2020年09月09日
      * @return mixed
      */
-    public function user()
+    public function user(): mixed
     {
         $user = $this->user[$this->guard] ?? null;
 
-        if (!$user) {
+        if (! $user) {
             switch ($this->getDriver()) {
                 case 'jwt':
                     $model = app($this->getProvider()['model']);
@@ -116,9 +116,9 @@ class CatchAuth
     /**
      *
      * @time 2020年01月07日
-     * @return mixed
+     * @return bool
      */
-    public function logout()
+    public function logout(): bool
     {
         switch ($this->getDriver()) {
             case 'jwt':
@@ -137,7 +137,7 @@ class CatchAuth
      * @param $user
      * @return string
      */
-    protected function jwt($user)
+    protected function jwt($user): string
     {
         $token = JWTAuth::builder([$this->jwtKey() => $user->id]);
 
@@ -164,7 +164,7 @@ class CatchAuth
      */
     protected function sessionUserKey()
     {
-        return $this->guard . '_user';
+        return $this->guard.'_user';
     }
 
     /**
@@ -174,7 +174,7 @@ class CatchAuth
      */
     protected function jwtKey()
     {
-        return $this->guard . '_id';
+        return $this->guard.'_id';
     }
 
     /**
@@ -182,7 +182,7 @@ class CatchAuth
      * @time 2020年01月07日
      * @return mixed
      */
-    protected function getDriver()
+    protected function getDriver(): mixed
     {
         return $this->auth['guards'][$this->guard]['driver'];
     }
@@ -192,9 +192,9 @@ class CatchAuth
      * @time 2020年01月07日
      * @return mixed
      */
-    protected function getProvider()
+    protected function getProvider(): mixed
     {
-        if (!isset($this->auth['guards'][$this->guard])) {
+        if (! isset($this->auth['guards'][$this->guard])) {
             throw new FailedException('Auth Guard Not Found');
         }
 
@@ -207,7 +207,7 @@ class CatchAuth
      * @param $condition
      * @return mixed
      */
-    protected function authenticate($condition)
+    protected function authenticate($condition): mixed
     {
         $provider = $this->getProvider();
 
@@ -221,7 +221,8 @@ class CatchAuth
      * @return void
      */
     protected function database($condition): void
-    {}
+    {
+    }
 
     /**
      *
@@ -229,7 +230,7 @@ class CatchAuth
      * @param $condition
      * @return mixed
      */
-    protected function orm($condition)
+    protected function orm($condition): mixed
     {
         return app($this->getProvider()['model'])->where($this->filter($condition))->find();
     }
@@ -287,7 +288,7 @@ class CatchAuth
      * @time 2021年01月27日
      * @return $this
      */
-    public function ignorePasswordVerify(): CatchAuth
+    public function ignorePasswordVerify(): self
     {
         $this->checkPassword = false;
 

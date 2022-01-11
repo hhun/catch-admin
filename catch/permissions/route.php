@@ -2,7 +2,7 @@
 
 /* @var think\Route $router */
 
-$router->group(function () use ($router){
+$router->group(function () use ($router) {
     // 角色
     $router->resource('roles', '\catchAdmin\permissions\controller\Role');
     $router->get('role/permissions/<id>', '\catchAdmin\permissions\controller\Role@getPermissions');

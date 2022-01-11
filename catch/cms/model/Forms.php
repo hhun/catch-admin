@@ -7,7 +7,7 @@ class Forms extends BaseModel
     // 表名
     public $name = 'cms_forms';
     // 数据库字段映射
-    public $field = array(
+    public $field = [
         'id',
         // 表单名称
         'name',
@@ -37,5 +37,5 @@ class Forms extends BaseModel
         'updated_at',
         // 软删除
         'deleted_at',
-    );
+    ];
 }

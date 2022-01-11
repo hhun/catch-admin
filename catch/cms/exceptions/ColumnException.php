@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -20,5 +21,4 @@ use catcher\exceptions\CatchException;
 class ColumnException extends CatchException
 {
     protected $code = 20002;
-
 }

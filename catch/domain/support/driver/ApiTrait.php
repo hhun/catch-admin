@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\domain\support\driver;
 
 use catcher\facade\Http;
@@ -19,11 +21,11 @@ trait ApiTrait
     {
         $name = config('catch.domains.default');
 
-        $apiDomain = config('catch.domains.' . $name . '.api_domain');
+        $apiDomain = config('catch.domains.'.$name.'.api_domain');
 
-        if (strpos($apiDomain, 'https') === false &&
-        strpos($apiDomain, 'http') === false) {
-            $apiDomain = 'https://' . $apiDomain . '/v2/index.php';
+        if (mb_strpos($apiDomain, 'https') === false &&
+        mb_strpos($apiDomain, 'http') === false) {
+            $apiDomain = 'https://'.$apiDomain.'/v2/index.php';
         }
 
         return Http::ignoreSsl()->query(CommonParams::{$name}($params))

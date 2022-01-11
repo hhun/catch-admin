@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\system\controller;
 
 use catcher\base\CatchController;

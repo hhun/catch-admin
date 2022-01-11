@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher;
@@ -16,7 +17,8 @@ class CatchAdminService extends Service
      * @return void
      */
     public function boot()
-    {}
+    {
+    }
 
     /**
      * register
@@ -62,7 +64,7 @@ class CatchAdminService extends Service
     {
         $validates = config('catch.validates');
 
-        Validate::maker(function($validate) use ($validates) {
+        Validate::maker(function ($validate) use ($validates) {
             foreach ($validates as $vali) {
                 $vali = app()->make($vali);
                 $validate->extend($vali->type(), [$vali, 'verify'], $vali->message());
@@ -77,7 +79,7 @@ class CatchAdminService extends Service
      */
     protected function registerMiddleWares(): void
     {
-      // todo
+        // todo
     }
 
     /**
@@ -93,12 +95,12 @@ class CatchAdminService extends Service
         ]);
     }
 
-  /**
-   * register query
-   *
-   * @time 2020年02月20日
-   * @return void
-   */
+    /**
+     * register query
+     *
+     * @time 2020年02月20日
+     * @return void
+     */
     protected function registerQuery(): void
     {
         $connections = $this->app->config->get('database.connections');
@@ -109,16 +111,16 @@ class CatchAdminService extends Service
         }
 
         $this->app->config->set([
-          'connections' => $connections
+            'connections' => $connections
         ], 'database');
     }
 
-  /**
-   * register exception
-   *
-   * @time 2020年02月20日
-   * @return void
-   */
+    /**
+     * register exception
+     *
+     * @time 2020年02月20日
+     * @return void
+     */
     protected function registerExceptionHandle(): void
     {
         $this->app->bind(Handle::class, CatchExceptionHandle::class);
@@ -151,7 +153,7 @@ class CatchAdminService extends Service
      */
     protected function registerRoutePath()
     {
-        $this->app->instance('routePath', new class {
+        $this->app->instance('routePath', new class () {
             protected $path = [];
             public function loadRouterFrom($path)
             {

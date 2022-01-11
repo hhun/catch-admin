@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\cms\tables;
 
 use catcher\CatchTable;
@@ -43,5 +44,4 @@ class Tags extends CatchTable
         // TODO: Implement form() method.
         return Factory::create('tags');
     }
-
 }

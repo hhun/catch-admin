@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -18,12 +19,13 @@ use catchAdmin\cms\model\scopes\CategoryScope;
 
 class Category extends BaseModel
 {
-    use CategoryEvent, CategoryScope;
+    use CategoryEvent;
+    use CategoryScope;
 
     // 表名
     public $name = 'cms_category';
     // 数据库字段映射
-    public $field = array(
+    public $field = [
         'id',
         // 分类名称
         'name',
@@ -59,19 +61,19 @@ class Category extends BaseModel
         'updated_at',
         // 软删除
         'deleted_at',
-    );
+    ];
 
     protected $updateChildrenFields = ['status'];
 
-    const LIST_TYPE = 1; // 列表
-    const PAGE_TYPE = 2; // 单页
-    const COVER_TYPE = 3; // 封面
+    public const LIST_TYPE = 1; // 列表
+    public const PAGE_TYPE = 2; // 单页
+    public const COVER_TYPE = 3; // 封面
 
-    const CAN_COMMENT = 1; // 可以评论
-    const CAN_NOT_COMMENT = 2; // 不可以评论
+    public const CAN_COMMENT = 1; // 可以评论
+    public const CAN_NOT_COMMENT = 2; // 不可以评论
 
-    const CAN_CONTRIBUTE = 1; // 可以投稿
-    const CAN_NOT_CONTRIBUTE = 2; // 不可以投稿
+    public const CAN_CONTRIBUTE = 1; // 可以投稿
+    public const CAN_NOT_CONTRIBUTE = 2; // 不可以投稿
 
     /**
      * 列表
@@ -100,6 +102,6 @@ class Category extends BaseModel
      */
     public function hasNextLevel($id = 0)
     {
-        return $this->where('parent_id', $id ? :$this->getKey())->find();
+        return $this->where('parent_id', $id ?: $this->getKey())->find();
     }
 }

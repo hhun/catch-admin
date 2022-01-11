@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -13,9 +14,7 @@
 
 namespace catchAdmin\cms\model\events;
 
-use catcher\exceptions\CatchException;
 use catcher\exceptions\FailedException;
-use catcher\Utils;
 
 trait CategoryEvent
 {

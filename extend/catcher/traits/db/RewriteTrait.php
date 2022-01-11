@@ -1,4 +1,5 @@
 <?php
+
 namespace catcher\traits\db;
 
 use catcher\CatchModelCollection;
@@ -46,7 +47,7 @@ trait RewriteTrait
         /**
          * 合并属性
          */
-        if (!count($this->hidden)) {
+        if (! count($this->hidden)) {
             $this->hidden = array_merge($this->hidden, $hidden);
 
             return $this;
@@ -69,7 +70,7 @@ trait RewriteTrait
     {
         $resultSetType = $resultSetType ?: $this->resultSetType;
 
-        if ($resultSetType && false !== strpos($resultSetType, '\\')) {
+        if ($resultSetType && false !== mb_strpos($resultSetType, '\\')) {
             $collection = new $resultSetType($collection);
         } else {
             $collection = new CatchModelCollection($collection);

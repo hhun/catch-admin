@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -48,12 +49,13 @@ use catchAdmin\cms\model\search\ArticlesSearch;
  */
 class Articles extends BaseModel
 {
-    use ArticlesEvent, ArticlesSearch;
+    use ArticlesEvent;
+    use ArticlesSearch;
 
     // 表名
     public $name = 'cms_articles';
     // 数据库字段映射
-    public $field = array(
+    public $field = [
         'id',
         // 文章标题
         'title',
@@ -93,16 +95,16 @@ class Articles extends BaseModel
         'updated_at',
         // 软删除
         'deleted_at',
-    );
+    ];
 
-    const TOP = 1; // 置顶
-    const UN_TOP = 2; // 不置顶
+    public const TOP = 1; // 置顶
+    public const UN_TOP = 2; // 不置顶
 
-    const RECOMMEND = 1; // 推荐
-    const UN_RECOMMEND = 2; // 不推荐
+    public const RECOMMEND = 1; // 推荐
+    public const UN_RECOMMEND = 2; // 不推荐
 
-    const CAN_COMMENT = 1; // 评论允许
-    const UN_CAN_COMMENT = 2; // 评论不允许
+    public const CAN_COMMENT = 1; // 评论允许
+    public const UN_CAN_COMMENT = 2; // 评论不允许
 
     /**
      * 列表
@@ -151,8 +153,11 @@ class Articles extends BaseModel
      */
     public function tag(): \think\model\relation\BelongsToMany
     {
-        return $this->belongsToMany(Tags::class, 'cms_article_relate_tags',
-            'tag_id', 'article_id'
+        return $this->belongsToMany(
+            Tags::class,
+            'cms_article_relate_tags',
+            'tag_id',
+            'article_id'
         );
     }
 

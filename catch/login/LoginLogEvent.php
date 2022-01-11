@@ -1,9 +1,8 @@
 <?php
+
 namespace catchAdmin\login;
 
-use catchAdmin\permissions\model\Users;
 use catchAdmin\system\model\LoginLog;
-use think\facade\Db;
 
 class LoginLogEvent
 {
@@ -13,11 +12,11 @@ class LoginLogEvent
 
         app(LoginLog::class)->storeBy([
             'login_name' => $params['login_name'],
-            'login_ip'   => request()->ip(),
-            'browser'    => $this->getBrowser($agent),
-            'os'         => $this->getOs($agent),
-            'login_at'   => time(),
-            'status'     => $params['success'],
+            'login_ip' => request()->ip(),
+            'browser' => $this->getBrowser($agent),
+            'os' => $this->getOs($agent),
+            'login_at' => time(),
+            'status' => $params['success'],
         ]);
     }
 
@@ -29,22 +28,22 @@ class LoginLogEvent
      */
     private function getOs($agent): string
     {
-        if (false !== stripos($agent, 'win') && preg_match('/nt 6.1/i', $agent)) {
+        if (false !== mb_stripos($agent, 'win') && preg_match('/nt 6.1/i', $agent)) {
             return 'Windows 7';
         }
-        if (false !== stripos($agent, 'win') && preg_match('/nt 6.2/i', $agent)) {
+        if (false !== mb_stripos($agent, 'win') && preg_match('/nt 6.2/i', $agent)) {
             return 'Windows 8';
         }
-        if(false !== stripos($agent, 'win') && preg_match('/nt 10.0/i', $agent)) {
+        if (false !== mb_stripos($agent, 'win') && preg_match('/nt 10.0/i', $agent)) {
             return 'Windows 10';#添加win10判断
         }
-        if (false !== stripos($agent, 'win') && preg_match('/nt 5.1/i', $agent)) {
+        if (false !== mb_stripos($agent, 'win') && preg_match('/nt 5.1/i', $agent)) {
             return 'Windows XP';
         }
-        if (false !== stripos($agent, 'linux')) {
+        if (false !== mb_stripos($agent, 'linux')) {
             return 'Linux';
         }
-        if (false !== stripos($agent, 'mac')) {
+        if (false !== mb_stripos($agent, 'mac')) {
             return 'mac';
         }
 
@@ -59,19 +58,19 @@ class LoginLogEvent
      */
     private function getBrowser($agent): string
     {
-        if (false !== stripos($agent, "MSIE")) {
+        if (false !== mb_stripos($agent, "MSIE")) {
             return 'MSIE';
         }
-        if (false !== stripos($agent, "Firefox")) {
+        if (false !== mb_stripos($agent, "Firefox")) {
             return 'Firefox';
         }
-        if (false !== stripos($agent, "Chrome")) {
+        if (false !== mb_stripos($agent, "Chrome")) {
             return 'Chrome';
         }
-        if (false !== stripos($agent, "Safari")) {
+        if (false !== mb_stripos($agent, "Safari")) {
             return 'Safari';
         }
-        if (false !== stripos($agent, "Opera")) {
+        if (false !== mb_stripos($agent, "Opera")) {
             return 'Opera';
         }
 

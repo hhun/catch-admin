@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -27,8 +28,8 @@ trait ModelsEvent
      */
     public static function onBeforeInsert($model): void
     {
-        if (!Table::exist($model->getData('table_name'))) {
-            throw new FailedException('模型关联的表【' .$model->getData('table_name'). '】不存在');
+        if (! Table::exist($model->getData('table_name'))) {
+            throw new FailedException('模型关联的表【'.$model->getData('table_name').'】不存在');
         }
     }
 
@@ -45,8 +46,8 @@ trait ModelsEvent
 
         $tableName = $data['table_name'] ?? null;
 
-        if ($tableName && !Table::exist($model->getData('table_name'))) {
-            throw new FailedException('模型关联的表【' .$model->getData('table_name'). '】不存在');
+        if ($tableName && ! Table::exist($model->getData('table_name'))) {
+            throw new FailedException('模型关联的表【'.$model->getData('table_name').'】不存在');
         }
     }
 }

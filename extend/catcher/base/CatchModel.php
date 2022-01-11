@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher\base;
@@ -10,6 +11,7 @@ use catcher\traits\db\WithTrait;
 use think\model\concern\SoftDelete;
 use catcher\traits\db\ScopeTrait;
 use think\Model;
+
 /**
  *
  * @mixin CatchQuery
@@ -18,7 +20,11 @@ use think\Model;
  */
 abstract class CatchModel extends Model
 {
-    use SoftDelete, BaseOptionsTrait, ScopeTrait, RewriteTrait, WithTrait;
+    use BaseOptionsTrait;
+    use RewriteTrait;
+    use ScopeTrait;
+    use SoftDelete;
+    use WithTrait;
 
     protected $createTime = 'created_at';
 

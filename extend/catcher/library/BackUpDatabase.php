@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 // +----------------------------------------------------------------------
@@ -10,6 +11,7 @@ declare(strict_types=1);
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher\library;
 
 use catcher\CatchAdmin;
@@ -63,13 +65,13 @@ class BackUpDatabase
      */
     public function createDataFile(): void
     {
-        $file = CatchAdmin::backupDirectory() . $this->table . '.sql';
+        $file = CatchAdmin::backupDirectory().$this->table.'.sql';
 
         $handle = fopen($file, 'wb+');
 
-        fwrite($handle, $begin = "BEGIN;\r\n", \strlen($begin));
+        fwrite($handle, $begin = "BEGIN;\r\n", \mb_strlen($begin));
         $this->createClass($this->table, $handle);
-        fwrite($handle, $end = 'COMMIT;', \strlen($end));
+        fwrite($handle, $end = 'COMMIT;', \mb_strlen($end));
 
         fclose($handle);
     }
@@ -121,14 +123,14 @@ class BackUpDatabase
         $sql = '';
         foreach ($datas as $data) {
             foreach ($data as $value) {
-                $values .= sprintf("'%s'", $value) . ',';
+                $values .= sprintf("'%s'", $value).',';
             }
 
-            $sql .= sprintf('INSERT INTO `%s` VALUE (%s);' . "\r\n", $this->table, rtrim($values, ','));
+            $sql .= sprintf('INSERT INTO `%s` VALUE (%s);'."\r\n", $this->table, rtrim($values, ','));
             $values = '';
         }
 
-        fwrite($handle, $sql, strlen($sql));
+        fwrite($handle, $sql, mb_strlen($sql));
     }
 
 
@@ -148,8 +150,7 @@ class BackUpDatabase
 
         \config([
             'connections' => $connections,
-        ],'database.connections');
-
+        ], 'database.connections');
     }
 
     /**
@@ -165,11 +166,11 @@ class BackUpDatabase
 
         $storePath = runtime_path('database/');
 
-        if (!FileSystem::isDirectory($storePath)) {
+        if (! FileSystem::isDirectory($storePath)) {
             FileSystem::makeDirectory($storePath);
         }
 
-        (new Zip)->make($storePath . 'backup.zip')->addFiles($files)->close();
+        (new Zip())->make($storePath.'backup.zip')->addFiles($files)->close();
 
         FileSystem::deleteDirectory(CatchAdmin::backupDirectory());
     }

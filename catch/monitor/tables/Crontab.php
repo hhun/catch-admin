@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\monitor\tables;
 
 use catcher\CatchTable;
@@ -12,7 +13,7 @@ class Crontab extends CatchTable
     public function table()
     {
         // TODO: Implement table() method.
-       return $this->getTable('Crontab')
+        return $this->getTable('Crontab')
                    ->header([
                        HeaderItem::label('')->selection(),
                        HeaderItem::label('编号')->prop('id')->width(80),
@@ -33,8 +34,8 @@ class Crontab extends CatchTable
                    ])
                    ->withBind()
                    ->withSearch([
-                        Search::label('任务名称')->name('请填写任务名称'),
-                        Search::label('状态')->status()
+                       Search::label('任务名称')->name('请填写任务名称'),
+                       Search::label('状态')->status()
                    ])
                    ->selectionChange()
                    ->withApiRoute('monitor/crontab')

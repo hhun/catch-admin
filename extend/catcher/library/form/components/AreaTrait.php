@@ -1,4 +1,5 @@
 <?php
+
 namespace catcher\library\form\components;
 
 use catcher\traits\db\RewriteTrait;
@@ -8,7 +9,7 @@ trait AreaTrait
 {
     public function area($field = 'area', $title = '地区', $props = [])
     {
-        if (!count($props)) {
+        if (! count($props)) {
             $props = self::props('name', 'id', [
                 'checkStrictly' => true
             ]);
@@ -37,7 +38,7 @@ trait AreaTrait
      */
     protected function getRegion($level = 1)
     {
-        $areaModel = new class extends \think\Model {
+        $areaModel = new class () extends \think\Model {
             protected $name = 'region';
 
             use RewriteTrait;

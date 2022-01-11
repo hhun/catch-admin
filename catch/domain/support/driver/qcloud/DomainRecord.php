@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\domain\support\driver\qcloud;
 
 use catchAdmin\domain\support\contract\DomainRecordInterface;
@@ -114,7 +116,7 @@ class DomainRecord implements DomainRecordInterface
         return $this->get([
             'Action' => 'RecordStatus',
             'recordId' => $recordId,
-            'Status' => strtolower($status)
+            'Status' => mb_strtolower($status)
         ]);
     }
 

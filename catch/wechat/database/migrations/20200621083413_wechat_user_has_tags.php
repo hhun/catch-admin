@@ -1,7 +1,6 @@
 <?php
 
 use think\migration\Migrator;
-use think\migration\db\Column;
 use Phinx\Db\Adapter\MysqlAdapter;
 
 class WechatUserHasTags extends Migrator
@@ -29,9 +28,9 @@ class WechatUserHasTags extends Migrator
      */
     public function change()
     {
-        $table = $this->table('wechat_user_has_tags', ['engine' => 'InnoDB', 'collation' => 'utf8mb4_general_ci', 'comment' => '用户标签关联表' ,'signed' => true ]);
-        $table->addColumn('tag_id', 'integer', ['limit' => MysqlAdapter::INT_SMALL,'null' => true,'signed' => false,'comment' => '微信 tagId',])
-              ->addColumn('user_id', 'integer', ['limit' => MysqlAdapter::INT_REGULAR,'null' => false,'default' => 0,'signed' => true,'comment' => '更新时间',])
+        $table = $this->table('wechat_user_has_tags', ['engine' => 'InnoDB', 'collation' => 'utf8mb4_general_ci', 'comment' => '用户标签关联表' ,'signed' => true]);
+        $table->addColumn('tag_id', 'integer', ['limit' => MysqlAdapter::INT_SMALL,'null' => true,'signed' => false,'comment' => '微信 tagId'])
+              ->addColumn('user_id', 'integer', ['limit' => MysqlAdapter::INT_REGULAR,'null' => false,'default' => 0,'signed' => true,'comment' => '更新时间'])
               ->create();
     }
 }

@@ -1,9 +1,8 @@
 <?php
+
 namespace catchAdmin\wechat;
 
-use catchAdmin\wechat\command\SyncUsersCommand;
 use catcher\ModuleService;
-use think\Service;
 
 class CatchWechatService extends ModuleService
 {
@@ -26,7 +25,7 @@ class CatchWechatService extends ModuleService
      */
     public function loadCommands()
     {
-       return [__NAMESPACE__, __DIR__ . DIRECTORY_SEPARATOR . 'command'];
+        return [__NAMESPACE__, __DIR__.DIRECTORY_SEPARATOR.'command'];
     }
 
     /**
@@ -38,6 +37,6 @@ class CatchWechatService extends ModuleService
     public function loadRouteFrom()
     {
         // TODO: Implement loadRouteFrom() method.
-        return __DIR__ . DIRECTORY_SEPARATOR . 'route.php';
+        return __DIR__.DIRECTORY_SEPARATOR.'route.php';
     }
 }

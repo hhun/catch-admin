@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\permissions\tables\forms;
 
 use catchAdmin\permissions\model\Department as DepartmentModel;
@@ -9,9 +10,9 @@ class Department extends Form
     public function fields(): array
     {
         return [
-        // TODO: Implement fields() method
+            // TODO: Implement fields() method
             Form::cascader('parent_id', '上级部门', [0])->options(
-            DepartmentModel::field(['id', 'parent_id', 'department_name'])->select()->toTree()
+                DepartmentModel::field(['id', 'parent_id', 'department_name'])->select()->toTree()
             )->clearable(true)->filterable(true)->props([
                 'props' => [
                     'value' => 'id',

@@ -1,4 +1,5 @@
 <?php
+
 namespace catcher;
 
 use catcher\library\table\Table;

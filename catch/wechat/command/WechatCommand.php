@@ -8,6 +8,7 @@
  * @copyright By CatchAdmin
  * @license  https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt
  */
+
 namespace catchAdmin\wechat\command;
 
 use think\console\Command;
@@ -24,7 +25,7 @@ class WechatCommand extends Command
 
     protected function execute(Input $input, Output $output)
     {
-        file_put_contents(config_path() . 'wechat.php', $this->config());
+        file_put_contents(config_path().'wechat.php', $this->config());
 
         $this->env();
 
@@ -121,10 +122,10 @@ CONFIG;
 
     protected function env()
     {
-        $filename =  file_exists(root_path() . '.env') ? '.env' : '.example.env';
+        $filename = file_exists(root_path().'.env') ? '.env' : '.example.env';
 
 
-        $env = \parse_ini_file(root_path() . $filename, true);
+        $env = \parse_ini_file(root_path().$filename, true);
 
         $env['WECHAT'] = $this->envConfig();
 
@@ -132,20 +133,19 @@ CONFIG;
 
         foreach ($env as $key => $e) {
             if (is_string($e)) {
-                $dotEnv .= sprintf('%s = %s', $key, $e === '1' ? 'true' : ($e === '' ? 'false' : $e)) . PHP_EOL;
+                $dotEnv .= sprintf('%s = %s', $key, $e === '1' ? 'true' : ($e === '' ? 'false' : $e)).PHP_EOL;
                 $dotEnv .= PHP_EOL;
             } else {
-                $dotEnv .= sprintf('[%s]', $key) . PHP_EOL;
+                $dotEnv .= sprintf('[%s]', $key).PHP_EOL;
                 foreach ($e as $k => $v) {
-                    $dotEnv .= sprintf('%s = %s', $k, $v === '1' ? 'true' : ($v === '' ? 'false' : $v)) . PHP_EOL;
+                    $dotEnv .= sprintf('%s = %s', $k, $v === '1' ? 'true' : ($v === '' ? 'false' : $v)).PHP_EOL;
                 }
 
                 $dotEnv .= PHP_EOL;
             }
         }
 
-        file_put_contents(root_path() . '.env', $dotEnv);
-
+        file_put_contents(root_path().'.env', $dotEnv);
     }
 
 

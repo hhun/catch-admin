@@ -29,7 +29,7 @@ class ParseClass
         $methods = [];
 
         foreach ($parent->getMethods() as $method) {
-            if (!$this->isMagicMethod($method->getName())) {
+            if (! $this->isMagicMethod($method->getName())) {
                 $methods[] = $method->getName();
             }
         }
@@ -50,7 +50,7 @@ class ParseClass
         $methods = [];
 
         foreach ($class->getMethods() as $method) {
-            if (!$this->isMagicMethod($method->getName())) {
+            if (! $this->isMagicMethod($method->getName())) {
                 $methods[] = $method->getName();
             }
         }
@@ -70,12 +70,12 @@ class ParseClass
         $parentMethods = $this->parentMethods();
 
         foreach ($this->methods() as $method) {
-            if (!in_array($method, $parentMethods)) {
+            if (! in_array($method, $parentMethods)) {
                 $methods[] = $method;
             }
         }
 
-       return  $methods;
+        return  $methods;
     }
 
 
@@ -88,13 +88,13 @@ class ParseClass
      */
     public function getClass()
     {
-        $class = $this->namespace . $this->module . '\\controller\\'. ucfirst($this->controller);
+        $class = $this->namespace.$this->module.'\\controller\\'.ucfirst($this->controller);
 
         if (class_exists($class)) {
             return new \ReflectionClass($class);
         }
 
-        throw new ClassNotFoundException($this->controller . ' not found');
+        throw new ClassNotFoundException($this->controller.' not found');
     }
 
     /**
@@ -103,7 +103,7 @@ class ParseClass
      */
     protected function isMagicMethod($method)
     {
-       return strpos($method, '__') !== false;
+        return mb_strpos($method, '__') !== false;
     }
 
     /**
@@ -143,5 +143,4 @@ class ParseClass
 
         return $this;
     }
-
 }

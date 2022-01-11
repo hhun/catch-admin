@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 // +----------------------------------------------------------------------
@@ -10,6 +11,7 @@ declare(strict_types=1);
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher\library;
 
 use catcher\facade\FileSystem;
@@ -82,6 +84,6 @@ class Composer
      */
     protected function path()
     {
-        return root_path() . 'composer.json';
+        return root_path().'composer.json';
     }
 }

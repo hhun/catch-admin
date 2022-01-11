@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\system\tables;
 
 use catchAdmin\system\tables\forms\Factory;

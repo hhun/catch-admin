@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -22,9 +23,9 @@ class WechatUsers extends CatchModel
     protected $name = 'wechat_users';
 
     protected $field = [
-        'id', // 
-	    'nickname', // 用户名',
-	    'avatar', // 用户头像',
+        'id', //
+        'nickname', // 用户名',
+        'avatar', // 用户头像',
         'openid', // openid',
         'language', // 语言',
         'country', // 国家',
@@ -44,8 +45,8 @@ class WechatUsers extends CatchModel
         'deleted_at', // 删除状态，0未删除 >0 已删除',
     ];
 
-    const BlOCK = 2; // 拉黑
-    const UNBLOCK = 1; // 取消拉黑
+    public const BlOCK = 2; // 拉黑
+    public const UNBLOCK = 1; // 取消拉黑
 
     public function hasTags()
     {
@@ -57,9 +58,8 @@ class WechatUsers extends CatchModel
         return $query->addSelectSub(function () {
             return Db::name('wechat_user_has_tags')
                         ->whereColumn('wechat_user_has_tags.user_id', $this->aliasField('id'))
-                        ->leftJoin('wechat_tags','wechat_user_has_tags.tag_id=wechat_tags.tag_id')
+                        ->leftJoin('wechat_tags', 'wechat_user_has_tags.tag_id=wechat_tags.tag_id')
                         ->field(Db::raw('group_concat(`wechat_tags`.name)'));
         }, 'tags');
     }
-
 }

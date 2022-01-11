@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\permissions\model;
 
 use catchAdmin\permissions\model\search\PermissionsSearch;
@@ -12,7 +13,7 @@ class Permissions extends CatchModel
     use PermissionsSearch;
 
     protected $name = 'permissions';
-    
+
     protected $field = [
         'id', //
         'permission_name', // 菜单名称
@@ -56,7 +57,7 @@ class Permissions extends CatchModel
     {
         return $this->catchSearch()
                     ->catchOrder()
-                    ->when($isMenu, function ($query){
+                    ->when($isMenu, function ($query) {
                         $query->where('type', self::MENU_TYPE);
                     })
                     ->select();
@@ -67,16 +68,16 @@ class Permissions extends CatchModel
         return $this->belongsToMany(Roles::class, 'role_has_permissions', 'role_id', 'permission_id');
     }
 
-  /**
-   * 获取当前用户权限
-   *
-   * @time 2020年01月14日
-   * @param array $permissionIds
-   * @return \think\Collection
-   * @throws \think\db\exception\DbException
-   * @throws \think\db\exception\ModelNotFoundException
-   * @throws \think\db\exception\DataNotFoundException
-   */
+    /**
+     * 获取当前用户权限
+     *
+     * @time 2020年01月14日
+     * @param array $permissionIds
+     * @return \think\Collection
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\db\exception\DataNotFoundException
+     */
     public static function getCurrentUserPermissions(array $permissionIds): \think\Collection
     {
         return parent::whereIn('id', $permissionIds)
@@ -109,7 +110,7 @@ class Permissions extends CatchModel
         if ($model && $model->parent_id) {
             $parent = self::where('id', $model->parent_id)->find();
 
-            $level = $parent->level ? $parent->level . '-' . $parent->id : $parent->id;
+            $level = $parent->level ? $parent->level.'-'.$parent->id : $parent->id;
 
             $restful && self::createRestful($model, $level);
 
@@ -143,10 +144,10 @@ class Permissions extends CatchModel
             self::insert([
                 'parent_id' => $model->id,
                 'permission_name' => $r,
-                'level' => $level . '-' . $model->id,
+                'level' => $level.'-'.$model->id,
                 'module' => $model->getData('module'),
                 'creator_id' => $model->getData('creator_id'),
-                'permission_mark' => $model->getData('permission_mark') . '@' . $k,
+                'permission_mark' => $model->getData('permission_mark').'@'.$k,
                 'type' => self::BTN_TYPE,
                 'created_at' => time(),
                 'updated_at' => time(),
@@ -190,15 +191,15 @@ class Permissions extends CatchModel
      */
     protected function getNextLevel(array $id, &$ids = []): array
     {
-       $_ids = $this->whereIn('parent_id', $id)
+        $_ids = $this->whereIn('parent_id', $id)
              ->where('type', self::MENU_TYPE)
              ->column('id');
 
-       if (count($_ids)) {
-           $ids = array_merge($_ids, $this->getNextLevel($_ids, $ids));
-       }
+        if (count($_ids)) {
+            $ids = array_merge($_ids, $this->getNextLevel($_ids, $ids));
+        }
 
-       return $ids;
+        return $ids;
     }
 
     /**
@@ -218,17 +219,17 @@ class Permissions extends CatchModel
         if ($parentPermission->parent_id) {
             if (Str::contains($parentPermission->permission_mark, '@')) {
                 list($controller, $action) = explode('@', $parentPermission->permission_mark);
-                $permissionMark = $controller . '@' . $permissionMark;
+                $permissionMark = $controller.'@'.$permissionMark;
             } else {
-                $permissionMark = $parentPermission->permission_mark .'@'. $permissionMark;
+                $permissionMark = $parentPermission->permission_mark.'@'.$permissionMark;
             }
         }
 
         $params['permission_mark'] = $permissionMark;
 
-        return $this->updateBy($permission->id,array_merge($params, [
+        return $this->updateBy($permission->id, array_merge($params, [
             'parent_id' => $permission->parent_id,
-            'level'     => $permission->level,
+            'level' => $permission->level,
             'updated_at' => time()
         ]));
     }

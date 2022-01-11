@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -22,7 +23,7 @@ class Models extends BaseModel
     // 表名
     public $name = 'cms_models';
     // 数据库字段映射
-    public $field = array(
+    public $field = [
         'id',
         // 模型名称
         'name',
@@ -46,7 +47,7 @@ class Models extends BaseModel
         'updated_at',
         // 软删除
         'deleted_at',
-    );
+    ];
 
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 namespace catcher\generate\factory;
 
 use catcher\exceptions\FailedException;
@@ -33,7 +34,7 @@ class Model extends Factory
 
         FileSystem::put($modelPath, $content);
 
-        if (!file_exists($modelPath)) {
+        if (! file_exists($modelPath)) {
             throw new FailedException('create model failed');
         }
 
@@ -57,19 +58,19 @@ class Model extends Factory
         [$modelName, $namespace] = $this->parseFilename($params['model']);
 
         // 如果填写了表名并且没有填写模型名称 使用表名作为模型名称
-        if (!$modelName && $table) {
+        if (! $modelName && $table) {
             $modelName = ucfirst(Str::camel($table));
             $params['model'] .= $modelName;
         }
 
-        if (!$modelName) {
+        if (! $modelName) {
             throw new FailedException('model name not set');
         }
 
         $softDelete = $extra['soft_delete'];
 
         return Generator::namespace($namespace)
-                    ->class($modelName, function (Class_ $class, Generator $generator) use ($table){
+                    ->class($modelName, function (Class_ $class, Generator $generator) use ($table) {
                         $class->extend('Model');
 
                         if ($this->hasTableExists($table)) {
@@ -77,19 +78,19 @@ class Model extends Factory
                             $class->setDocComment($this->buildClassComment($table));
 
                             // 设置 name 属性
-                            $generator->property('field', function (Property $property) use ($table){
+                            $generator->property('field', function (Property $property) use ($table) {
                                 return $property->setDefault($this->getFields($table));
                             });
                         }
 
-                        $generator->property('name', function (Property $property) use ($table){
+                        $generator->property('name', function (Property $property) use ($table) {
                             return $property->setDefault(Utils::tableWithoutPrefix($table));
                         });
                     })
                     ->uses([
                         $softDelete ? 'catcher\base\CatchModel as Model' : 'think\Model'
                     ])
-                    ->when(! $softDelete, function (Generator $generator){
+                    ->when(! $softDelete, function (Generator $generator) {
                         $generator->traits([
                             BaseOptionsTrait::class,
                             ScopeTrait::class,
@@ -107,17 +108,17 @@ class Model extends Factory
      */
     protected function buildClassComment($table): string
     {
-       $fields = Db::name(Utils::tableWithoutPrefix($table))->getFieldsType();
+        $fields = Db::name(Utils::tableWithoutPrefix($table))->getFieldsType();
 
-       $comment = '/**' . PHP_EOL . ' *' . PHP_EOL;
+        $comment = '/**'.PHP_EOL.' *'.PHP_EOL;
 
-       foreach ($fields as $field => $type) {
-           $comment .= sprintf(' * @property %s $%s', $type, $field) . PHP_EOL;
-       }
+        foreach ($fields as $field => $type) {
+            $comment .= sprintf(' * @property %s $%s', $type, $field).PHP_EOL;
+        }
 
-       $comment .= ' */';
+        $comment .= ' */';
 
-       return $comment;
+        return $comment;
     }
 
     /**
@@ -136,7 +137,7 @@ class Model extends Factory
         foreach ($columns as $column) {
             $item = new ArrayItem(Value::fetch($column['name']), null);
 
-            $item->setDocComment(new Doc(sprintf('// %s', $column['comment'] ?? '' )));
+            $item->setDocComment(new Doc(sprintf('// %s', $column['comment'] ?? '')));
 
             $fetchItems[] = $item;
         }

@@ -1,6 +1,6 @@
 <?php
-namespace catcher\library\table;
 
+namespace catcher\library\table;
 
 /**
  *
@@ -19,7 +19,7 @@ class Excel
      * @param string $name
      * @return $this
      */
-    public function prop(string $name): Excel
+    public function prop(string $name): self
     {
         $this->sheets['prop'] = $name;
 
@@ -33,7 +33,7 @@ class Excel
      * @param string $label
      * @return $this
      */
-    protected function label(string $label): Excel
+    protected function label(string $label): self
     {
         $this->sheets['label'] = $label;
 
@@ -47,7 +47,7 @@ class Excel
      * @param array $options
      * @return $this
      */
-    public function options(array $options): Excel
+    public function options(array $options): self
     {
         $this->sheets['options'] = $options;
 
@@ -61,7 +61,7 @@ class Excel
      * @param bool $import
      * @return $this
      */
-    public function import(bool $import = true): Excel
+    public function import(bool $import = true): self
     {
         $this->sheets['import'] = $import;
 
@@ -75,7 +75,7 @@ class Excel
      * @param bool $export
      * @return $this
      */
-    public function export(bool $export = true): Excel
+    public function export(bool $export = true): self
     {
         $this->sheets['export'] = $export;
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace catcher\library\table;
 
 trait Events
@@ -14,7 +15,7 @@ trait Events
         $this->appendEvents([
             'selection-change' => 'handleSelectMulti'
         ]);
-        
+
         return $this;
     }
 }

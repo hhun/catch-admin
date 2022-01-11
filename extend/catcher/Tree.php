@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher;
@@ -25,7 +26,7 @@ class Tree
             if ($item[$pidField] == $pid) {
                 $child = self::done($items, $item[self::$pk], $pidField);
                 if (count($child)) {
-                  $item[$children] =  $child;
+                    $item[$children] = $child;
                 }
                 $tree[] = $item;
             }
@@ -42,11 +43,10 @@ class Tree
      * @param string $pk
      * @return $this
      */
-    public static function setPk(string $pk): Tree
+    public static function setPk(string $pk): self
     {
         self::$pk = $pk;
 
-        return new self;
+        return new self();
     }
-
 }

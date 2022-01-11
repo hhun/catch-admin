@@ -1,4 +1,5 @@
 <?php
+
 namespace catcher\library\table\components;
 
 class Button extends Component
@@ -12,7 +13,7 @@ class Button extends Component
      * @param string $icon
      * @return $this
      */
-    public function icon(string $icon): Button
+    public function icon(string $icon): self
     {
         $this->attributes['icon'] = $icon;
 
@@ -26,7 +27,7 @@ class Button extends Component
      * @param string $text
      * @return $this
      */
-    public function text(string $text): Button
+    public function text(string $text): self
     {
         $this->attributes['label'] = $text;
 
@@ -40,7 +41,7 @@ class Button extends Component
      * @param string $style
      * @return $this
      */
-    public function style(string $style): Button
+    public function style(string $style): self
     {
         $this->attributes['class'] = $style;
 
@@ -54,7 +55,7 @@ class Button extends Component
      * @param string $click
      * @return $this
      */
-    public function click(string $click): Button
+    public function click(string $click): self
     {
         $this->attributes['click'] = $click;
 
@@ -68,7 +69,7 @@ class Button extends Component
      * @param string $action
      * @return $this
      */
-    public function permission(string $permission): Button
+    public function permission(string $permission): self
     {
         $this->attributes['permission'] = $permission;
 
@@ -82,7 +83,7 @@ class Button extends Component
      * @param string $route
      * @return $this
      */
-    public function to(string $route): Button
+    public function to(string $route): self
     {
         $this->attributes['route'] = $route;
 

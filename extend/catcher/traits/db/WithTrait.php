@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -10,6 +11,7 @@ declare(strict_types=1);
  * @copyright By CatchAdmin
  * @license  https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt
  */
+
 namespace catcher\traits\db;
 
 trait WithTrait
@@ -23,14 +25,10 @@ trait WithTrait
     {
         if (property_exists($this, 'globalScope')) {
             array_push($this->globalScope, 'withRelation');
-
         }
         $this->scope('scopeWith');
         if (property_exists($this, 'with')) {
-
-
             return $this->with($this->with);
-
         }
 
         return $this;
@@ -44,7 +42,7 @@ trait WithTrait
      */
     public function scopeWithRelation($query)
     {
-        if (property_exists($this, 'with') && !empty($this->with)) {
+        if (property_exists($this, 'with') && ! empty($this->with)) {
             $query->with($this->with);
         }
     }
@@ -66,8 +64,7 @@ trait WithTrait
             }
         }
 
-       return $this->setOption('with', $withes);
-
+        return $this->setOption('with', $withes);
     }
 
     /**
@@ -80,5 +77,4 @@ trait WithTrait
     {
         return $this->with($withRelation);
     }
-
 }

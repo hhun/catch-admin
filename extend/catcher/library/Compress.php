@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher\library;
@@ -6,8 +7,8 @@ namespace catcher\library;
 use catcher\CatchAdmin;
 use catcher\exceptions\FailedException;
 use catcher\facade\Http;
-use function GuzzleHttp\Psr7\stream_for;
 use catcher\facade\FileSystem;
+use function GuzzleHttp\Psr7\stream_for;
 
 class Compress
 {
@@ -17,7 +18,7 @@ class Compress
 
     public function __construct()
     {
-        if (!extension_loaded('zip')) {
+        if (! extension_loaded('zip')) {
             throw new FailedException('you should install extension [zip]');
         }
     }
@@ -33,11 +34,11 @@ class Compress
      */
     public function moduleToZip(string $moduleName, string $zipPath = '')
     {
-        if (!is_dir(CatchAdmin::directory() . $moduleName)) {
+        if (! is_dir(CatchAdmin::directory().$moduleName)) {
             throw new FailedException(sprintf('module 【%s】not found~', $moduleName));
         }
 
-        (new Zip())->make($zipPath ? : CatchAdmin::directory() . $moduleName . '.zip', \ZipArchive::CREATE)
+        (new Zip())->make($zipPath ?: CatchAdmin::directory().$moduleName.'.zip', \ZipArchive::CREATE)
                    ->folder($moduleName)
                    ->addFiles(FileSystem::allFiles(CatchAdmin::moduleDirectory($moduleName)))
                    ->close();
@@ -56,11 +57,11 @@ class Compress
     public function download($remotePackageUrl = '')
     {
         $response = Http::options([
-                       'save_to' => stream_for(fopen($this->savePath, 'w+'))
-                    ])
+            'save_to' => stream_for(fopen($this->savePath, 'w+'))
+        ])
                     ->get($remotePackageUrl);
 
-       return $response->ok();
+        return $response->ok();
     }
 
     /**
@@ -102,7 +103,7 @@ class Compress
     public function moduleUnzip($moduleName, $zipPath)
     {
         try {
-            (new Zip())->make($zipPath)->extractTo(CatchAdmin::moduleDirectory($moduleName) . $moduleName)->close();
+            (new Zip())->make($zipPath)->extractTo(CatchAdmin::moduleDirectory($moduleName).$moduleName)->close();
             return true;
         } catch (\Exception $e) {
             throw new FailedException('更新失败');
@@ -149,7 +150,7 @@ class Compress
      */
     protected function copyFileToModule($path, $moduleName, $tempExtractToPath)
     {
-        $fileSystemIterator = new \FilesystemIterator($path . $moduleName ? : '');
+        $fileSystemIterator = new \FilesystemIterator($path.$moduleName ?: '');
 
         foreach ($fileSystemIterator as $fileSystem) {
             if ($fileSystem->isDir()) {
@@ -159,8 +160,8 @@ class Compress
                 $originModuleFile = str_replace($tempExtractToPath, CatchAdmin::directory(), $fileSystem->getPathname());
                 // md5 校验 文件是否修改过
                 if (md5_file($originModuleFile) != md5_file($fileSystem->getPathname())) {
-                    if (!copy($fileSystem->getPathname(), $originModuleFile)) {
-                       throw new FailedException('更新失败');
+                    if (! copy($fileSystem->getPathname(), $originModuleFile)) {
+                        throw new FailedException('更新失败');
                     }
                 }
             }
@@ -180,9 +181,9 @@ class Compress
 
         CatchAdmin::makeDirectory($backup);
 
-        $this->moduleToZip($moduleName, $backup . $moduleName. '.zip');
+        $this->moduleToZip($moduleName, $backup.$moduleName.'.zip');
 
-        return $backup . $moduleName . '.zip';
+        return $backup.$moduleName.'.zip';
     }
 
     /**
@@ -194,7 +195,7 @@ class Compress
      */
     protected function getModuleBackupPath($moduleName)
     {
-        return $backup = runtime_path('module' . DIRECTORY_SEPARATOR . 'backup_'.$moduleName);
+        return $backup = runtime_path('module'.DIRECTORY_SEPARATOR.'backup_'.$moduleName);
     }
 
     /**

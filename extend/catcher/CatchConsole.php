@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 // +----------------------------------------------------------------------
@@ -10,6 +11,7 @@ declare(strict_types=1);
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher;
 
 use catcher\library\Composer;
@@ -22,7 +24,7 @@ class CatchConsole
 
     protected $namespace = '';
 
-    protected $path = __DIR__ . DIRECTORY_SEPARATOR . 'command';
+    protected $path = __DIR__.DIRECTORY_SEPARATOR.'command';
 
     public function __construct(App $app)
     {
@@ -45,8 +47,8 @@ class CatchConsole
         foreach ($commandFiles as $command) {
             if ($command->getExtension() === 'php') {
                 $lastPath = str_replace($this->parseNamespace(), '', pathinfo($command->getPathname(), PATHINFO_DIRNAME));
-                $namespace = $this->namespace . str_replace(DIRECTORY_SEPARATOR, '\\', $lastPath) . '\\';
-                $commandClass = $namespace . pathinfo($command->getPathname(), PATHINFO_FILENAME);
+                $namespace = $this->namespace.str_replace(DIRECTORY_SEPARATOR, '\\', $lastPath).'\\';
+                $commandClass = $namespace.pathinfo($command->getPathname(), PATHINFO_FILENAME);
                 $commands[] = $commandClass;
             }
         }
@@ -62,18 +64,18 @@ class CatchConsole
      */
     protected function parseNamespace(): string
     {
-        $psr4 = (new Composer)->psr4Autoload();
+        $psr4 = (new Composer())->psr4Autoload();
 
-        if (strpos($this->namespace, '\\') === false) {
-            $rootNamespace = $this->namespace . '\\';
+        if (mb_strpos($this->namespace, '\\') === false) {
+            $rootNamespace = $this->namespace.'\\';
         } else {
-            $rootNamespace = substr($this->namespace, 0, strpos($this->namespace, '\\') + 1);
+            $rootNamespace = mb_substr($this->namespace, 0, mb_strpos($this->namespace, '\\') + 1);
         }
 
-        $path = root_path(). $psr4[$rootNamespace] . DIRECTORY_SEPARATOR;
+        $path = root_path().$psr4[$rootNamespace].DIRECTORY_SEPARATOR;
 
-        if (strpos($this->namespace, '\\') !== false) {
-            $path  .= str_replace('\\', DIRECTORY_SEPARATOR, substr($this->namespace, strpos($this->namespace, '\\') + 1));
+        if (mb_strpos($this->namespace, '\\') !== false) {
+            $path .= str_replace('\\', DIRECTORY_SEPARATOR, mb_substr($this->namespace, mb_strpos($this->namespace, '\\') + 1));
         }
 
         return rtrim($path, '/');
@@ -86,7 +88,7 @@ class CatchConsole
      * @param $path
      * @return $this
      */
-    public function path($path): CatchConsole
+    public function path($path): self
     {
         $this->path = $path;
 
@@ -100,7 +102,7 @@ class CatchConsole
      * @param $namespace
      * @return $this
      */
-    public function setNamespace($namespace): CatchConsole
+    public function setNamespace($namespace): self
     {
         $this->namespace = $namespace;
 
@@ -115,17 +117,16 @@ class CatchConsole
      */
     public function defaultCommands(): array
     {
-        $defaultCommands = FileSystem::allFiles(__DIR__ . DIRECTORY_SEPARATOR . 'command');
+        $defaultCommands = FileSystem::allFiles(__DIR__.DIRECTORY_SEPARATOR.'command');
 
         $commands = [];
 
         /* \Symfony\Component\Finder\SplFileInfo $command */
         foreach ($defaultCommands as $command) {
             if ($command->getExtension() === 'php') {
-
                 $filename = str_replace('.php', '', str_replace(__DIR__, '', $command->getPathname()));
 
-                $class = 'catcher' . str_replace(DIRECTORY_SEPARATOR, '\\', $filename);
+                $class = 'catcher'.str_replace(DIRECTORY_SEPARATOR, '\\', $filename);
 
                 if (class_exists($class)) {
                     $commands[] = $class;
@@ -135,5 +136,4 @@ class CatchConsole
 
         return $commands;
     }
-
 }

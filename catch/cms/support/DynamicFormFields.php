@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -20,16 +21,16 @@ use catchAdmin\cms\model\ModelFields;
 class DynamicFormFields
 {
     protected $defaultRules = [
-        'alpha'       => ['^[A-Za-z]+$', '必须为纯字母'],
-        'alphaNum'    => ['^[A-Za-z0-9]+$', '必须为字母和数字'],
-        'alphaDash'   => ['^[A-Za-z0-9\-\_]+$', '必须为字母和数字，下划线_及破折号-'],
-        'mobile'      => ['^1[3-9]\d{9}$','请输入正确的手机号格式'],
-        'idCard'      => ['(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}$)','身份证输入格式不正确'],
-        'zip'         => ['\d{6}','请输入有效的邮政编码'],
-        'ip'          => ['((?:(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d))', '请输入正确的 IP 地址'],
-        'password'    => ['^[a-zA-Z]\w{5,17}$', '以字母开头，长度在6~18之间，只能包含字母、数字和下划线'],
+        'alpha' => ['^[A-Za-z]+$', '必须为纯字母'],
+        'alphaNum' => ['^[A-Za-z0-9]+$', '必须为字母和数字'],
+        'alphaDash' => ['^[A-Za-z0-9\-\_]+$', '必须为字母和数字，下划线_及破折号-'],
+        'mobile' => ['^1[3-9]\d{9}$','请输入正确的手机号格式'],
+        'idCard' => ['(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}$)','身份证输入格式不正确'],
+        'zip' => ['\d{6}','请输入有效的邮政编码'],
+        'ip' => ['((?:(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d))', '请输入正确的 IP 地址'],
+        'password' => ['^[a-zA-Z]\w{5,17}$', '以字母开头，长度在6~18之间，只能包含字母、数字和下划线'],
         'strong_password' => ['^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$', '必须包含大小写字母和数字的组合，不能使用特殊字符，长度在8-10之间'],
-        'landLine'    => ['\d{3}-\d{8}|\d{4}-\d{7}', '请输入正确的座机格式'],
+        'landLine' => ['\d{3}-\d{8}|\d{4}-\d{7}', '请输入正确的座机格式'],
         'chinese_character' => ['^[\u4e00-\u9fa5]{0,}$', '必须为纯汉字']
     ];
 
@@ -50,7 +51,7 @@ class DynamicFormFields
         ModelFields::whereIn('model_id', Models::where('table_name', $tableName)->column('id'))
                 ->where('status', ModelFields::ENABLE)
                 ->select()
-                ->each(function ($field) use (&$fields){
+                ->each(function ($field) use (&$fields) {
                     $formField = $this->{$field['type']}($field);
 
                     $formField = $this->getOptions($formField, $field['options'] ?? '');
@@ -303,7 +304,7 @@ class DynamicFormFields
      */
     protected function getOptions($formField, $options)
     {
-        if (!$options) {
+        if (! $options) {
             return $formField;
         }
 
@@ -339,10 +340,10 @@ class DynamicFormFields
                     case in_array($validate, ['email', 'url', 'date']):
                         $message = [
                             'email' => '邮箱格式不正确',
-                            'url'   => 'url 地址格式不正确',
+                            'url' => 'url 地址格式不正确',
                             'date' => '日期格式不正确'
                         ];
-                        $method = 'validate' . ucfirst($validate);
+                        $method = 'validate'.ucfirst($validate);
                         $formField->appendValidate(Form::{$method}()->message($message[$validate]));
                         break;
                     default:

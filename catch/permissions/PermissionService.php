@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\permissions;
 
 use catchAdmin\permissions\event\OperateLogEvent;
@@ -28,14 +30,14 @@ class PermissionService extends ModuleService
     public function loadEvents()
     {
         return [
-            'operateLog' => [ OperateLogEvent::class ],
+            'operateLog' => [OperateLogEvent::class],
         ];
     }
 
     public function loadRouteFrom()
     {
         // TODO: Implement loadRouteFrom() method.
-        return __DIR__ . DIRECTORY_SEPARATOR . 'route.php';
+        return __DIR__.DIRECTORY_SEPARATOR.'route.php';
     }
 
 

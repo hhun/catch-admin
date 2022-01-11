@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher\library\crontab;
 
 use Swoole\Process;
@@ -16,7 +18,10 @@ use Swoole\Timer;
 
 class Master
 {
-    use RegisterSignal, MProcess, Store, Table;
+    use MProcess;
+    use RegisterSignal;
+    use Store;
+    use Table;
 
     /**
      * 动态扩展的最大 process 数量
@@ -76,12 +81,12 @@ class Master
     protected $daemon = false;
 
     // 版本
-    const VERSION = '1.0.0';
+    public const VERSION = '1.0.0';
 
     // process 等待状态
-    const WAITING = 'waiting';
+    public const WAITING = 'waiting';
     // process 繁忙状态
-    const BUSYING = 'busying';
+    public const BUSYING = 'busying';
 
     /**
      * 启动进程
@@ -140,13 +145,13 @@ class Master
     protected function schedule()
     {
         return function () {
-            $kernel = new $this->kernel;
+            $kernel = new $this->kernel();
             foreach ($kernel->tasks() as $cron) {
                 if ($cron->can()) {
                     list($waiting, $process) = $this->hasWaitingProcess();
                     if ($waiting) {
                         // 向 process 投递 cron
-                       $process->push(serialize($cron));
+                        $process->push(serialize($cron));
                     } else {
                         // 创建临时 process 处理，处理完自动销毁
                         $this->createProcess($cron);
@@ -198,10 +203,10 @@ class Master
      */
     protected function createStaticProcess()
     {
-        $process =  new Process($this->createProcessCallback());
+        $process = new Process($this->createProcessCallback());
 
         // 使用非阻塞队列
-        $process->useQueue(1, 2|Process::IPC_NOWAIT);
+        $process->useQueue(1, 2 | Process::IPC_NOWAIT);
 
         return $process;
     }
@@ -215,7 +220,6 @@ class Master
     protected function initProcesses()
     {
         for ($i = 0; $i < $this->staticNum; $i++) {
-
             $process = $this->createStaticProcess();
             // $worker->name("[$i+1]catch-worker");
 
@@ -236,7 +240,7 @@ class Master
      */
     protected function getColumnKey($pid)
     {
-        return 'process_'. $pid;
+        return 'process_'.$pid;
     }
 
     /**
@@ -270,11 +274,12 @@ class Master
     {
         $channels = config('log.channels');
 
-        $channels['schedule'] = config('catch.schedule.log');;
+        $channels['schedule'] = config('catch.schedule.log');
+        ;
 
         config([
             'channels' => $channels,
-             'default' => 'schedule',
+            'default' => 'schedule',
         ], 'log');
     }
 

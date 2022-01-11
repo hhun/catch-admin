@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\permissions\model;
 
 trait HasJobsTrait

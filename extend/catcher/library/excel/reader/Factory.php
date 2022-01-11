@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher\library\excel\reader;
@@ -21,7 +22,7 @@ class Factory
      */
     public static function make($filename)
     {
-        $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+        $ext = mb_strtolower(pathinfo($filename, PATHINFO_EXTENSION));
 
         if (isset(self::readers()[$ext])) {
             return app()->make(self::readers()[$ext]);
@@ -41,10 +42,10 @@ class Factory
     {
         return [
             'xlsx' => Xlsx::class,
-            'xml'  => Xml::class,
-            'ods'  => Ods::class,
-            'slk'  => Slk::class,
-            'csv'  => Csv::class,
+            'xml' => Xml::class,
+            'ods' => Ods::class,
+            'slk' => Slk::class,
+            'csv' => Csv::class,
         ];
     }
 }

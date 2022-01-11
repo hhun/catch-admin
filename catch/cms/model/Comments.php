@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -21,7 +22,7 @@ class Comments extends BaseModel
     // 表名
     public $name = 'cms_comments';
     // 数据库字段映射
-    public $field = array(
+    public $field = [
         'id',
         // 文章ID
         'article_id',
@@ -45,7 +46,7 @@ class Comments extends BaseModel
         'updated_at',
         // 软删除
         'deleted_at',
-    );
+    ];
 
     public function getList()
     {

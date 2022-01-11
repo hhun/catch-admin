@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -19,7 +20,7 @@ use catchAdmin\wechat\repository\WechatTagsRepository;
 class Tags extends CatchController
 {
     protected $repository;
-    
+
     public function __construct(WechatTagsRepository $repository)
     {
         $this->repository = $repository;
@@ -44,48 +45,48 @@ class Tags extends CatchController
 
         return CatchResponse::paginate($this->repository->getList($request->param()));
     }
-    
+
     /**
      * 保存
      *
      * @time 2020/06/21 14:45
-     * @param Request Request 
+     * @param Request Request
      * @return \think\Response
      */
     public function save(Request $request)
     {
         return CatchResponse::success($this->repository->storeBy($request->post()));
     }
-    
+
     /**
      * 读取
      *
      * @time 2020/06/21 14:45
-     * @param $id 
+     * @param $id
      * @return \think\Response
      */
     public function read($id)
     {
-       return CatchResponse::success($this->repository->findBy($id));
+        return CatchResponse::success($this->repository->findBy($id));
     }
-    
+
     /**
      * 更新
      *
      * @time 2020/06/21 14:45
-     * @param Request $request 
+     * @param Request $request
      * @return \think\Response
      */
     public function update(Request $request, $id)
     {
         return CatchResponse::success($this->repository->updateBy($id, $request->post()));
     }
-    
+
     /**
      * 删除
      *
      * @time 2020/06/21 14:45
-     * @param $id 
+     * @param $id
      * @return \think\Response
      */
     public function delete($id)
@@ -97,6 +98,4 @@ class Tags extends CatchController
     {
         return CatchResponse::success($this->repository->sync());
     }
-
-
 }

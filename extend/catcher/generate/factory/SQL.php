@@ -1,4 +1,5 @@
 <?php
+
 namespace catcher\generate\factory;
 
 use catcher\exceptions\FailedException;
@@ -11,7 +12,7 @@ class SQL extends Factory
 {
     public function done(array $params)
     {
-        if (!$params['table'] ?? false) {
+        if (! $params['table'] ?? false) {
             throw new FailedException('table name has lost~');
         }
 
@@ -33,19 +34,19 @@ class SQL extends Factory
      */
     protected function createTable(array $params)
     {
-       $table = new Table($params['table']);
+        $table = new Table($params['table']);
 
-       if ($table::exist()) {
-           throw new TableExistException(sprintf('Table [%s] has been existed', $params['table']));
-       }
+        if ($table::exist()) {
+            throw new TableExistException(sprintf('Table [%s] has been existed', $params['table']));
+        }
 
-       if(!$table::create(
+        if (! $table::create(
             $params['extra']['primary_key'],
             $params['extra']['engine'],
             $params['extra']['comment']
         )) {
-           throw new FailedException(sprintf('created table [%s] failed', $params['table']));
-       }
+            throw new FailedException(sprintf('created table [%s] failed', $params['table']));
+        }
     }
 
     /**
@@ -62,11 +63,11 @@ class SQL extends Factory
 
         foreach ($columns as $column) {
             if ($column['type'] === AdapterInterface::PHINX_TYPE_DECIMAL) {
-                $tableColumn = (new TableColumn)->{$column['type']}($column['field']);
-            } else if ($column['type'] === AdapterInterface::PHINX_TYPE_ENUM || $column['type'] === AdapterInterface::PHINX_TYPE_SET) {
-                $tableColumn = (new TableColumn)->{$column['type']}($column['field'], $column['default']);
-            }else {
-                $tableColumn = (new TableColumn)->{$column['type']}($column['field'], $column['length'] ?? 0);
+                $tableColumn = (new TableColumn())->{$column['type']}($column['field']);
+            } elseif ($column['type'] === AdapterInterface::PHINX_TYPE_ENUM || $column['type'] === AdapterInterface::PHINX_TYPE_SET) {
+                $tableColumn = (new TableColumn())->{$column['type']}($column['field'], $column['default']);
+            } else {
+                $tableColumn = (new TableColumn())->{$column['type']}($column['field'], $column['length'] ?? 0);
             }
 
             if ($column['nullable']) {
@@ -103,7 +104,7 @@ class SQL extends Factory
         }
 
         foreach ($tableColumns as $column) {
-            if (!Table::addColumn($column)) {
+            if (! Table::addColumn($column)) {
                 throw new FailedException('创建失败');
             }
         }
@@ -177,7 +178,7 @@ class SQL extends Factory
      */
     protected function createCreateAtColumn(): \think\migration\db\Column
     {
-        return (new TableColumn)->int('created_at', 10)
+        return (new TableColumn())->int('created_at', 10)
             ->setUnsigned()
             ->setDefault(0)
             ->setComment('创建时间');
@@ -191,7 +192,7 @@ class SQL extends Factory
      */
     protected function createUpdateAtColumn(): \think\migration\db\Column
     {
-        return (new TableColumn)->int('updated_at', 10)
+        return (new TableColumn())->int('updated_at', 10)
             ->setUnsigned()->setDefault(0)->setComment('更新时间');
     }
 
@@ -203,7 +204,7 @@ class SQL extends Factory
      */
     protected function createDeleteAtColumn(): \think\migration\db\Column
     {
-        return (new TableColumn)->int('deleted_at', 10)
+        return (new TableColumn())->int('deleted_at', 10)
             ->setUnsigned()->setDefault(0)->setComment('软删除字段');
     }
 
@@ -215,7 +216,7 @@ class SQL extends Factory
      */
     protected function createCreatorIdColumn(): \think\migration\db\Column
     {
-        return (new TableColumn)->int('creator_id', 10)
+        return (new TableColumn())->int('creator_id', 10)
             ->setUnsigned()->setDefault(0)->setComment('创建人ID');
     }
 }

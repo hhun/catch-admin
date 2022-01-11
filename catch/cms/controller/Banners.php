@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -21,59 +22,59 @@ use catchAdmin\cms\model\Banners as bannersModel;
 class Banners extends CatchController
 {
     protected $bannersModel;
-    
+
     public function __construct(BannersModel $bannersModel)
     {
         $this->bannersModel = $bannersModel;
     }
-    
+
     /**
      * 列表
      * @time 2020年12月27日 19:58
-     * @param Request $request 
+     * @param Request $request
      */
-    public function index(Request $request) : \think\Response
+    public function index(Request $request): \think\Response
     {
         return CatchResponse::paginate($this->bannersModel->getList());
     }
-    
+
     /**
      * 保存信息
      * @time 2020年12月27日 19:58
-     * @param Request $request 
+     * @param Request $request
      */
-    public function save(Request $request) : \think\Response
+    public function save(Request $request): \think\Response
     {
         return CatchResponse::success($this->bannersModel->storeBy($request->post()));
     }
-    
+
     /**
      * 读取
      * @time 2020年12月27日 19:58
-     * @param $id 
+     * @param $id
      */
-    public function read($id) : \think\Response
+    public function read($id): \think\Response
     {
         return CatchResponse::success($this->bannersModel->findBy($id));
     }
-    
+
     /**
      * 更新
      * @time 2020年12月27日 19:58
-     * @param Request $request 
+     * @param Request $request
      * @param $id
      */
-    public function update(Request $request, $id) : \think\Response
+    public function update(Request $request, $id): \think\Response
     {
         return CatchResponse::success($this->bannersModel->updateBy($id, $request->post()));
     }
-    
+
     /**
      * 删除
      * @time 2020年12月27日 19:58
      * @param $id
      */
-    public function delete($id) : \think\Response
+    public function delete($id): \think\Response
     {
         return CatchResponse::success($this->bannersModel->deleteBy($id));
     }

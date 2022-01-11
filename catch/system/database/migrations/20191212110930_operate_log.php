@@ -1,7 +1,6 @@
 <?php
 
 use think\migration\Migrator;
-use think\migration\db\Column;
 
 class OperateLog extends Migrator
 {
@@ -28,15 +27,15 @@ class OperateLog extends Migrator
      */
     public function change()
     {
-        $table  =  $this->table('operate_log',['engine'=>'Myisam', 'comment' => '操作日志', 'signed' => false]);
-        $table->addColumn('module', 'string',['limit'  =>  50,'default'=>'','comment'=>'模块名称'])
-            ->addColumn('operate', 'string',['default'=> '', 'limit' => 20, 'comment'=>'操作模块'])
-            ->addColumn('route', 'string',['default'=> '','limit' => 100, 'comment'=>'路由'])
-            ->addColumn('params', 'string',['default'=> '','limit' => 1000, 'comment'=>'参数'])
-            ->addColumn('ip', 'string',['default'=>'', 'limit' => 20,'comment'=>'ip', 'signed' => false])
-            ->addColumn('creator_id', 'integer',['default'=> 0,'comment'=>'创建人ID', 'signed' => false])
-            ->addColumn('method', 'string',['default'=> '','comment'=>'请求方法'])
-            ->addColumn('created_at', 'integer', array('default'=>0,'comment'=>'登录时间', 'signed' => false ))
+        $table = $this->table('operate_log', ['engine' => 'Myisam', 'comment' => '操作日志', 'signed' => false]);
+        $table->addColumn('module', 'string', ['limit' => 50,'default' => '','comment' => '模块名称'])
+            ->addColumn('operate', 'string', ['default' => '', 'limit' => 20, 'comment' => '操作模块'])
+            ->addColumn('route', 'string', ['default' => '','limit' => 100, 'comment' => '路由'])
+            ->addColumn('params', 'string', ['default' => '','limit' => 1000, 'comment' => '参数'])
+            ->addColumn('ip', 'string', ['default' => '', 'limit' => 20,'comment' => 'ip', 'signed' => false])
+            ->addColumn('creator_id', 'integer', ['default' => 0,'comment' => '创建人ID', 'signed' => false])
+            ->addColumn('method', 'string', ['default' => '','comment' => '请求方法'])
+            ->addColumn('created_at', 'integer', ['default' => 0,'comment' => '登录时间', 'signed' => false])
             ->create();
     }
 }

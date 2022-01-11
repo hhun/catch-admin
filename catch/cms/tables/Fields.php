@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\cms\tables;
 
 use catchAdmin\cms\tables\forms\Factory;
@@ -20,8 +21,8 @@ class Fields extends CatchTable
                 // HeaderItem::label('列表显示')->prop('use_at_list')->withSwitchComponent( ),
                 // HeaderItem::label('搜索')->prop('use_at_search')->withSwitchComponent(),
                 // HeaderItem::label('详情')->prop('use_at_detail')->withSwitchComponent(),
-                HeaderItem::label('状态')->prop('status')->withSwitchComponent( ),
-                HeaderItem::label('设置索引')->prop('is_index')->withSwitchComponent( ),
+                HeaderItem::label('状态')->prop('status')->withSwitchComponent(),
+                HeaderItem::label('设置索引')->prop('is_index')->withSwitchComponent(),
 
                 HeaderItem::label('操作')->width(260)->isBubble()->actions([
                     Actions::update(),

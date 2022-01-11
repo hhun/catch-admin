@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -21,7 +22,7 @@ use catchAdmin\cms\model\Models as CmsModel;
 class Models extends CatchController
 {
     protected $cmsModel;
-    
+
     public function __construct(CmsModel $cmsModel)
     {
         $this->cmsModel = $cmsModel;

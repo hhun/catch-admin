@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -17,18 +18,17 @@ class MonitorService extends ModuleService
 {
     protected function loadConfig()
     {
-         return  require __DIR__ . DIRECTORY_SEPARATOR . 'config.php';
+        return  require __DIR__.DIRECTORY_SEPARATOR.'config.php';
     }
 
     public function loadRouteFrom()
     {
         // TODO: Implement loadRouteFrom() method.
-        return __DIR__ . DIRECTORY_SEPARATOR . 'route.php';
+        return __DIR__.DIRECTORY_SEPARATOR.'route.php';
     }
 
     public function loadCommands()
     {
-        return [__NAMESPACE__, __DIR__ . DIRECTORY_SEPARATOR . 'command'];
+        return [__NAMESPACE__, __DIR__.DIRECTORY_SEPARATOR.'command'];
     }
-
 }

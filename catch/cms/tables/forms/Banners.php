@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\cms\tables\forms;
 
 use catchAdmin\cms\model\Category;
@@ -8,7 +9,7 @@ class Banners extends Form
 {
     public function fields(): array
     {
-        $categories =  Category::field(['id', 'name', 'parent_id'])->select()->toTree();
+        $categories = Category::field(['id', 'name', 'parent_id'])->select()->toTree();
 
         // TODO: Implement fields() method.
         return [

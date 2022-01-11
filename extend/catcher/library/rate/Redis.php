@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 // +----------------------------------------------------------------------
@@ -10,6 +11,7 @@ declare(strict_types=1);
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher\library\rate;
 
 use think\facade\Cache;
@@ -29,7 +31,7 @@ trait Redis
      */
     protected function getRedis(): \Redis
     {
-        if (!$this->redis) {
+        if (! $this->redis) {
             $this->redis = Cache::store('redis')->handler();
         }
 

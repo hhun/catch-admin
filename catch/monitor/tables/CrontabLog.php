@@ -1,8 +1,8 @@
 <?php
+
 namespace catchAdmin\monitor\tables;
 
 use catcher\CatchTable;
-use catchAdmin\monitor\tables\forms\Factory;
 use catcher\library\table\Actions;
 use catcher\library\table\HeaderItem;
 use catcher\library\table\Search;
@@ -12,7 +12,7 @@ class CrontabLog extends CatchTable
     public function table()
     {
         // TODO: Implement table() method.
-       return $this->getTable('CrontabLog')
+        return $this->getTable('CrontabLog')
                    ->header([
                        HeaderItem::label('')->selection(),
                        HeaderItem::label('编号')->prop('id'),
@@ -29,7 +29,9 @@ class CrontabLog extends CatchTable
                    ])
                    ->withSearch([
                        Search::label('任务名称')->name('请填写任务名称'),
-                       Search::label('分组')->select('group', '请选择分组',
+                       Search::label('分组')->select(
+                           'group',
+                           '请选择分组',
                            Search::options()->add('默认', 1)->add('系统', 1)->render()
                        ),
                        Search::label('状态')->status(),
@@ -44,7 +46,6 @@ class CrontabLog extends CatchTable
                    ->withApiRoute('monitor/crontab/log/list')
                    ->selectionChange()
                    ->render();
-
     }
 
     protected function form()
@@ -52,5 +53,4 @@ class CrontabLog extends CatchTable
         // TODO: Implement form() method.
         return [];
     }
-    
 }

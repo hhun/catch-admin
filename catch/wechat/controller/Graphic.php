@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,17 +9,13 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\wechat\controller;
 
 use catchAdmin\wechat\repository\WechatGraphicRepository;
-use catchAdmin\wechat\repository\WechatUsersRepository;
 use catcher\base\CatchController;
 use catcher\base\CatchRequest;
 use catcher\CatchResponse;
-use catcher\library\WeChat;
-use catcher\Utils;
-use think\facade\Console;
-use think\Request;
 
 class Graphic extends CatchController
 {

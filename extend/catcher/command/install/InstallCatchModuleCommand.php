@@ -8,28 +8,21 @@
  * @copyright By CatchAdmin
  * @license  https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt
  */
+
 namespace catcher\command\install;
 
-use catchAdmin\permissions\model\Permissions;
-use catcher\CatchAdmin;
-use catcher\exceptions\FailedException;
-use catcher\library\Composer;
-use catcher\library\Compress;
-use catcher\facade\FileSystem;
 use catcher\library\InstallCatchModule;
-use catcher\library\Zip;
 use think\console\Command;
 use think\console\Input;
 use think\console\input\Argument;
 use think\console\input\Option;
 use think\console\Output;
-use think\facade\Console;
 
 class InstallCatchModuleCommand extends Command
 {
     protected function configure()
     {
-      $this->setName('catch-install:module')
+        $this->setName('catch-install:module')
            ->addArgument('module', Argument::REQUIRED, 'module name')
            ->addOption('app', '-app', Option::VALUE_NONE, 'module install at [app] path')
            ->setDescription('install catch module');
@@ -42,9 +35,9 @@ class InstallCatchModuleCommand extends Command
         $install = (new InstallCatchModule())->setModule($module)
                                              ->setInstallPath($input->getOption('app'));
 
-        $output->info('start download module ' . $module);
+        $output->info('start download module '.$module);
 
-        if (!$install->download()) {
+        if (! $install->download()) {
             exit($output->error("install module [$module] failed"));
         }
 

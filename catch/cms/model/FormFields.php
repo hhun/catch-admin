@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -18,7 +19,7 @@ class FormFields extends BaseModel
     // 表名
     public $name = 'cms_form_fields';
     // 数据库字段映射
-    public $field = array(
+    public $field = [
         'id',
         // form id
         'form_id',
@@ -46,5 +47,5 @@ class FormFields extends BaseModel
         'updated_at',
         // 软删除
         'deleted_at',
-    );
+    ];
 }

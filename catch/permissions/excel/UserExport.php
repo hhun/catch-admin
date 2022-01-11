@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\permissions\excel;
 
 use catchAdmin\permissions\model\Users;
@@ -16,7 +18,6 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 class UserExport implements ExcelContract
 {
-
     /**
      * 设置头部
      *

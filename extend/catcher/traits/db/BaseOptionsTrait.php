@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher\traits\db;
@@ -76,8 +77,7 @@ trait BaseOptionsTrait
      */
     public function updateBy($id, $data, string $field = ''): bool
     {
-        if (static::update($this->filterData($data), [$field ? : $this->getPk() => $id], $this->field)) {
-
+        if (static::update($this->filterData($data), [$field ?: $this->getPk() => $id], $this->field)) {
             $this->updateChildren($id, $data);
 
             return true;
@@ -128,7 +128,7 @@ trait BaseOptionsTrait
         $newData = [];
         foreach ($data as $item) {
             foreach ($item as $field => $value) {
-                if (!in_array($field, $this->field)) {
+                if (! in_array($field, $this->field)) {
                     unset($item[$field]);
                 }
 
@@ -155,15 +155,15 @@ trait BaseOptionsTrait
         return static::onlyTrashed()->find($id)->restore();
     }
 
-  /**
-   * 获取删除字段
-   *
-   * @time 2020年01月13日
-   * @return mixed
-   */
+    /**
+     * 获取删除字段
+     *
+     * @time 2020年01月13日
+     * @return mixed
+     */
     public function getDeleteAtField()
     {
-      return $this->deleteTime;
+        return $this->deleteTime;
     }
 
     /**
@@ -182,7 +182,7 @@ trait BaseOptionsTrait
         if (property_exists($this, 'updateChildrenFields')) {
             $parentIdField = property_exists($this, 'parentId') ? $this->$parentId : 'parent_id';
 
-            if (!empty($this->updateChildrenFields)) {
+            if (! empty($this->updateChildrenFields)) {
                 if (is_array($this->updateChildrenFields)) {
                     foreach ($data as $field => $value) {
                         if (! in_array($field, $this->updateChildrenFields)) {
@@ -227,14 +227,14 @@ trait BaseOptionsTrait
         }
     }
 
-  /**
-   * 别名
-   *
-   * @time 2020年01月13日
-   * @param $field
-   * @param string $table
-   * @return array|string
-   */
+    /**
+     * 别名
+     *
+     * @time 2020年01月13日
+     * @param $field
+     * @param string $table
+     * @return array|string
+     */
     public function aliasField($field, $table = '')
     {
         $table = $table ? Utils::tableWithPrefix($table) : $this->getTable();
@@ -262,7 +262,7 @@ trait BaseOptionsTrait
      * @param string $field
      * @return mixed
      */
-    public function disOrEnable($id, string $field='status')
+    public function disOrEnable($id, string $field = 'status')
     {
         $model = $this->findBy($id);
 
@@ -310,8 +310,7 @@ trait BaseOptionsTrait
      */
     public function import($fields, $file): bool
     {
-        $excel = new class(array_column($fields, 'field')) extends Reader {
-
+        $excel = new class (array_column($fields, 'field')) extends Reader {
             protected $fields;
 
             public function __construct($fields)
@@ -335,13 +334,11 @@ trait BaseOptionsTrait
                 }
                 $options[$field['field']] = $p;
             }
-
-
         }
 
         $creatorId = request()->user()->id;
 
-        $excel->import($file)->remove(0)->then(function ($data)  use ($options, $creatorId){
+        $excel->import($file)->remove(0)->then(function ($data) use ($options, $creatorId) {
             foreach ($data as &$d) {
                 foreach ($d as $field => &$v) {
                     if (isset($options[$field])) {

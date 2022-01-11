@@ -1,4 +1,5 @@
 <?php
+
 namespace catcher\command\install;
 
 use catcher\CatchAdmin;
@@ -11,7 +12,6 @@ use think\facade\Console;
 
 class InstallProjectCommand extends Command
 {
-
     protected $databaseLink = [];
 
     protected $defaultModule = ['permissions', 'system'];
@@ -19,7 +19,7 @@ class InstallProjectCommand extends Command
     protected function configure()
     {
         $this->setName('catch:install')
-            ->addOption('reinstall', '-r',Option::VALUE_NONE, 'reinstall back')
+            ->addOption('reinstall', '-r', Option::VALUE_NONE, 'reinstall back')
             ->setDescription('install project');
     }
 
@@ -36,18 +36,17 @@ class InstallProjectCommand extends Command
             $this->reInstall();
             $this->project();
         } else {
+            $this->detectionEnvironment();
 
-          $this->detectionEnvironment();
+            $this->firstStep();
 
-          $this->firstStep();
+            $this->secondStep();
 
-          $this->secondStep();
+            $this->thirdStep();
 
-          $this->thirdStep();
+            $this->finished();
 
-          $this->finished();
-
-          $this->project();
+            $this->project();
         }
     }
 
@@ -66,32 +65,33 @@ class InstallProjectCommand extends Command
             exit();
         }
 
-        $this->output->info('php version ' . PHP_VERSION);
+        $this->output->info('php version '.PHP_VERSION);
 
-        if (!extension_loaded('mbstring')) {
-            $this->output->error('mbstring extension not install');exit();
+        if (! extension_loaded('mbstring')) {
+            $this->output->error('mbstring extension not install');
+            exit();
         }
         $this->output->info('mbstring extension is installed');
 
-        if (!extension_loaded('json')) {
+        if (! extension_loaded('json')) {
             $this->output->error('json extension not install');
             exit();
         }
         $this->output->info('json extension is installed');
 
-        if (!extension_loaded('openssl')) {
+        if (! extension_loaded('openssl')) {
             $this->output->error('openssl extension not install');
             exit();
         }
         $this->output->info('openssl extension is installed');
 
-        if (!extension_loaded('pdo')) {
+        if (! extension_loaded('pdo')) {
             $this->output->error('pdo extension not install');
             exit();
         }
         $this->output->info('pdo extension is installed');
 
-        if (!extension_loaded('xml')) {
+        if (! extension_loaded('xml')) {
             $this->output->error('xml extension not install');
             exit();
         }
@@ -110,42 +110,42 @@ class InstallProjectCommand extends Command
      */
     protected function firstStep()
     {
-        if (file_exists($this->app->getRootPath() . '.env')) {
+        if (file_exists($this->app->getRootPath().'.env')) {
             return false;
         }
 
         // 设置 app domain
-        $appDomain = strtolower($this->output->ask($this->input, '👉 first, you should set app domain: '));
-        if (strpos($appDomain, 'http://') === false || strpos( $appDomain, 'https://') === false) {
-            $appDomain = 'http://' . $appDomain;
+        $appDomain = mb_strtolower($this->output->ask($this->input, '👉 first, you should set app domain: '));
+        if (mb_strpos($appDomain, 'http://') === false || mb_strpos($appDomain, 'https://') === false) {
+            $appDomain = 'http://'.$appDomain;
         }
 
-        $answer = strtolower($this->output->ask($this->input, '🤔️ Did You Need to Set Database information? (Y/N): '));
+        $answer = mb_strtolower($this->output->ask($this->input, '🤔️ Did You Need to Set Database information? (Y/N): '));
 
         if ($answer === 'y' || $answer === 'yes') {
-            $charset = $this->output->ask($this->input, '👉 please input database charset, default (utf8mb4):') ? : 'utf8mb4';
+            $charset = $this->output->ask($this->input, '👉 please input database charset, default (utf8mb4):') ?: 'utf8mb4';
             $database = '';
-            while (!$database) {
+            while (! $database) {
                 $database = $this->output->ask($this->input, '👉 please input database name: ');
                 if ($database) {
                     break;
                 }
             }
-            $host = $this->output->ask($this->input, '👉 please input database host, default (127.0.0.1):') ? : '127.0.0.1';
-            $port = $this->output->ask($this->input, '👉 please input database host port, default (3306):') ? : '3306';
-            $prefix = $this->output->ask($this->input, '👉 please input table prefix, default (null):') ? : '';
-            $username = $this->output->ask($this->input, '👉 please input database username default (root): ') ? : 'root';
+            $host = $this->output->ask($this->input, '👉 please input database host, default (127.0.0.1):') ?: '127.0.0.1';
+            $port = $this->output->ask($this->input, '👉 please input database host port, default (3306):') ?: '3306';
+            $prefix = $this->output->ask($this->input, '👉 please input table prefix, default (null):') ?: '';
+            $username = $this->output->ask($this->input, '👉 please input database username default (root): ') ?: 'root';
             $password = '';
             $tryTimes = 0;
-            while (!$password) {
+            while (! $password) {
                 $password = $this->output->ask($this->input, '👉 please input database password: ');
                 if ($password) {
                     break;
                 }
                 // 尝试三次以上未填写，视为密码空
                 $tryTimes++;
-                if (!$password && $tryTimes > 2) {
-                   break;
+                if (! $password && $tryTimes > 2) {
+                    break;
                 }
             }
 
@@ -166,11 +166,10 @@ class InstallProjectCommand extends Command
         if (file_exists($this->getEnvFilePath())) {
             $connections = \config('database.connections');
             // 因为 env file 导致安装失败
-            if (!$this->databaseLink) {
+            if (! $this->databaseLink) {
                 unlink($this->getEnvFilePath());
                 $this->execute($this->input, $this->output);
             } else {
-
                 [
                     $connections['mysql']['hostname'],
                     $connections['mysql']['database'],
@@ -192,21 +191,20 @@ class InstallProjectCommand extends Command
         }
     }
 
-  /**
-   * 生成表结构
-   *
-   * @time 2020年01月20日
-   * @return void
-   */
+    /**
+     * 生成表结构
+     *
+     * @time 2020年01月20日
+     * @return void
+     */
     protected function migrateAndSeeds(): void
     {
-
-      foreach ($this->defaultModule as $m) {
-          $module = new InstallLocalModule($m);
-          $module->installModuleTables();
-          $module->installModuleSeeds();
-          $this->output->info('🎉 module [' . $m . '] installed successfully');
-      }
+        foreach ($this->defaultModule as $m) {
+            $module = new InstallLocalModule($m);
+            $module->installModuleTables();
+            $module->installModuleSeeds();
+            $this->output->info('🎉 module ['.$m.'] installed successfully');
+        }
     }
 
     /**
@@ -220,7 +218,7 @@ class InstallProjectCommand extends Command
         foreach ($this->defaultModule as $m) {
             $module = new InstallLocalModule($m);
             $module->rollbackModuleTable();
-            $this->output->info('🎉' . $m . ' tables rollback successfully');
+            $this->output->info('🎉'.$m.' tables rollback successfully');
         }
     }
 
@@ -244,10 +242,10 @@ class InstallProjectCommand extends Command
     protected function finished(): void
     {
         // todo something
-      // create jwt 
-      Console::call('jwt:create');
-      // create service
-      Console::call('catch-service:discover');
+        // create jwt
+        Console::call('jwt:create');
+        // create service
+        Console::call('catch-service:discover');
     }
 
     /**
@@ -267,7 +265,7 @@ class InstallProjectCommand extends Command
     protected function generateEnvFile($host, $database, $username, $password, $port, $charset, $prefix, $appDomain): void
     {
         try {
-            $env = \parse_ini_file(root_path() . '.example.env', true);
+            $env = \parse_ini_file(root_path().'.example.env', true);
 
             $env['APP']['DOMAIN'] = $appDomain;
             $env['DATABASE']['HOSTNAME'] = $host;
@@ -282,12 +280,12 @@ class InstallProjectCommand extends Command
             $dotEnv = '';
             foreach ($env as $key => $e) {
                 if (is_string($e)) {
-                    $dotEnv .= sprintf('%s = %s', $key, $e === '1' ? 'true' : ($e === '' ? 'false' : $e)) . PHP_EOL;
+                    $dotEnv .= sprintf('%s = %s', $key, $e === '1' ? 'true' : ($e === '' ? 'false' : $e)).PHP_EOL;
                     $dotEnv .= PHP_EOL;
                 } else {
-                    $dotEnv .= sprintf('[%s]', $key) . PHP_EOL;
+                    $dotEnv .= sprintf('[%s]', $key).PHP_EOL;
                     foreach ($e as $k => $v) {
-                        $dotEnv .= sprintf('%s = %s', $k, $v === '1' ? 'true' : ($v === '' ? 'false' : $v)) . PHP_EOL;
+                        $dotEnv .= sprintf('%s = %s', $k, $v === '1' ? 'true' : ($v === '' ? 'false' : $v)).PHP_EOL;
                     }
 
                     $dotEnv .= PHP_EOL;
@@ -298,8 +296,12 @@ class InstallProjectCommand extends Command
             if ($this->getEnvFile()) {
                 $this->output->info('env file has been generated');
             }
-            if ((new \mysqli($host, $username, $password, null, $port))->query(sprintf('CREATE DATABASE IF NOT EXISTS %s DEFAULT CHARSET %s COLLATE %s_general_ci;',
-                $database, $charset, $charset))) {
+            if ((new \mysqli($host, $username, $password, null, $port))->query(sprintf(
+                'CREATE DATABASE IF NOT EXISTS %s DEFAULT CHARSET %s COLLATE %s_general_ci;',
+                $database,
+                $charset,
+                $charset
+            ))) {
                 $this->output->info(sprintf('🎉 create database %s successfully', $database));
             } else {
                 $this->output->warning(sprintf('create database %s failed，you need create database first by yourself', $database));
@@ -309,7 +311,7 @@ class InstallProjectCommand extends Command
             exit(0);
         }
 
-        file_put_contents(root_path() . '.env', $dotEnv);
+        file_put_contents(root_path().'.env', $dotEnv);
     }
 
     /**
@@ -319,7 +321,7 @@ class InstallProjectCommand extends Command
      */
     protected function getEnvFile(): string
     {
-        return file_exists(root_path() . '.env') ? root_path() . '.env' : '';
+        return file_exists(root_path().'.env') ? root_path().'.env' : '';
     }
 
 
@@ -348,14 +350,14 @@ class InstallProjectCommand extends Command
 
     protected function reInstall(): void
     {
-        $ask = strtolower($this->output->ask($this->input,'reset project? (Y/N)'));
+        $ask = mb_strtolower($this->output->ask($this->input, 'reset project? (Y/N)'));
 
-        if ($ask === 'y' || $ask === 'yes' ) {
-          $this->migrateRollback();
+        if ($ask === 'y' || $ask === 'yes') {
+            $this->migrateRollback();
 
-          $this->migrateAndSeeds();
+            $this->migrateAndSeeds();
 
-          $this->finished();
+            $this->finished();
         }
     }
 
@@ -367,6 +369,6 @@ class InstallProjectCommand extends Command
      */
     protected function getEnvFilePath()
     {
-        return root_path() . '.env';
+        return root_path().'.env';
     }
 }

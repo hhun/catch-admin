@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher\validates;
 
 class Sometimes implements ValidateInterface
 {
-
     public function type(): string
     {
         // TODO: Implement type() method.
@@ -15,11 +15,11 @@ class Sometimes implements ValidateInterface
     public function verify($value): bool
     {
         // TODO: Implement verify() method.
-        if ($value) {
-            return true;
-        }
+        return (bool) ($value)
 
-        return false;
+
+
+         ;
     }
 
     public function message(): string

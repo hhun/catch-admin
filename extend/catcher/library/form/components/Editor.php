@@ -1,4 +1,5 @@
 <?php
+
 namespace catcher\library\form\components;
 
 use catcher\library\form\Form;
@@ -21,7 +22,7 @@ class Editor extends FormComponent
      * @time 2021年04月11日
      * @return Editor|void
      */
-    protected function init(): Editor
+    protected function init(): self
     {
         return $this->plugins()
                     ->toolbars()
@@ -44,7 +45,7 @@ class Editor extends FormComponent
      * @param array $plugins
      * @return Editor
      */
-    public function plugins(array $plugins = []): Editor
+    public function plugins(array $plugins = []): self
     {
         $this->props([
             'plugins' => count($plugins) ? $plugins : $this->defaultPlugins,
@@ -61,7 +62,7 @@ class Editor extends FormComponent
      * @param array $toolbars
      * @return Editor
      */
-    public function toolbars(array $toolbars = []): Editor
+    public function toolbars(array $toolbars = []): self
     {
         $this->props([
             'toolbar' => count($toolbars) ? $toolbars : $this->defaultToolbars,
@@ -77,7 +78,7 @@ class Editor extends FormComponent
      * @param string $language
      * @return $this
      */
-    public function language(string $language = 'zh'): Editor
+    public function language(string $language = 'zh'): self
     {
         $this->props([
             'language' => $language
@@ -94,7 +95,7 @@ class Editor extends FormComponent
      * @param int $height
      * @return $this
      */
-    public function height(int $height = 500): Editor
+    public function height(int $height = 500): self
     {
         $this->props([
             'height' => $height
@@ -110,7 +111,7 @@ class Editor extends FormComponent
      * @param string $width
      * @return $this
      */
-    public function width($width = 'auto'): Editor
+    public function width($width = 'auto'): self
     {
         $this->props([
             'width' => $width
@@ -126,7 +127,7 @@ class Editor extends FormComponent
      * @param string $content
      * @return $this
      */
-    public function initContent(string $content = ''): Editor
+    public function initContent(string $content = ''): self
     {
         $this->props([
             'initContent' => $content
@@ -142,7 +143,7 @@ class Editor extends FormComponent
      * @param int $size
      * @return $this
      */
-    public function uploadConf(int $size = 10): Editor
+    public function uploadConf(int $size = 10): self
     {
         $this->props([
             'uploadConf' => array_merge([

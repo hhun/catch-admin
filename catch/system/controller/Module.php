@@ -1,11 +1,11 @@
 <?php
+
 namespace catchAdmin\system\controller;
 
 use catchAdmin\permissions\model\Permissions;
 use catcher\base\CatchController;
 use catcher\CatchResponse;
 use catcher\CatchAdmin;
-use catcher\library\InstallCatchModule;
 use catcher\library\InstallLocalModule;
 use catcher\Utils;
 use think\response\Json;
@@ -21,7 +21,7 @@ class Module extends CatchController
     {
         $modules = [];
 
-        foreach(CatchAdmin::getModulesDirectory() as $d) {
+        foreach (CatchAdmin::getModulesDirectory() as $d) {
             $modules[] = CatchAdmin::getModuleInfo($d);
         }
 
@@ -31,9 +31,9 @@ class Module extends CatchController
 
         array_multisort($orders, SORT_DESC, $modules);
 
-        if (!Utils::isSuperAdmin()) {
+        if (! Utils::isSuperAdmin()) {
             foreach ($modules as $k => $module) {
-                if (!in_array($module['alias'], $hasModules)) {
+                if (! in_array($module['alias'], $hasModules)) {
                     unset($modules[$k]);
                 }
             }
@@ -53,10 +53,10 @@ class Module extends CatchController
      */
     public function disOrEnable(string $module): Json
     {
-        $moduleInfo = CatchAdmin::getModuleInfo(CatchAdmin::directory() . $module);
+        $moduleInfo = CatchAdmin::getModuleInfo(CatchAdmin::directory().$module);
 
         $install = new InstallLocalModule($module);
-        if (!$moduleInfo['enable']) {
+        if (! $moduleInfo['enable']) {
             $install->findModuleInPermissions() ? $install->enableModule() : $install->done();
         } else {
             $install->disableModule();
@@ -84,7 +84,7 @@ class Module extends CatchController
      */
     public function clear(): Json
     {
-        return !file_exists(CatchAdmin::getCacheServicesFile()) ?
+        return ! file_exists(CatchAdmin::getCacheServicesFile()) ?
             CatchResponse::fail('模块没有缓存') :
             CatchResponse::success(unlink(CatchAdmin::getCacheServicesFile()));
     }

@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
@@ -9,6 +10,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher\generate\support;
 
 use catcher\exceptions\FailedException;
@@ -56,7 +58,7 @@ class Table
      */
     public static function create(string $primaryKey, string $engine, string $comment): bool
     {
-       self::getTable()
+        self::getTable()
            ->setId($primaryKey)
            ->setPrimaryKey($primaryKey)
            ->setEngine($engine)
@@ -64,7 +66,7 @@ class Table
            ->setCollation('utf8mb4_general_ci')
            ->create();
 
-       return self::exist();
+        return self::exist();
     }
 
     /**
@@ -86,7 +88,7 @@ class Table
      */
     public static function drop(): bool
     {
-        if (!self::exist()) {
+        if (! self::exist()) {
             throw new FailedException(sprintf('table [%s] not exist, drop failed', self::$tableName));
         }
 
@@ -108,7 +110,7 @@ class Table
             $column = $column();
         }
 
-        if (!$column instanceof Column) {
+        if (! $column instanceof Column) {
             throw new FailedException('Column Must Be "think\migration\db\Column');
         }
 
@@ -171,7 +173,7 @@ class Table
     public static function addUniqueIndex($columns)
     {
         self::getTable()->addIndex($columns, [
-            'unique' => true, 'name' => self::$tableName . '_' . (is_string($columns) ? $columns : implode('_', $columns))
+            'unique' => true, 'name' => self::$tableName.'_'.(is_string($columns) ? $columns : implode('_', $columns))
         ])->update();
     }
 
@@ -185,7 +187,7 @@ class Table
     public static function addIndex($columns)
     {
         self::getTable()->addIndex($columns, [
-           'name' => self::$tableName . '_' . (is_string($columns) ? $columns : implode('_', $columns))
+            'name' => self::$tableName.'_'.(is_string($columns) ? $columns : implode('_', $columns))
         ])->update();
     }
 
@@ -200,7 +202,7 @@ class Table
     {
         self::getTable()->addIndex($columns, [
             'type' => 'fulltext',
-            'name' => self::$tableName . '_' . (is_string($columns) ? $columns : implode('_', $columns))
+            'name' => self::$tableName.'_'.(is_string($columns) ? $columns : implode('_', $columns))
         ])->update();
     }
 
@@ -265,31 +267,31 @@ class Table
 
         if (0 == $config['deploy']) {
             $dbConfig = [
-                'adapter'      => $config['type'],
-                'host'         => $config['hostname'],
-                'name'         => $config['database'],
-                'user'         => $config['username'],
-                'pass'         => $config['password'],
-                'port'         => $config['hostport'],
-                'charset'      => $config['charset'],
+                'adapter' => $config['type'],
+                'host' => $config['hostname'],
+                'name' => $config['database'],
+                'user' => $config['username'],
+                'pass' => $config['password'],
+                'port' => $config['hostport'],
+                'charset' => $config['charset'],
                 'table_prefix' => $config['prefix'],
             ];
         } else {
             $dbConfig = [
-                'adapter'      => explode(',', $config['type'])[0],
-                'host'         => explode(',', $config['hostname'])[0],
-                'name'         => explode(',', $config['database'])[0],
-                'user'         => explode(',', $config['username'])[0],
-                'pass'         => explode(',', $config['password'])[0],
-                'port'         => explode(',', $config['hostport'])[0],
-                'charset'      => explode(',', $config['charset'])[0],
+                'adapter' => explode(',', $config['type'])[0],
+                'host' => explode(',', $config['hostname'])[0],
+                'name' => explode(',', $config['database'])[0],
+                'user' => explode(',', $config['username'])[0],
+                'pass' => explode(',', $config['password'])[0],
+                'port' => explode(',', $config['hostport'])[0],
+                'charset' => explode(',', $config['charset'])[0],
                 'table_prefix' => explode(',', $config['prefix'])[0],
             ];
         }
 
         $table = app()->config->get('database.migration_table', 'migrations');
 
-        $dbConfig['default_migration_table'] = $dbConfig['table_prefix'] . $table;
+        $dbConfig['default_migration_table'] = $dbConfig['table_prefix'].$table;
 
         return $dbConfig;
     }

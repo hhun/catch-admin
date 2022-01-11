@@ -1,4 +1,5 @@
 <?php
+
 namespace catcher\generate\factory;
 
 trait HeaderDoc

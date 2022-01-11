@@ -14,7 +14,7 @@ class OperateLog extends \think\Model
     protected $name = 'operate_log';
 
     protected $field = [
-        'id', // 
+        'id', //
         'module', // 模块名称
         'operate', // 操作模块
         'route', // 路由
@@ -22,7 +22,7 @@ class OperateLog extends \think\Model
         'ip', // ip
         'creator_id', // 创建人ID
         'method', // 请求方法
-        'created_at', // 登录时间   
+        'created_at', // 登录时间
     ];
 
     /**

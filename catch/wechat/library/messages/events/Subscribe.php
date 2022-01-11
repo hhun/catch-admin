@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\wechat\library\messages\events;
 
 use catchAdmin\wechat\library\messages\Message;
@@ -36,7 +38,7 @@ class Subscribe extends Message
         $user['unionid'] = $user['unionid'] ?? '';
         $user['created_at'] = time();
         $user['updated_at'] = time();
-        if (!empty($user['tagid_list'])) {
+        if (! empty($user['tagid_list'])) {
             $user['tagid_list'] = trim(implode(',', $user['tagid_list']), ',');
         }
 
@@ -48,5 +50,4 @@ class Subscribe extends Message
 
         return false;
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -20,17 +21,17 @@ use catchAdmin\system\model\Developers as DevelopersModel;
 class Developer extends CatchController
 {
     protected $model;
-    
+
     public function __construct(DevelopersModel $model)
     {
         $this->model = $model;
     }
-    
+
     /**
      * 列表
      *
      * @time 2020/07/13 15:26
-     *  
+     *
      * @return \think\Response
      */
     public function index()
@@ -55,49 +56,47 @@ class Developer extends CatchController
      * 保存
      *
      * @time 2020/07/13 15:26
-     * @param Request Request 
+     * @param Request Request
      * @return \think\Response
      */
     public function save(Request $request)
     {
         return CatchResponse::success($this->model->storeBy($request->post()));
     }
-    
+
     /**
      * 读取
      *
      * @time 2020/07/13 15:26
-     * @param $id 
+     * @param $id
      * @return \think\Response
      */
     public function read($id)
     {
-       return CatchResponse::success($this->model->findBy($id)); 
+        return CatchResponse::success($this->model->findBy($id));
     }
-    
+
     /**
      * 更新
      *
      * @time 2020/07/13 15:26
-     * @param Request $request 
+     * @param Request $request
      * @return \think\Response
      */
     public function update(Request $request, $id)
     {
         return CatchResponse::success($this->model->updateBy($id, $request->post()));
     }
-    
+
     /**
      * 删除
      *
      * @time 2020/07/13 15:26
-     * @param $id 
+     * @param $id
      * @return \think\Response
      */
     public function delete($id)
     {
         return CatchResponse::success($this->model->deleteBy($id));
     }
-    
-    
 }

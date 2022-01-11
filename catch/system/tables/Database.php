@@ -1,11 +1,11 @@
 <?php
+
 namespace catchAdmin\system\tables;
 
 use catcher\CatchTable;
 use catcher\library\table\Actions;
 use catcher\library\table\HeaderItem;
 use catcher\library\table\Search;
-
 
 class Database extends CatchTable
 {

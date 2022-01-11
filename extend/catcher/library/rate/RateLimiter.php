@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 // +----------------------------------------------------------------------
@@ -10,6 +11,7 @@ declare(strict_types=1);
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher\library\rate;
 
 use catcher\exceptions\FailedException;
@@ -70,7 +72,7 @@ class RateLimiter
             $this->addTokens();
         }
 
-        if (!$this->tokens()) {
+        if (! $this->tokens()) {
             throw new FailedException('访问限制');
         }
 
@@ -156,7 +158,7 @@ d     * @return void
     {
         $currentTime = \time();
 
-        $lastAddTokenTime = $this->getRedis()->get($this->key. $this->addTokenTimeKey);
+        $lastAddTokenTime = $this->getRedis()->get($this->key.$this->addTokenTimeKey);
 
         // 如果是满的 则不添加
         if ($this->tokens() == $this->capacity) {
@@ -174,6 +176,6 @@ d     * @return void
      */
     protected function rememberAddTokenTime()
     {
-        $this->getRedis()->set($this->key. $this->addTokenTimeKey, time());
+        $this->getRedis()->set($this->key.$this->addTokenTimeKey, time());
     }
 }

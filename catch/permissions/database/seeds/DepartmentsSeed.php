@@ -16,9 +16,9 @@ class DepartmentsSeed extends Seeder
     {
         $data = [
             [
-            'id' => 1,
-            'department_name' => '总部',
-            'parent_id' => 0,
+                'id' => 1,
+                'department_name' => '总部',
+                'parent_id' => 0,
             ],
             [
                 'id' => 2,

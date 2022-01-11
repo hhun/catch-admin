@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\wechat\repository;
 
 use catchAdmin\wechat\model\WechatReply;
@@ -45,7 +47,7 @@ class WechatReplyRepository extends CatchRepository
         if ($imageUrl) {
             // 音乐
             if ($data['type'] == WechatReply::MUSIC) {
-               $data['media_id'] = $material->uploadThumb($imageUrl)['media_id'];
+                $data['media_id'] = $material->uploadThumb($imageUrl)['media_id'];
             } else {
                 $data['media_id'] = $material->uploadImage($imageUrl)['media_id'];
             }
@@ -106,6 +108,6 @@ class WechatReplyRepository extends CatchRepository
      */
     protected function getLocalPath($url)
     {
-        return $url ? '.' . trim(str_replace(config('filesystem.disks.local.domain'), '', $url)) : '';
+        return $url ? '.'.trim(str_replace(config('filesystem.disks.local.domain'), '', $url)) : '';
     }
 }

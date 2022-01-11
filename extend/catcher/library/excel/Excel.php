@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher\library\excel;
@@ -43,14 +44,14 @@ class Excel
 
         $this->init();
 
-        !is_dir($path) && mkdir($path, 0777, true);
+        ! is_dir($path) && mkdir($path, 0777, true);
 
-        $file = $path . date('YmdHis').Str::random(6) . '.' .$this->extension;
+        $file = $path.date('YmdHis').Str::random(6).'.'.$this->extension;
 
         Factory::make($this->extension, $this->spreadsheet)->save($file);
 
-        if (!file_exists($file)) {
-            throw new FailedException($file . ' generate failed');
+        if (! file_exists($file)) {
+            throw new FailedException($file.' generate failed');
         }
 
         if ($disk) {
@@ -67,7 +68,7 @@ class Excel
      * @param $extension
      * @return $this
      */
-    public function setExtension($extension): Excel
+    public function setExtension($extension): self
     {
         $this->extension = $extension;
 
@@ -107,7 +108,7 @@ class Excel
      */
     protected function setWorksheets()
     {
-        $keys= $this->getKeys();
+        $keys = $this->getKeys();
 
         $isArray = $this->arrayConfirm();
 
@@ -116,24 +117,24 @@ class Excel
         if (empty($keys)) {
             if ($isArray) {
                 foreach ($this->excel->sheets() as $sheet) {
-                    $worksheet->fromArray($sheet, null, $this->start . $this->row);
+                    $worksheet->fromArray($sheet, null, $this->start.$this->row);
                     $this->incRow();
                 }
             } else {
                 foreach ($this->excel->sheets() as $sheet) {
-                    $worksheet->fromArray($sheet->toArray(), null, $this->start . $this->row);
+                    $worksheet->fromArray($sheet->toArray(), null, $this->start.$this->row);
                     $this->incRow();
                 }
             }
         } else {
             if ($isArray) {
                 foreach ($this->excel->sheets() as $sheet) {
-                    $worksheet->fromArray($this->getValuesByKeys($sheet, $keys), null, $this->start . $this->row);
+                    $worksheet->fromArray($this->getValuesByKeys($sheet, $keys), null, $this->start.$this->row);
                     $this->incRow();
                 }
             } else {
                 foreach ($this->excel->sheets() as $sheet) {
-                    $worksheet->fromArray($this->getValuesByKeys($sheet->toArray(), $keys), null, $this->start . $this->row);
+                    $worksheet->fromArray($this->getValuesByKeys($sheet->toArray(), $keys), null, $this->start.$this->row);
                     $this->incRow();
                 }
             }
@@ -197,7 +198,7 @@ class Excel
         $startRow = $this->getStartRow();
 
         foreach ($this->excel->headers() as $k => $header) {
-            $worksheet->getCell($columns[$k] . $startRow)->setValue($header);
+            $worksheet->getCell($columns[$k].$startRow)->setValue($header);
         }
 
         $this->incRow();
@@ -211,7 +212,7 @@ class Excel
      */
     protected function getSpreadsheet()
     {
-        if (!$this->spreadsheet) {
+        if (! $this->spreadsheet) {
             $this->spreadsheet = new Spreadsheet();
         }
 
@@ -244,7 +245,7 @@ class Excel
         if ($disk == 'local') {
             return $this->local($path);
         }
-        $upload = new CatchUpload;
+        $upload = new CatchUpload();
 
         return ($disk ? $upload->setDriver($disk) : $upload)->upload($this->uploadedFile($path));
     }
@@ -258,9 +259,9 @@ class Excel
      */
     protected function local($path)
     {
-        return \config('filesystem.disks.local')['domain'] . '/' .
+        return \config('filesystem.disks.local')['domain'].'/'.
 
-            str_replace(str_replace('\\', '/',Utils::publicPath()), '', str_replace('\\', '/', $path));
+            str_replace(str_replace('\\', '/', Utils::publicPath()), '', str_replace('\\', '/', $path));
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -130,7 +131,7 @@ class Process
      */
     public static function setWorkerName($title)
     {
-        if (strtolower(PHP_OS) === 'linux') {
+        if (mb_strtolower(PHP_OS) === 'linux') {
             cli_set_process_title($title);
         }
     }

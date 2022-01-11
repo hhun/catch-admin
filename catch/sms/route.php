@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -12,9 +13,9 @@
 /* @var think\Route $router */
 
 // you should use `$router`
-$router->group('sms', function () use ($router){
-	// config路由
-	$router->resource('config', '\catchAdmin\sms\controller\Config');
-	// template 路由
-	$router->resource('template', '\catchAdmin\sms\controller\Template');
+$router->group('sms', function () use ($router) {
+    // config路由
+    $router->resource('config', '\catchAdmin\sms\controller\Config');
+    // template 路由
+    $router->resource('template', '\catchAdmin\sms\controller\Template');
 })->middleware('auth');

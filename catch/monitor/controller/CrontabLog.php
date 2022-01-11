@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,12 +9,12 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\monitor\controller;
 
 use catchAdmin\monitor\model\CrontabLog as LogModel;
 use catcher\base\CatchController;
 use catcher\CatchResponse;
-use think\Request;
 
 class CrontabLog extends CatchController
 {

@@ -1,10 +1,9 @@
 <?php
+
 namespace catchAdmin\cms\model\events;
 
 use catchAdmin\cms\model\Articles;
-use catchAdmin\cms\model\BaseModel;
 use catchAdmin\cms\model\Tags;
-use catcher\exceptions\FailedException;
 use catcher\Utils;
 
 trait ArticlesEvent
@@ -65,7 +64,6 @@ trait ArticlesEvent
         $data = $model->getData();
 
         if (isset($data['tags'])) {
-
             $tagIds = self::getTagsId($model);
 
             $article = $model->where($model->getWhere())->find();
@@ -121,7 +119,7 @@ trait ArticlesEvent
             $tagModel = Tags::where('name', $tag)->findOrEmpty();
 
             if ($tagModel->isEmpty()) {
-               $tagIds[] = $tagModel->storeBy([
+                $tagIds[] = $tagModel->storeBy([
                     'name' => $tag
                 ]);
             }

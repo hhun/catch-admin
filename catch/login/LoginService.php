@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,23 +9,23 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\login;
 
 use catcher\ModuleService;
-use think\Service;
 
 class LoginService extends ModuleService
 {
     public function loadRouteFrom()
     {
         // TODO: Implement loadRouteFrom() method.
-        return __DIR__ . DIRECTORY_SEPARATOR . 'route.php';
+        return __DIR__.DIRECTORY_SEPARATOR.'route.php';
     }
 
     public function loadEvents()
     {
         return [
-            'loginLog' => [ LoginLogEvent::class ],
+            'loginLog' => [LoginLogEvent::class],
         ];
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher;
@@ -6,7 +7,6 @@ namespace catcher;
 use catcher\library\excel\Excel;
 use catcher\library\excel\ExcelContract;
 use think\facade\Cache;
-use think\helper\Str;
 use think\model\Collection;
 
 class CatchModelCollection extends Collection
@@ -44,8 +44,7 @@ class CatchModelCollection extends Collection
      */
     public function export($header, string $path = '', string $disk = 'local'): array
     {
-        $excel = new Class($header, $this->items) implements ExcelContract
-        {
+        $excel = new class ($header, $this->items) implements ExcelContract {
             protected $headers;
 
             protected $sheets;
@@ -70,11 +69,11 @@ class CatchModelCollection extends Collection
             }
         };
 
-        if (!$path) {
+        if (! $path) {
             $path = Utils::publicPath('exports');
         }
 
-        return (new Excel)->save($excel, $path, $disk);
+        return (new Excel())->save($excel, $path, $disk);
     }
 
     /**
@@ -103,13 +102,13 @@ class CatchModelCollection extends Collection
      */
     public function getAllChildrenIds(array $ids, string $parentFields = 'parent_id', string $column = 'id'): array
     {
-        array_walk($ids, function (&$item){
+        array_walk($ids, function (&$item) {
             $item = intval($item);
         });
 
         $childIds = $this->whereIn($parentFields, $ids)->column($column);
 
-        if (!empty($childIds)) {
+        if (! empty($childIds)) {
             $childIds = array_merge($childIds, $this->getAllChildrenIds($childIds));
         }
 

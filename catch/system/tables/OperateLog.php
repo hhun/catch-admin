@@ -1,10 +1,10 @@
 <?php
+
 namespace catchAdmin\system\tables;
 
 use catcher\CatchTable;
 use catcher\library\table\HeaderItem;
 use catcher\library\table\Search;
-
 
 class OperateLog extends CatchTable
 {
@@ -41,6 +41,5 @@ class OperateLog extends CatchTable
             ])
             ->selectionChange()
             ->render();
-
     }
 }

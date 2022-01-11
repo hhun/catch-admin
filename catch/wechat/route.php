@@ -11,9 +11,9 @@
 
 /* @var think\Route $router */
 
-$router->group('wechat', function () use ($router){
+$router->group('wechat', function () use ($router) {
     // 公众号粉丝
-    $router->group('official/users', function () use ($router){
+    $router->group('official/users', function () use ($router) {
         $router->get('', '\catchAdmin\wechat\controller\Users@index');
         $router->put('remark/<id>/<remark>', '\catchAdmin\wechat\controller\Users@remark');
         $router->put('block/<id>', '\catchAdmin\wechat\controller\Users@block');
@@ -21,26 +21,26 @@ $router->group('wechat', function () use ($router){
         $router->get('sync', '\catchAdmin\wechat\controller\Users@sync');
     });
     // 粉丝标签
-    $router->group('official/tags', function () use ($router){
+    $router->group('official/tags', function () use ($router) {
         $router->resource('', '\catchAdmin\wechat\controller\Tags');
         $router->get('sync', '\catchAdmin\wechat\controller\Tags@sync');
     });
     // 微信菜单
-    $router->group('official/menus', function () use ($router){
+    $router->group('official/menus', function () use ($router) {
         $router->resource('', '\catchAdmin\wechat\controller\Menus');
         $router->post('sync', '\catchAdmin\wechat\controller\Menus@sync');
     });
     // 图文管理
-    $router->group('official/graphic', function () use ($router){
+    $router->group('official/graphic', function () use ($router) {
         $router->resource('', '\catchAdmin\wechat\controller\Graphic');
     });
     // 微信回复管理
-    $router->group('official/reply', function () use ($router){
+    $router->group('official/reply', function () use ($router) {
         $router->resource('', '\catchAdmin\wechat\controller\Reply');
         $router->put('enable/<id>', '\catchAdmin\wechat\controller\Reply@disOrEnable');
     });
     // 微信上传
-    $router->group('official/upload', function () use ($router){
+    $router->group('official/upload', function () use ($router) {
         $router->post('/image', '\catchAdmin\wechat\controller\Upload@image');
         $router->post('/file', '\catchAdmin\wechat\controller\Upload@file');
     });

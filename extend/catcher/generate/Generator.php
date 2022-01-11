@@ -1,6 +1,6 @@
 <?php
-namespace catcher\generate;
 
+namespace catcher\generate;
 
 use catcher\exceptions\FailedException;
 use catcher\generate\factory\Controller;
@@ -14,8 +14,7 @@ use catcher\Utils;
 
 class Generator
 {
-
-    const NEED_PACKAGE = 'jaguarjack/file-generate';
+    public const NEED_PACKAGE = 'jaguarjack/file-generate';
 
     /**
      * generate
@@ -30,7 +29,7 @@ class Generator
     public function done($params): array
     {
         // 判断是否安装了扩展包
-        if (!(new Composer)->hasPackage(self::NEED_PACKAGE)) {
+        if (! (new Composer())->hasPackage(self::NEED_PACKAGE)) {
             throw new FailedException(
                 sprintf('you must use [ composer require --dev %s:dev-master --ignore-platform-reqs]', self::NEED_PACKAGE)
             );
@@ -46,33 +45,33 @@ class Generator
 
         try {
             if ($params['create_controller']) {
-                $files[] = (new Controller)->done($controller);
+                $files[] = (new Controller())->done($controller);
                 array_push($message, 'controller created successfully');
             }
 
             if ($params['create_table']) {
-                (new SQL)->done($model);
+                (new SQL())->done($model);
                 array_push($message, 'table created successfully');
             }
 
             if ($params['create_model']) {
-                $files[] = (new Model)->done($model);
+                $files[] = (new Model())->done($model);
                 array_push($message, 'model created successfully');
             }
 
             if ($params['create_migration']) {
-                $migration = (new Migration)->done([$controller['module'], $model['table']]);
+                $migration = (new Migration())->done([$controller['module'], $model['table']]);
                 array_push($message, 'migration created successfully');
             }
 
             // 只有创建了 Controller 最后成功才写入 route
             if ($params['create_controller']) {
-                (new Route)->controller($controller['controller'])
+                (new Route())->controller($controller['controller'])
                     ->restful($controller['restful'])
                     ->done();
             }
         } catch (\Throwable $exception) {
-            if (!$exception instanceof TableExistException) {
+            if (! $exception instanceof TableExistException) {
                 $this->rollback($files, $migration);
             }
 
@@ -96,9 +95,9 @@ class Generator
 
         switch ($params['type']) {
             case 'controller':
-                return (new Controller)->getContent($controller);
+                return (new Controller())->getContent($controller);
             case 'model':
-                return (new Model)->getContent($model);
+                return (new Model())->getContent($model);
             default:
                 break;
         }
@@ -116,13 +115,13 @@ class Generator
     {
         $module = $params['controller']['module'] ?? false;
 
-        if (!$module) {
+        if (! $module) {
             throw new FailedException('请设置模块');
         }
 
         $controller = [
             'module' => $module,
-            'model'  => $params['controller']['model'] ?? '',
+            'model' => $params['controller']['model'] ?? '',
             'controller' => $params['controller']['controller'] ?? '',
             'restful' => $params['controller']['restful'],
         ];
@@ -136,7 +135,7 @@ class Generator
         $model = [
             'table' => $table,
             'model' => $params['controller']['model'] ?? '',
-            'sql'   => $params['table_fields'],
+            'sql' => $params['table_fields'],
             'extra' => $params['table_extra'],
         ];
 
@@ -157,7 +156,7 @@ class Generator
     protected function rollback($files, $migration)
     {
         if (Table::exist()) {
-           Table::drop();
+            Table::drop();
         }
 
         foreach ($files as $file) {
@@ -165,7 +164,7 @@ class Generator
         }
 
         if ($migration && unlink($migration)) {
-            $model = new class extends \think\Model {
+            $model = new class () extends \think\Model {
                 protected $name = 'migrations';
             };
 

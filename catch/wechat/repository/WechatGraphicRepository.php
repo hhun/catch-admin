@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\wechat\repository;
 
 use catcher\base\CatchRepository;
@@ -113,11 +115,11 @@ class WechatGraphicRepository extends CatchRepository
     {
         try {
             $this->wechatGraphic->startTrans();
-            if (!parent::deleteBy($id)) {
+            if (! parent::deleteBy($id)) {
                 throw new FailedException('更新失败');
             }
 
-            if ($this->wechatGraphic->where('parent_id', $id)->find() && !$this->wechatGraphic->where('parent_id', $id)->delete()) {
+            if ($this->wechatGraphic->where('parent_id', $id)->find() && ! $this->wechatGraphic->where('parent_id', $id)->delete()) {
                 throw new FailedException('更新失败');
             }
 
@@ -148,7 +150,7 @@ class WechatGraphicRepository extends CatchRepository
     public function deleteBy(int $id)
     {
         if (parent::deleteBy($id)) {
-           return $this->wechatGraphic
+            return $this->wechatGraphic
                         ->where('parent_id', $id)
                         ->delete();
         }

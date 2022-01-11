@@ -8,15 +8,13 @@
  * @copyright By CatchAdmin
  * @license  https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt
  */
+
 namespace catchAdmin\wechat\controller;
 
 use catchAdmin\wechat\library\SyncWechatUsers;
 use catchAdmin\wechat\repository\WechatUsersRepository;
 use catcher\base\CatchController;
 use catcher\CatchResponse;
-use catcher\library\WeChat;
-use catcher\Utils;
-use think\facade\Console;
 use think\Request;
 
 class Users extends CatchController
@@ -74,7 +72,7 @@ class Users extends CatchController
      */
     public function tag($id, Request $request)
     {
-       return CatchResponse::success($this->user->tag($id, $request->post()));
+        return CatchResponse::success($this->user->tag($id, $request->post()));
     }
 
     /**
@@ -91,11 +89,9 @@ class Users extends CatchController
 
     public function subscribe()
     {
-
     }
 
     public function unsubscribe()
     {
-
     }
 }

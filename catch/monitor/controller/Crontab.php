@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -20,29 +21,29 @@ use Cron\CronExpression;
 class Crontab extends CatchController
 {
     protected $model;
-    
+
     public function __construct(CrontabModel $model)
     {
         $this->model = $model;
     }
-    
+
     /**
      * 列表
      *
      * @time 2020/09/14 20:35
-     *  
+     *
      * @return \think\Response
      */
     public function index()
     {
         return CatchResponse::paginate($this->model->getList());
     }
-    
+
     /**
      * 保存
      *
      * @time 2020/09/14 20:35
-     * @param Request Request 
+     * @param Request Request
      * @return \think\Response
      */
     public function save(Request $request)
@@ -51,40 +52,40 @@ class Crontab extends CatchController
 
         return CatchResponse::success($this->model->storeBy($request->post()));
     }
-    
+
     /**
      * 读取
      *
      * @time 2020/09/14 20:35
-     * @param $id 
+     * @param $id
      * @return \think\Response
      */
     public function read($id)
     {
-       return CatchResponse::success($this->model->findBy($id)); 
+        return CatchResponse::success($this->model->findBy($id));
     }
-    
+
     /**
      * 更新
      *
      * @time 2020/09/14 20:35
-     * @param Request $request 
+     * @param Request $request
      * @return \think\Response
      */
     public function update(Request $request, $id)
     {
-        if($request->post('cron')){
+        if ($request->post('cron')) {
             new CronExpression($request->post('cron'));
         }
 
         return CatchResponse::success($this->model->updateBy($id, $request->post()));
     }
-    
+
     /**
      * 删除
      *
      * @time 2020/09/14 20:35
-     * @param $id 
+     * @param $id
      * @return \think\Response
      */
     public function delete($id)
@@ -103,5 +104,4 @@ class Crontab extends CatchController
     {
         return CatchResponse::success($this->model->disOrEnable($id));
     }
-    
 }

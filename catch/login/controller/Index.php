@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\login\controller;
 
 use catchAdmin\login\request\LoginRequest;
@@ -54,7 +55,7 @@ class Index extends CatchController
     {
         $message = $exception->getMessage();
 
-        if (strpos($message, '|') !== false) {
+        if (mb_strpos($message, '|') !== false) {
             $username = explode('|', $message)[1];
         } else {
             $username = $condition['email'];

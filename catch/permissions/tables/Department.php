@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\permissions\tables;
 
 use catchAdmin\permissions\tables\forms\Factory;

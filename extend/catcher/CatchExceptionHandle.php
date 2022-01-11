@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher;
@@ -53,7 +54,7 @@ class CatchExceptionHandle extends Handle
     public function render($request, Throwable $e): Response
     {
         // 其他错误交给系统处理
-        if ($e instanceof \Exception && !$e instanceof CatchException) {
+        if ($e instanceof \Exception && ! $e instanceof CatchException) {
             $e = new FailedException($e->getMessage(), 10005, $e);
         }
 
@@ -70,9 +71,9 @@ class CatchExceptionHandle extends Handle
     protected function renderExceptionContent(Throwable $exception): string
     {
         ob_start();
-        $data = $this->convertExceptionToArray($exception->getPrevious() ? $exception->getPrevious() : $exception);
+        $data = $this->convertExceptionToArray($exception->getPrevious() ?: $exception);
         extract($data);
-        include $this->app->config->get('app.exception_tmpl') ?: __DIR__ . '/../../tpl/think_exception.tpl';
+        include $this->app->config->get('app.exception_tmpl') ?: __DIR__.'/../../tpl/think_exception.tpl';
 
         return ob_get_clean();
     }

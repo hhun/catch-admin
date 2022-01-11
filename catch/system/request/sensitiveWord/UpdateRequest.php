@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\system\request\sensitiveWord;
 
 use catchAdmin\system\model\SensitiveWord;
@@ -14,5 +15,4 @@ class UpdateRequest extends CatchRequest
             'word|词汇' => 'sensitive_word|unique:'.SensitiveWord::class.',word,'.$id,
         ];
     }
-
 }

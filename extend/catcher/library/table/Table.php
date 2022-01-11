@@ -1,6 +1,6 @@
 <?php
-namespace catcher\library\table;
 
+namespace catcher\library\table;
 
 class Table
 {
@@ -168,7 +168,7 @@ class Table
      * @param array $header
      * @return $this
      */
-    public function header(array $header): Table
+    public function header(array $header): self
     {
         foreach ($header as $h) {
             $this->headers[] = $h->attributes;
@@ -184,7 +184,7 @@ class Table
      * @param array $actions
      * @return $this
      */
-    public function withActions(array $actions): Table
+    public function withActions(array $actions): self
     {
         foreach ($actions as $action) {
             $this->actions[] = $action->render();
@@ -200,7 +200,7 @@ class Table
      * @param array $search
      * @return $this
      */
-    public function withSearch(array $search): Table
+    public function withSearch(array $search): self
     {
         $this->search = $search;
 
@@ -214,7 +214,7 @@ class Table
      * @param array $events
      * @return $this
      */
-    public function withEvents(array $events): Table
+    public function withEvents(array $events): self
     {
         $this->events = $events;
 
@@ -229,7 +229,7 @@ class Table
      * @param string $usedModel
      * @return $this
      */
-    public function withUsedModelAndExcel(string $usedModel, array $excel = []): Table
+    public function withUsedModelAndExcel(string $usedModel, array $excel = []): self
     {
         foreach ($excel as $e) {
             $this->excel[] = $e->render();
@@ -247,7 +247,7 @@ class Table
      * @param array $params
      * @return $this
      */
-    public function withDefaultQueryParams(array $params): Table
+    public function withDefaultQueryParams(array $params): self
     {
         $this->defaultQueryParams = $params;
 
@@ -261,7 +261,7 @@ class Table
      * @param array $filterParams
      * @return $this
      */
-    public function withFilterParams(array $filterParams): Table
+    public function withFilterParams(array $filterParams): self
     {
         $this->filterParams = $filterParams;
 
@@ -274,7 +274,7 @@ class Table
      * @time 2021年03月29日
      * @return $this
      */
-    public function withHiddenPaginate(): Table
+    public function withHiddenPaginate(): self
     {
         $this->hidePagination = true;
 
@@ -288,7 +288,7 @@ class Table
      * @param bool $expand
      * @return $this
      */
-    public function expandAll($expand = true): Table
+    public function expandAll($expand = true): self
     {
         $this->defaultExpandAll = $expand;
 
@@ -302,7 +302,7 @@ class Table
      * @param string $apiRoute
      * @return $this
      */
-    public function withApiRoute(string $apiRoute): Table
+    public function withApiRoute(string $apiRoute): self
     {
         $this->apiRoute = $apiRoute;
 
@@ -315,7 +315,7 @@ class Table
      * @time 2021年03月29日
      * @return $this
      */
-    public function withLoading(): Table
+    public function withLoading(): self
     {
         $this->loading = true;
 
@@ -330,7 +330,7 @@ class Table
      * @param string $width
      * @return $this
      */
-    public function withDialogWidth(string $width): Table
+    public function withDialogWidth(string $width): self
     {
         $this->dialog['width'] = $width;
 
@@ -344,7 +344,7 @@ class Table
      * @param string $route
      * @return $this
      */
-    public function withImportRoute(string $route): Table
+    public function withImportRoute(string $route): self
     {
         $this->importRoute = $route;
 
@@ -357,7 +357,7 @@ class Table
      * @time 2021年05月07日
      * @return $this
      */
-    public function withStripe(): Table
+    public function withStripe(): self
     {
         $this->stripe = true;
 
@@ -371,7 +371,7 @@ class Table
      * @param int $height
      * @return $this
      */
-    public function withHeight(int $height): Table
+    public function withHeight(int $height): self
     {
         $this->height = $height;
 
@@ -386,7 +386,7 @@ class Table
      * @param string $type
      * @return $this
      */
-    public function withTips(string $content, string $type = 'success'): Table
+    public function withTips(string $content, string $type = 'success'): self
     {
         $this->tips = [
             'content' => $content,
@@ -403,7 +403,7 @@ class Table
      * @param string $route
      * @return $this
      */
-    public function withExportRoute(string $route): Table
+    public function withExportRoute(string $route): self
     {
         $this->exportRoute = $route;
 
@@ -416,7 +416,7 @@ class Table
      * @time 2021年04月27日
      * @return $this
      */
-    public function withBind(): Table
+    public function withBind(): self
     {
         $this->bind = true;
 
@@ -431,7 +431,7 @@ class Table
      * @param array $props ['children' => '', 'hasChildren' => '']
      * @return $this
      */
-    public function toTreeTable(string $rowKey = 'id', array $props = []): Table
+    public function toTreeTable(string $rowKey = 'id', array $props = []): self
     {
         $this->tree['row_key'] = $rowKey;
 
@@ -449,7 +449,7 @@ class Table
      * @time 2021年04月05日
      * @return $this
      */
-    public function forceUpdate(): Table
+    public function forceUpdate(): self
     {
         $this->forceUpdate = true;
 
@@ -464,11 +464,10 @@ class Table
      */
     public function render(): array
     {
-
         $render = [];
 
         foreach (get_class_vars(self::class) as $property => $v) {
-            if (!empty($this->{$property})) {
+            if (! empty($this->{$property})) {
                 $render[$property] = $this->{$property};
             }
         }
@@ -484,7 +483,7 @@ class Table
      * @param $header
      * @return $this
      */
-    public function appendHeaders($header): Table
+    public function appendHeaders($header): self
     {
         if ($header instanceof HeaderItem) {
             $this->headers[] = $header;
@@ -505,7 +504,7 @@ class Table
      * @param string $param
      * @return $this
      */
-    public function appendDefaultQueryParams(string $param): Table
+    public function appendDefaultQueryParams(string $param): self
     {
         $this->defaultQueryParams[] = $param;
 
@@ -519,7 +518,7 @@ class Table
      * @param array $events
      * @return $this
      */
-    public function appendEvents(array $events): Table
+    public function appendEvents(array $events): self
     {
         $this->events = array_merge($this->events, $events);
 
@@ -533,7 +532,7 @@ class Table
      * @param array $actions
      * @return $this
      */
-    public function appendActions(array $actions): Table
+    public function appendActions(array $actions): self
     {
         $this->actions = array_merge($this->actions, $actions);
 
@@ -547,7 +546,7 @@ class Table
      * @param array $header
      * @return $this
      */
-    public function appendHeader(array $header): Table
+    public function appendHeader(array $header): self
     {
         $this->headers = array_merge($this->headers, $header);
 
@@ -561,7 +560,7 @@ class Table
      * @param array $params
      * @return $this
      */
-    public function appendFilterParams(array $params): Table
+    public function appendFilterParams(array $params): self
     {
         $this->filterParams = array_merge($this->filterParams, $params);
 

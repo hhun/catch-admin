@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher;
@@ -10,14 +11,14 @@ use think\helper\Str;
 
 class Utils
 {
-  /**
-   * 字符串转换成数组
-   *
-   * @time 2019年12月25日
-   * @param string $string
-   * @param string $dep
-   * @return array
-   */
+    /**
+     * 字符串转换成数组
+     *
+     * @time 2019年12月25日
+     * @param string $string
+     * @param string $dep
+     * @return array
+     */
     public static function stringToArrayBy(string  $string, $dep = ','): array
     {
         if (Str::contains($string, $dep)) {
@@ -27,28 +28,28 @@ class Utils
         return [$string];
     }
 
-  /**
-   * 搜索参数
-   *
-   * @time 2020年01月13日
-   * @param array $params
-   * @param array $range
-   * @return array
-   */
+    /**
+     * 搜索参数
+     *
+     * @time 2020年01月13日
+     * @param array $params
+     * @param array $range
+     * @return array
+     */
     public static function filterSearchParams(array $params, array $range = []): array
     {
         $search = [];
 
-        if (!empty($range)) {
-          foreach ($range as $field => $rangeField) {
-            if (count($rangeField) === 1) {
-              $search[$field] = [$params[$rangeField[0]]];
-              unset($params[$rangeField[0]]);
-            } else {
-              $search[$field] = [$params[$rangeField[0]], $params[$rangeField[1]]];
-              unset($params[$rangeField[0]], $params[$rangeField[1]]);
+        if (! empty($range)) {
+            foreach ($range as $field => $rangeField) {
+                if (count($rangeField) === 1) {
+                    $search[$field] = [$params[$rangeField[0]]];
+                    unset($params[$rangeField[0]]);
+                } else {
+                    $search[$field] = [$params[$rangeField[0]], $params[$rangeField[1]]];
+                    unset($params[$rangeField[0]], $params[$rangeField[1]]);
+                }
             }
-          }
         }
 
         return array_merge($search, $params);
@@ -72,7 +73,7 @@ class Utils
             }
 
             $children = $value['children'] ?? false;
-            if($children) {
+            if ($children) {
                 unset($value['children']);
             }
 
@@ -83,7 +84,7 @@ class Utils
                         ->where('permission_mark', $value['permission_mark'])
                         ->find();
 
-            if (!empty($menu)) {
+            if (! empty($menu)) {
                 $id = $menu['id'];
             } else {
                 $id = Db::name($table)->insertGetId($value);
@@ -91,7 +92,7 @@ class Utils
             if ($children) {
                 foreach ($children as &$v) {
                     $v[$pid] = $id;
-                    $v['level'] = !$value[$pid] ? $id : $value['level'] . '-' .$id;
+                    $v['level'] = ! $value[$pid] ? $id : $value['level'].'-'.$id;
                 }
                 self::importTreeData($children, $table, $pid);
             }
@@ -139,7 +140,7 @@ class Utils
             return false;
         }
 
-        return strpos($docComment, config('catch.permissions.method_auth_mark')) !== false;
+        return mb_strpos($docComment, config('catch.permissions.method_auth_mark')) !== false;
     }
 
 
@@ -176,7 +177,7 @@ class Utils
     public static function tableWithPrefix(string $table): string
     {
         return Str::contains($table, self::tablePrefix()) ?
-                    $table : self::tablePrefix() . $table;
+                    $table : self::tablePrefix().$table;
     }
 
     /**
@@ -211,7 +212,7 @@ class Utils
      */
     public static function publicPath(string $path = ''): string
     {
-        return root_path($path ? 'public/'. $path : 'public');
+        return root_path($path ? 'public/'.$path : 'public');
     }
 
 
@@ -225,7 +226,7 @@ class Utils
     public static function filterEmptyValue($data)
     {
         foreach ($data as $k => $v) {
-            if (!$v) {
+            if (! $v) {
                 unset($data[$k]);
             }
         }
@@ -250,12 +251,12 @@ class Utils
 
             $uploadConfigs = $configModel->getConfig($upload->component);
 
-            if (!empty($uploadConfigs)) {
+            if (! empty($uploadConfigs)) {
                 // 读取上传可配置数据
                 foreach ($uploadConfigs as $key => &$config) {
                     // $disk[$key]['type'] = $key;
                     // 腾讯云配置处理
-                    if (strtolower($key) == 'qcloud') {
+                    if (mb_strtolower($key) == 'qcloud') {
                         $config['credentials'] = [
                             'appId' => $config['app_id'] ?? '',
                             'secretKey' => $config['secret_key'] ?? '',
@@ -265,7 +266,7 @@ class Utils
                         $config['read_from_cdn'] = intval($readFromCdn) == 1;
                     }
                     // OSS 配置
-                    if (strtolower($key) == 'oss') {
+                    if (mb_strtolower($key) == 'oss') {
                         $isCname = $config['is_cname'] ?? 0;
                         $config['is_cname'] = intval($isCname) == 1;
                     }
@@ -273,7 +274,7 @@ class Utils
 
                 // 合并数组
                 array_walk($disk, function (&$item, $key) use ($uploadConfigs) {
-                    if (!in_array($key, ['public', 'local'])) {
+                    if (! in_array($key, ['public', 'local'])) {
                         if ($uploadConfigs[$key] ?? false) {
                             foreach ($uploadConfigs[$key] as $k => $value) {
                                 $item[$k] = $value;
@@ -283,10 +284,10 @@ class Utils
                 });
 
 
-                $default = Utils::config('site.upload');
+                $default = self::config('site.upload');
                 // 重新分配配置
                 app()->config->set([
-                    'default' =>  $default ? : 'local',
+                    'default' => $default ?: 'local',
                     'disks' => $disk,
                 ], 'filesystem');
             }

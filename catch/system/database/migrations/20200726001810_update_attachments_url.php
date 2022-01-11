@@ -1,7 +1,6 @@
 <?php
 
 use think\migration\Migrator;
-use think\migration\db\Column;
 
 class UpdateAttachmentsUrl extends Migrator
 {
@@ -31,7 +30,7 @@ class UpdateAttachmentsUrl extends Migrator
         if ($this->hasTable('attachments')) {
             $table = $this->table('attachments');
 
-            $table->changeColumn('url', 'string', ['default'=> '', 'limit' => 255, 'comment'=>'资源地址'])
+            $table->changeColumn('url', 'string', ['default' => '', 'limit' => 255, 'comment' => '资源地址'])
                 ->update();
         }
     }

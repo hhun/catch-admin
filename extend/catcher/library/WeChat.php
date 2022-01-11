@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -10,10 +11,10 @@ declare(strict_types=1);
  * @copyright By CatchAdmin
  * @license  https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt
  */
+
 namespace catcher\library;
 
 use catcher\exceptions\WechatResponseException;
-use catcher\library\Errors;
 use EasyWeChat\Factory;
 use think\helper\Str;
 
@@ -41,7 +42,7 @@ class WeChat
      */
     public static function __callStatic($name, $arguments)
     {// TODO: Implement __callStatic() method.
-        return Factory::{$name}(\config('wechat.'. Str::snake($name)));
+        return Factory::{$name}(\config('wechat.'.Str::snake($name)));
     }
 
     /**
@@ -55,7 +56,7 @@ class WeChat
     public function __call($name, $arguments)
     {
         // TODO: Implement __call() method.
-        return Factory::{$name}(\config('wechat.'. Str::snake($name)));
+        return Factory::{$name}(\config('wechat.'.Str::snake($name)));
     }
 
     /**

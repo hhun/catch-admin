@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -14,19 +15,14 @@
 namespace catchAdmin\cms\controller;
 
 use catcher\base\CatchRequest as Request;
-use catcher\CatchAdmin;
 use catcher\CatchResponse;
 use catcher\base\CatchController;
 use catchAdmin\cms\model\Category as categoryModel;
-use catcher\CatchUpload;
-use catcher\library\excel\reader\Reader;
-use think\Exception;
-use think\facade\Db;
 
 class Category extends CatchController
 {
     protected $categoryModel;
-    
+
     public function __construct(CategoryModel $categoryModel)
     {
         $this->categoryModel = $categoryModel;
@@ -87,5 +83,4 @@ class Category extends CatchController
     {
         return CatchResponse::success($this->categoryModel->deleteBy($id));
     }
-
 }

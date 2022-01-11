@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\system\tables\forms;
 
 use catcher\library\form\FormFactory;

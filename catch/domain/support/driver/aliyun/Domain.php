@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\domain\support\driver\aliyun;
 
 use catchAdmin\domain\support\contract\DomainActionInterface;
@@ -21,7 +23,7 @@ class Domain implements DomainActionInterface
     public function getList(array $params)
     {
         // TODO: Implement getList() method.
-       return Transformer::aliyunDomainPaginate($this->get([
+        return Transformer::aliyunDomainPaginate($this->get([
             'Action' => 'DescribeDomains',
             'StarMark' => true,
             'SearchModel' => 'LIKE',

@@ -1,11 +1,11 @@
 <?php
+
 namespace catchAdmin\cms\model\events;
 
 use catchAdmin\cms\exceptions\ColumnException;
 use catchAdmin\cms\model\Models;
 use catchAdmin\cms\support\Table;
 use catchAdmin\cms\support\TableColumn;
-use catchAdmin\cms\tables\Model;
 use catcher\exceptions\FailedException;
 
 trait ModelFieldsEvent
@@ -21,7 +21,7 @@ trait ModelFieldsEvent
      */
     public static function onBeforeInsert($modelFields)
     {
-        $tableName =  self::getModelTableName($modelFields->getData('model_id'));
+        $tableName = self::getModelTableName($modelFields->getData('model_id'));
 
         if ($tableName && Table::hasColumn($tableName, $modelFields->getData('name'))) {
             throw new ColumnException(sprintf('Column [%s] already exist in Table [%s]', $modelFields->getData('name'), $tableName));
@@ -52,18 +52,18 @@ trait ModelFieldsEvent
     public static function onAfterInsert($modelFields)
     {
         if ($modelFields->getKey()) {
-           try {
-               $tableName =  self::getModelTableName($modelFields->getData('model_id'));
+            try {
+                $tableName = self::getModelTableName($modelFields->getData('model_id'));
 
-               if ($tableName) {
-                  Table::addColumn($tableName, (new TableColumn($modelFields->getData()))->get());
-               }
+                if ($tableName) {
+                    Table::addColumn($tableName, (new TableColumn($modelFields->getData()))->get());
+                }
 
-               self::addIndexForField($tableName, $modelFields->getData('name'), $modelFields->getData('is_index'));
-           } catch (\Exception $e) {
-               $modelFields->delete();
-               throw new FailedException($e->getMessage());
-           }
+                self::addIndexForField($tableName, $modelFields->getData('name'), $modelFields->getData('is_index'));
+            } catch (\Exception $e) {
+                $modelFields->delete();
+                throw new FailedException($e->getMessage());
+            }
         }
     }
 
@@ -79,7 +79,7 @@ trait ModelFieldsEvent
      */
     public static function onAfterUpdate(\think\Model $modelFields)
     {
-        $field =  $modelFields->find($modelFields->getWhere());
+        $field = $modelFields->find($modelFields->getWhere());
 
         self::addIndexForField(self::getModelTableName($field['model_id']), $field['name'], $field['is_index']);
     }
@@ -133,12 +133,12 @@ trait ModelFieldsEvent
      */
     protected static function changeData($data, $update = false)
     {
-        if (isset($data['type']) && !in_array($data['type'], ['string', 'int'])) {
+        if (isset($data['type']) && ! in_array($data['type'], ['string', 'int'])) {
             $data['length'] = 0;
         }
 
         // 更新不会校验
-        if (!$update) {
+        if (! $update) {
             if (Table::hasColumn(self::getModelTableName($data['model_id']), $data['name'])) {
                 throw new ColumnException(sprintf('Column [%s] already exist in Table [%s]', $data['name'], self::getModelTableName($data['model_id'])));
             }

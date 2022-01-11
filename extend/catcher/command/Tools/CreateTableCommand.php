@@ -1,12 +1,11 @@
 <?php
-declare (strict_types = 1);
+
+declare(strict_types=1);
 
 namespace catcher\command\Tools;
 
-use catchAdmin\system\model\SensitiveWord;
 use catcher\CatchAdmin;
 use catcher\facade\FileSystem;
-use catcher\library\Trie;
 use think\console\Command;
 use think\console\Input;
 use think\console\input\Argument;
@@ -35,15 +34,15 @@ class CreateTableCommand extends Command
         $form = $input->getOption('form');
 
         FileSystem::put(
-            CatchAdmin::moduleDirectory($module) . 'tables' . DIRECTORY_SEPARATOR . (ucwords($table) . '.php'),
+            CatchAdmin::moduleDirectory($module).'tables'.DIRECTORY_SEPARATOR.(ucwords($table).'.php'),
             $this->tableTemp($module, ucwords($table), $form)
         );
 
         if (! $form) {
             FileSystem::put(
-                CatchAdmin::moduleDirectory($module) .
-                'tables' . DIRECTORY_SEPARATOR . 'forms' . DIRECTORY_SEPARATOR
-                . (ucwords($table) . '.php'),
+                CatchAdmin::moduleDirectory($module).
+                'tables'.DIRECTORY_SEPARATOR.'forms'.DIRECTORY_SEPARATOR
+                .(ucwords($table).'.php'),
                 $this->formTemp($module, ucwords($table))
             );
         }
@@ -82,12 +81,11 @@ class {$table} extends CatchTable
     
 }
 PHP;
-
     }
 
     protected function formTemp($module, $table)
     {
-            return <<<PHP
+        return <<<PHP
 <?php
 namespace catchAdmin\\{$module}\\tables\\forms;
 
@@ -104,6 +102,5 @@ class {$table} extends Form
     }
 }
 PHP;
-
     }
 }

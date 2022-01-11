@@ -1,7 +1,6 @@
 <?php
 
 use think\migration\Migrator;
-use think\migration\db\Column;
 
 class UserHasRoles extends Migrator
 {
@@ -28,9 +27,9 @@ class UserHasRoles extends Migrator
      */
     public function change()
     {
-        $table  =  $this->table('user_has_roles',['engine'=>'Innodb', 'comment' => '用户角色表', 'signed' => false]);
-        $table->addColumn('uid', 'integer',['comment'=>'用户ID', 'signed' => false])
-            ->addColumn('role_id', 'integer', ['comment'=>'角色ID', 'signed' => false])
+        $table = $this->table('user_has_roles', ['engine' => 'Innodb', 'comment' => '用户角色表', 'signed' => false]);
+        $table->addColumn('uid', 'integer', ['comment' => '用户ID', 'signed' => false])
+            ->addColumn('role_id', 'integer', ['comment' => '角色ID', 'signed' => false])
             ->create();
     }
 }

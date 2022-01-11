@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 // +----------------------------------------------------------------------
@@ -10,6 +11,7 @@ declare(strict_types=1);
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher\library;
 
 use catcher\CatchAdmin;
@@ -52,7 +54,7 @@ class InstallCatchModule
      */
     public function isFirstInstall()
     {
-       return  !FileSystem::exists($this->getInstallPath() . $this->module);
+        return  ! FileSystem::exists($this->getInstallPath().$this->module);
     }
 
     /**
@@ -117,7 +119,7 @@ class InstallCatchModule
      */
     protected function getModuleZip()
     {
-        return $this->downloadPath() . $this->module . '_'. date('YmdHis') . '.zip';
+        return $this->downloadPath().$this->module.'_'.date('YmdHis').'.zip';
     }
 
     /**
@@ -165,9 +167,9 @@ class InstallCatchModule
      */
     protected function downloadPath()
     {
-        $path = runtime_path('catch' . DIRECTORY_SEPARATOR . 'download');
+        $path = runtime_path('catch'.DIRECTORY_SEPARATOR.'download');
 
-        if (!FileSystem::exists($path)) {
+        if (! FileSystem::exists($path)) {
             FileSystem::makeDirectory($path, 0777, true);
         }
 

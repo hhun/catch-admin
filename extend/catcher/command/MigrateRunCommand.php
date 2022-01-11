@@ -1,4 +1,5 @@
 <?php
+
 namespace catcher\command;
 
 use catcher\CatchAdmin;
@@ -19,7 +20,8 @@ class MigrateRunCommand extends Run
             ->addArgument('module', Argument::REQUIRED, 'migrate the module database')
             ->addOption('--target', '-t', InputOption::VALUE_REQUIRED, 'The version number to migrate to')
             ->addOption('--date', '-d', InputOption::VALUE_REQUIRED, 'The date to migrate to')
-            ->setHelp(<<<EOT
+            ->setHelp(
+                <<<EOT
 The <info>migrate:run</info> command runs all available migrations, optionally up to a specific version
 
 <info>php think catch-migrate:run module</info>
@@ -33,9 +35,9 @@ EOT
 
     protected function execute(Input $input, Output $output)
     {
-        $this->module = strtolower($input->getArgument('module'));
+        $this->module = mb_strtolower($input->getArgument('module'));
         $version = $input->getOption('target');
-        $date    = $input->getOption('date');
+        $date = $input->getOption('date');
 
         // run the migrations
         $start = microtime(true);
@@ -49,7 +51,7 @@ EOT
         // 重置 migrations 在循环冲无法重复使用
         $this->migrations = null;
         $output->writeln('');
-        $output->writeln('<comment>All Done. Took ' . sprintf('%.4fs', $end - $start) . '</comment>');
+        $output->writeln('<comment>All Done. Took '.sprintf('%.4fs', $end - $start).'</comment>');
     }
 
     /**

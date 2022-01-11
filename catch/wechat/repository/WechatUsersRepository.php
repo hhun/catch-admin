@@ -8,6 +8,7 @@
  * @copyright By CatchAdmin
  * @license  https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt
  */
+
 namespace catchAdmin\wechat\repository;
 
 use catchAdmin\wechat\model\WechatTags;
@@ -102,7 +103,7 @@ class WechatUsersRepository extends CatchRepository
     public function tag($id, $data)
     {
         $tagIds = Utils::stringToArrayBy($data['tag']);
-            // WechatTags::whereIn('name', Utils::stringToArrayBy($data['tag']))->column('tag_id');
+        // WechatTags::whereIn('name', Utils::stringToArrayBy($data['tag']))->column('tag_id');
 
         $user = $this->findBy($id);
 
@@ -120,7 +121,7 @@ class WechatUsersRepository extends CatchRepository
 
         $officialUserTag = WeChat::officialAccount()->user_tag;
         // 删除标签
-        if (!empty($detachIds)) {
+        if (! empty($detachIds)) {
             foreach ($detachIds as $detachId) {
                 $officialUserTag->untagUsers([$user->openid], $detachId);
             }
@@ -128,7 +129,7 @@ class WechatUsersRepository extends CatchRepository
         }
 
         // 新增标签
-        if (!empty($attachIds)) {
+        if (! empty($attachIds)) {
             foreach ($attachIds as $attachId) {
                 $officialUserTag->tagUsers([$user->openid], $attachId);
             }

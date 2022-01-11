@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\cms\tables\forms;
 
 use catcher\library\form\Form;
@@ -9,7 +10,7 @@ class UsedAt extends Form
     {
         // TODO: Implement fields() method.
         return [
-            
+
         ];
     }
 }

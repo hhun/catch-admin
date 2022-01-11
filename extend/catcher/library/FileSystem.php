@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 // +----------------------------------------------------------------------
@@ -10,6 +11,7 @@ declare(strict_types=1);
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher\library;
 
 use catcher\exceptions\FiledNotFoundException;
@@ -134,7 +136,6 @@ class FileSystem
      */
     public function replace(string $path, string $content)
     {
-
         clearstatcache(true, $path);
 
         $path = realpath($path) ?: $path;
@@ -189,7 +190,7 @@ class FileSystem
             return chmod($path, $mode);
         }
 
-        return substr(sprintf('%o', fileperms($path)), -4);
+        return mb_substr(sprintf('%o', fileperms($path)), -4);
     }
 
     /**
@@ -250,7 +251,7 @@ class FileSystem
      */
     public function link(string $target, string $link)
     {
-        $isWin = strtolower(substr(PHP_OS, 0, 3)) === 'win';
+        $isWin = mb_strtolower(mb_substr(PHP_OS, 0, 3)) === 'win';
         if (! $isWin) {
             return symlink($target, $link);
         }
@@ -428,7 +429,8 @@ class FileSystem
      */
     public function allFiles(string $directory, $hidden = false): array
     {
-        return iterator_to_array(Finder::create()->files()->ignoreDotFiles(! $hidden)->in($directory)->sortByName(),
+        return iterator_to_array(
+            Finder::create()->files()->ignoreDotFiles(! $hidden)->in($directory)->sortByName(),
             false
         );
     }
@@ -509,7 +511,6 @@ class FileSystem
         $items = new \FilesystemIterator($directory, $options);
 
         foreach ($items as $item) {
-
             $target = $destination.'/'.$item->getBasename();
 
             if ($item->isDir()) {
@@ -518,9 +519,7 @@ class FileSystem
                 if (! $this->copyDirectory($path, $target, $options)) {
                     return false;
                 }
-            }
-
-            else {
+            } else {
                 if (! $this->copy($item->getPathname(), $target)) {
                     return false;
                 }
@@ -546,7 +545,6 @@ class FileSystem
         $items = new \FilesystemIterator($directory);
 
         foreach ($items as $item) {
-
             if ($item->isDir() && ! $item->isLink()) {
                 $this->deleteDirectory($item->getPathname());
             } else {

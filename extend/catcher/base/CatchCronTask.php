@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 // +----------------------------------------------------------------------
@@ -10,6 +11,7 @@ declare(strict_types=1);
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher\base;
 
 use catchAdmin\monitor\model\CrontabLog;
@@ -26,14 +28,14 @@ abstract class CatchCronTask
      * @time 2020年07月29日
      * @return mixed
      */
-    public abstract function deal();
+    abstract public function deal();
 
     /**
      * @time 2020年07月29日
      * @param \Throwable $e
      * @return mixed
      */
-    public abstract function dealWithException(\Throwable $e);
+    abstract public function dealWithException(\Throwable $e);
 
     /**
      * 执行
@@ -52,15 +54,13 @@ abstract class CatchCronTask
             return true;
         } catch (\Throwable $e) {
             $this->dealWithException($e);
-            echo sprintf('[%s]: ', date('Y-m-d H:i:s')) . 'File:' . $e->getFile() . ', Lines: '. $e->getLine() .'行，Exception Message: ' . $e->getMessage() . PHP_EOL;
+            echo sprintf('[%s]: ', date('Y-m-d H:i:s')).'File:'.$e->getFile().', Lines: '.$e->getLine().'行，Exception Message: '.$e->getMessage().PHP_EOL;
             // 输出堆栈信息
-            echo sprintf('[%s]: ', date('Y-m-d H:i:s')) . $e->getTraceAsString() . PHP_EOL;
+            echo sprintf('[%s]: ', date('Y-m-d H:i:s')).$e->getTraceAsString().PHP_EOL;
             // 日志记录
-            $this->recordLog($startAt, 'File:' . $e->getFile() . ', Lines: '. $e->getLine() .'行，Exception Message: ' . $e->getMessage());
+            $this->recordLog($startAt, 'File:'.$e->getFile().', Lines: '.$e->getLine().'行，Exception Message: '.$e->getMessage());
             $this->exceptionHappenTimes += 1;
         }
-
-
     }
 
     /**
@@ -81,7 +81,7 @@ abstract class CatchCronTask
      * @param array $crontab
      * @return $this
      */
-    public function setCrontab(array $crontab): CatchCronTask
+    public function setCrontab(array $crontab): self
     {
         $this->crontab = $crontab;
 
@@ -94,7 +94,7 @@ abstract class CatchCronTask
      * @param int $startAt
      * @param string $message
      */
-    protected function recordLog(int $startAt,string $message = '')
+    protected function recordLog(int $startAt, string $message = '')
     {
         $endAt = round(microtime(true) * 1000);
 

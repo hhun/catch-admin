@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\system\controller;
 
 use catcher\base\CatchController;
@@ -29,7 +30,7 @@ class Excel extends CatchController
                         $item[$field['field']] = $options[$item[$field['field']]] ?? '';
                     }
                 }
-        })->export(array_column($fields, 'name'));
+            })->export(array_column($fields, 'name'));
 
         return CatchResponse::success($excel);
     }
@@ -43,12 +44,11 @@ class Excel extends CatchController
      */
     public function import(Request $request): \think\response\Json
     {
-       return CatchResponse::success(app()->make($request->post('model'))
+        return CatchResponse::success(app()->make($request->post('model'))
                 ->import(
                     \json_decode($request->post('fields'), 'field'),
                     $request->file('file')
                 ));
-
     }
 
     /**

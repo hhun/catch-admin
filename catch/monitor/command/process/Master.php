@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -38,7 +39,10 @@ use think\facade\Cache;
  */
 class Master
 {
-    use RegisterSignal, Attributes, Store, ParseTask;
+    use Attributes;
+    use ParseTask;
+    use RegisterSignal;
+    use Store;
 
     /**
      * 保存子进程 PID
@@ -119,11 +123,11 @@ class Master
             // 初始化进程池
             $this->initWorkers();
             // 设置进程名称
-            Process::setWorkerName($this->name . ' master');
+            Process::setWorkerName($this->name.' master');
             // 注册信号
             $this->registerSignal();
             // 写入进程状态
-            $this->setWorkerStatus($this->name . ' master');
+            $this->setWorkerStatus($this->name.' master');
             // 信号发送
             while (true) {
                 Process::dispatch();
@@ -138,12 +142,12 @@ class Master
                         // 真实的 exit code  pcntl_wexitstatus 函数获取
                         // exit code > 0 都是由于异常导致的
                         $exitCode = pcntl_wexitstatus($status);
-                        if (!in_array($exitCode, [255, 250])) {
+                        if (! in_array($exitCode, [255, 250])) {
                             $this->forkStatic();
                         }
                     }
                     // 如果静态工作进程全部退出，会发生 CPU 空转，所以这里需要 sleep 1
-                    if (!count($this->workerIds)) {
+                    if (! count($this->workerIds)) {
                         // sleep(1);
                         self::exitMasterDo();
                         exit(0);
@@ -154,7 +158,7 @@ class Master
             }
         } catch (\Throwable $exception) {
             // todo
-            echo sprintf('[%s]: ', date('Y-m-d H:i:s')) . $exception->getMessage();
+            echo sprintf('[%s]: ', date('Y-m-d H:i:s')).$exception->getMessage();
         }
     }
 
@@ -203,7 +207,7 @@ class Master
     {
         $process = new Process(function (Process $process) {
             $redis = $this->getRedisHandle();
-            while($crontab = $redis->rpop($this->crontabQueueName)) {
+            while ($crontab = $redis->rpop($this->crontabQueueName)) {
                 $task = $this->getTaskObject(\json_decode($crontab, true));
                 $task->run();
             }
@@ -227,7 +231,7 @@ class Master
         $process = new Process(function (Process $process) {
             $process->initMemory();
 
-            $name = $this->name . ' worker';
+            $name = $this->name.' worker';
             $this->setWorkerStatus($name, $this->dealNum, $this->status);
 
             Process::setWorkerName($name);
@@ -285,7 +289,7 @@ class Master
      */
     protected function dup()
     {
-        if (!$this->daemon) {
+        if (! $this->daemon) {
             return;
         }
 
@@ -299,7 +303,7 @@ class Master
         // 重定向输出&错误
         $stdoutPath = self::$stdout ?: self::stdoutPath();
 
-        !file_exists($stdoutPath) && touch($stdoutPath);
+        ! file_exists($stdoutPath) && touch($stdoutPath);
         // 等待 100 毫秒
         usleep(100 * 1000);
 
@@ -307,7 +311,7 @@ class Master
 
         $stderr = fopen($stdoutPath, 'a');
 
-        return;
+
     }
 
     /**
@@ -318,7 +322,7 @@ class Master
      */
     public function output()
     {
-        $isShowCtrlC = $this->daemon ? '' : 'Ctrl+c to stop' . "\r\n";
+        $isShowCtrlC = $this->daemon ? '' : 'Ctrl+c to stop'."\r\n";
 
         $info = <<<EOT
  ---------------------------------------------------------------- 🚀                                                

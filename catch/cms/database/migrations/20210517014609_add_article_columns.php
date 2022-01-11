@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -10,7 +11,6 @@
 // +----------------------------------------------------------------------
 
 use think\migration\Migrator;
-use think\migration\db\Column;
 
 class AddArticleColumns extends Migrator
 {
@@ -44,14 +44,14 @@ class AddArticleColumns extends Migrator
                 'default' => 1,
                 'comment' => '文章权重',
                 'after' => 'status'
-                ])->update();
+            ])->update();
 
             $table->addColumn('cover', 'string', [
-                    'limit' => 255,
-                    'default' => '',
-                    'comment' => '封面地址',
-                    'after' => 'category_id'
-                ])->update();
+                'limit' => 255,
+                'default' => '',
+                'comment' => '封面地址',
+                'after' => 'category_id'
+            ])->update();
         }
     }
 }

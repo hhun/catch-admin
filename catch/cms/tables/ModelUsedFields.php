@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\cms\tables;
 
 use catcher\CatchTable;
@@ -9,7 +10,7 @@ class ModelUsedFields extends CatchTable
     public function table()
     {
         // TODO: Implement table() method.
-       return [];
+        return [];
     }
 
     protected function form()
@@ -17,5 +18,4 @@ class ModelUsedFields extends CatchTable
         // TODO: Implement form() method.
         return Factory::create('ModelUsedFields');
     }
-    
 }

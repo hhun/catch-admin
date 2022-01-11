@@ -8,9 +8,7 @@ use think\console\Command;
 use think\console\Input;
 use think\console\input\Argument;
 use think\console\input\Option;
-use think\console\input\Option as InputOption;
 use think\console\Output;
-use think\facade\Db;
 use think\helper\Str;
 
 class ModelGeneratorCommand extends Command
@@ -27,7 +25,7 @@ class ModelGeneratorCommand extends Command
     protected function execute(Input $input, Output $output)
     {
         $model = ucfirst($input->getArgument('model'));
-        $module = strtolower($input->getArgument('module'));
+        $module = mb_strtolower($input->getArgument('module'));
         $softDelete = $input->getOption('softDelete');
 
         $params = [
@@ -38,7 +36,7 @@ class ModelGeneratorCommand extends Command
             ],
         ];
 
-        $modelFile= CatchAdmin::getModuleModelDirectory($module) . $model . '.php';
+        $modelFile = CatchAdmin::getModuleModelDirectory($module).$model.'.php';
 
         $asn = 'Y';
 
@@ -46,7 +44,7 @@ class ModelGeneratorCommand extends Command
             $asn = $this->output->ask($this->input, "Model File {$model} already exists.Are you sure to overwrite, the content will be lost(Y/N)");
         }
 
-        if (strtolower($asn) == 'n') {
+        if (mb_strtolower($asn) == 'n') {
             exit(0);
         }
 

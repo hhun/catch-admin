@@ -1,9 +1,9 @@
 <?php
+
 namespace catchAdmin\system\model;
 
 use catcher\base\CatchModel;
 use catcher\exceptions\FailedException;
-use thans\jwt\exception\UserNotDefinedException;
 use think\Model;
 
 class Config extends CatchModel
@@ -13,17 +13,17 @@ class Config extends CatchModel
     protected $pk = 'id';
 
     protected $field = [
-        'id', // 
-		'name', // 配置名称
-		'pid', // 父级配置
-		'key', // 配置键名
-		'value', // 配置键值
+        'id', //
+        'name', // 配置名称
+        'pid', // 父级配置
+        'key', // 配置键名
+        'value', // 配置键值
         'component', // 组件
-		'status', // 1 启用 2 禁用
-		'creator_id', // 创建人
-		'created_at', // 创建时间
-		'updated_at', // 更新时间
-		'deleted_at', // 删除时间   
+        'status', // 1 启用 2 禁用
+        'creator_id', // 创建人
+        'created_at', // 创建时间
+        'updated_at', // 更新时间
+        'deleted_at', // 删除时间
     ];
 
     /**
@@ -57,7 +57,7 @@ class Config extends CatchModel
         }
 
         $parent = $data['parent'] ?? false;
-        if (!$parent) {
+        if (! $parent) {
             throw new FailedException('父配置丢失');
         }
         unset($data['parent']);
@@ -66,9 +66,9 @@ class Config extends CatchModel
         $config = [];
         foreach ($data as $key => $item) {
             foreach ($item as $k => $value) {
-                $config[$key . '.' .$k] = [
+                $config[$key.'.'.$k] = [
                     'pid' => $parentConfig['id'],
-                    'key' => $key . '.' . $k,
+                    'key' => $key.'.'.$k,
                     'value' => $value,
                     'created_at' => time(),
                     'updated_at' => time(),
@@ -78,14 +78,14 @@ class Config extends CatchModel
 
         $this->where('pid', $parentConfig->id)
            ->select()
-           ->each(function ($item) use (&$config){
+           ->each(function ($item) use (&$config) {
                if (isset($config[$item['key']])) {
-                  if ($config[$item['key']]['value'] != $item->value) {
-                      $item['value'] = $config[$item['key']]['value'];
-                      $item->save();
-                  }
+                   if ($config[$item['key']]['value'] != $item->value) {
+                       $item['value'] = $config[$item['key']]['value'];
+                       $item->save();
+                   }
                    unset($config[$item['key']]);
-              }
+               }
            });
 
         if (count($config)) {
@@ -149,7 +149,7 @@ class Config extends CatchModel
                       ->select();
 
         foreach ($configs as $config) {
-            if (strpos($config['k'], '.') !== false) {
+            if (mb_strpos($config['k'], '.') !== false) {
                 list($object, $key) = explode('.', $config['k']);
                 $data[$object][$key] = $config['value'];
             }

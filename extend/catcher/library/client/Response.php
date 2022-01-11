@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher\library\client;
-
 
 use GuzzleHttp\Promise\Promise;
 
@@ -52,7 +52,7 @@ class Response implements \ArrayAccess
      * @time 2020年05月21日
      * @return array
      */
-    public function json():array
+    public function json(): array
     {
         return \json_decode($this->contents(), true);
     }
@@ -62,7 +62,7 @@ class Response implements \ArrayAccess
      * @time 2020年05月21日
      * @return int
      */
-    public function status():int
+    public function status(): int
     {
         return $this->response->getStatusCode();
     }
@@ -72,7 +72,7 @@ class Response implements \ArrayAccess
      * @time 2020年05月21日
      * @return bool
      */
-    public function ok():bool
+    public function ok(): bool
     {
         return $this->status() == 200;
     }
@@ -82,7 +82,7 @@ class Response implements \ArrayAccess
      * @time 2020年05月21日
      * @return bool
      */
-    public function successful():bool
+    public function successful(): bool
     {
         return $this->status() >= 200 && $this->status() < 300;
     }
@@ -92,7 +92,7 @@ class Response implements \ArrayAccess
      * @time 2020年05月21日
      * @return bool
      */
-    public function failed():bool
+    public function failed(): bool
     {
         return $this->status() >= 400;
     }

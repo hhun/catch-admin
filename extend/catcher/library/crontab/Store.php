@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher\library\crontab;
 
 trait Store
@@ -87,7 +89,7 @@ trait Store
     {
         $path = config('catch.schedule.store_path');
 
-        if (!is_dir($path)) {
+        if (! is_dir($path)) {
             mkdir($path, 0777, true);
         }
 
@@ -103,7 +105,7 @@ trait Store
      */
     protected function getSaveProcessStatusFile()
     {
-        return $this->schedulePath() . '.worker-status';
+        return $this->schedulePath().'.worker-status';
     }
 
     /**

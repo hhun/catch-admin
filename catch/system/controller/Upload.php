@@ -8,6 +8,7 @@
  * @copyright By CatchAdmin
  * @license  https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt
  */
+
 namespace catchAdmin\system\controller;
 
 use catchAdmin\system\model\Attachments;
@@ -26,19 +27,19 @@ class Upload extends CatchController
         $this->attachment = $attachment;
     }
 
-  /**
-   * image upload
-   *
-   * @time 2020年01月25日
-   * @param CatchRequest $request
-   * @param CatchUpload $upload
-   * @return \think\response\Json
-   */
+    /**
+     * image upload
+     *
+     * @time 2020年01月25日
+     * @param CatchRequest $request
+     * @param CatchUpload $upload
+     * @return \think\response\Json
+     */
     public function image(CatchRequest $request, CatchUpload $upload): \think\response\Json
     {
         $images = array_values($request->file());
 
-        if (!count($images)) {
+        if (! count($images)) {
             throw new FailedException('请选择图片上传');
         }
 
@@ -47,14 +48,14 @@ class Upload extends CatchController
         ));
     }
 
-  /**
-   * file upload
-   *
-   * @time 2020年01月25日
-   * @param CatchRequest $request
-   * @param CatchUpload $upload
-   * @return \think\response\Json
-   */
+    /**
+     * file upload
+     *
+     * @time 2020年01月25日
+     * @param CatchRequest $request
+     * @param CatchUpload $upload
+     * @return \think\response\Json
+     */
     public function file(CatchRequest $request, CatchUpload $upload): \think\response\Json
     {
         $files = $request->file();

@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\permissions\middleware;
 
 use app\Request;
@@ -30,7 +31,7 @@ class PermissionsMiddleware
     {
         $rule = $request->rule()->getName();
 
-        if (!$rule) {
+        if (! $rule) {
             return $next($request);
         }
 
@@ -43,7 +44,7 @@ class PermissionsMiddleware
         }
         // 用户未登录
         $user = $request->user();
-        if (!$user) {
+        if (! $user) {
             throw new PermissionForbiddenException('Login is invalid', Code::LOST_LOGIN);
         }
         // 超级管理员
@@ -58,9 +59,9 @@ class PermissionsMiddleware
         $permission = property_exists($request, 'permission') ? $request->permission :
                         $this->getPermission($module, $controller, $action);
 
-        $permissionIds = Cache::get(CatchCacheKeys::USER_PERMISSIONS . $user->id);
-        if (!$permission || ! in_array($permission->id, (array)$permissionIds)) {
-          throw new PermissionForbiddenException();
+        $permissionIds = Cache::get(CatchCacheKeys::USER_PERMISSIONS.$user->id);
+        if (! $permission || ! in_array($permission->id, (array) $permissionIds)) {
+            throw new PermissionForbiddenException();
         }
 
         return $next($request);

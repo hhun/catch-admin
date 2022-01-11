@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\cms\support;
 
 use catchAdmin\cms\model\ModelAuxiliaryTable;
@@ -26,7 +27,7 @@ class AuxiliaryTable
      * @throws \think\db\exception\ModelNotFoundException
      * @return string
      */
-    public  function create(int $modelId): string
+    public function create(int $modelId): string
     {
         try {
             // 查询主表名称
@@ -35,12 +36,12 @@ class AuxiliaryTable
             $auxiliaryTables = ModelAuxiliaryTable::where('model_id', $modelId)->select();
             // 目前最多允许创建 10 个副表
             if ($auxiliaryTables->count() > count($this->suffixes)) {
-                throw new FailedException('最多只允许创建 ' . count($this->suffixes) . ' 个副表');
+                throw new FailedException('最多只允许创建 '.count($this->suffixes).' 个副表');
             }
             $defaultUsed = ModelAuxiliaryTable::NOT_USE;
             // 如果模型还没有关联的副表
             // 默认创建副表
-            if (!$auxiliaryTables->count()) {
+            if (! $auxiliaryTables->count()) {
                 $defaultUsed = ModelAuxiliaryTable::USED;
 
                 $this->auxiliaryTableName = $this->getName($tableName, array_shift($this->suffixes));
@@ -89,9 +90,9 @@ class AuxiliaryTable
      */
     public function getUsedAuxiliaryTable(int $modelId)
     {
-       $auxiliaryTable = app(ModelAuxiliaryTable::class)->getUsed($modelId);
+        $auxiliaryTable = app(ModelAuxiliaryTable::class)->getUsed($modelId);
 
-       return $auxiliaryTable ? $auxiliaryTable->table_name : null;
+        return $auxiliaryTable ? $auxiliaryTable->table_name : null;
     }
 
 
@@ -105,9 +106,6 @@ class AuxiliaryTable
      */
     protected function getName(string $mainTable, string $suffix): string
     {
-        return $mainTable . '_relate_' . $suffix;
+        return $mainTable.'_relate_'.$suffix;
     }
-
-
-
 }

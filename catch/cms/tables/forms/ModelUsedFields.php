@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\cms\tables\forms;
 
 use catchAdmin\cms\model\Models;
@@ -23,7 +24,7 @@ class ModelUsedFields extends Form
                 ->style(['width' => '100%'])
                 ->options($fields),
 
-            self::select('used_at_search', '搜索使用' , $model->used_at_search ? explode(',', $model->used_at_search) : '')
+            self::select('used_at_search', '搜索使用', $model->used_at_search ? explode(',', $model->used_at_search) : '')
                 ->multiple(true)
                 ->style(['width' => '100%'])
                 ->options($fields),

@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\system\request\sensitiveWord;
 
 use catchAdmin\system\model\SensitiveWord;

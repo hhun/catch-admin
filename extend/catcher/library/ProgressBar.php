@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -10,6 +11,7 @@ declare(strict_types=1);
  * @copyright By CatchAdmin
  * @license  https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt
  */
+
  namespace catcher\library;
 
  use think\console\Output;
@@ -24,7 +26,7 @@ declare(strict_types=1);
 
      protected $header = '[x] ';
 
-     protected $length= 100;
+     protected $length = 100;
 
      protected $average;
 
@@ -34,7 +36,7 @@ declare(strict_types=1);
 
          $this->total = $total;
 
-         $this->average = $this->length/$total;
+         $this->average = $this->length / $total;
      }
 
      /**
@@ -45,7 +47,7 @@ declare(strict_types=1);
       */
      public function start()
      {
-        $this->write();
+         $this->write();
      }
 
      /**
@@ -70,9 +72,9 @@ declare(strict_types=1);
       */
      public function finished()
      {
-        $this->write(true);
+         $this->write(true);
 
-        $this->current = 1;
+         $this->current = 1;
      }
 
      /**
@@ -84,10 +86,9 @@ declare(strict_types=1);
       */
      protected function write($end = false)
      {
+         $bar = $this->bar().($end ? '' : "\r");
 
-        $bar = $this->bar()  . ($end ? '' : "\r");
-
-        $this->output->write(sprintf('<info>%s</info>', $bar), false);
+         $this->output->write(sprintf('<info>%s</info>', $bar), false);
      }
 
      /**
@@ -104,9 +105,9 @@ declare(strict_types=1);
 
          $bar = str_repeat('>', intval($this->current * $this->average));
 
-         $percent = ((int)(sprintf('%.2f', $this->current/$this->total) * 100)) . '%';
+         $percent = ((int) (sprintf('%.2f', $this->current / $this->total) * 100)).'%';
 
-         return $this->header . $bar . $empty . ' ' . $percent;
+         return $this->header.$bar.$empty.' '.$percent;
      }
 
      /**

@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\wechat\controller;
 
 use catchAdmin\wechat\repository\WechatReplyRepository;
@@ -45,7 +47,7 @@ class Reply extends CatchController
      */
     public function read($id)
     {
-       return CatchResponse::success($this->reply->findBy($id));
+        return CatchResponse::success($this->reply->findBy($id));
     }
 
     /**

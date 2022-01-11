@@ -18,7 +18,7 @@ class Actions
      */
     public static function create(string $text = '新建', string $event = 'handleCreate'): Button
     {
-        return self::normal($text, 'primary',$event)->icon('el-icon-plus');
+        return self::normal($text, 'primary', $event)->icon('el-icon-plus');
     }
 
     /**
@@ -72,7 +72,7 @@ class Actions
      */
     public static function normal(string $text, $type = '', string $event = null, string $icon = ''): Button
     {
-        $button = (new Button)
+        $button = (new Button())
             ->size('mini')
             ->type($type)
             ->icon($icon)
@@ -94,7 +94,7 @@ class Actions
      */
     public static function export(): Button
     {
-        return self::normal('导出', 'success','handleExport')->icon('el-icon-download');
+        return self::normal('导出', 'success', 'handleExport')->icon('el-icon-download');
     }
 
     /**
@@ -107,5 +107,4 @@ class Actions
     {
         return self::normal('导入', 'warning', 'handleImport')->icon('el-icon-upload2');
     }
-
 }

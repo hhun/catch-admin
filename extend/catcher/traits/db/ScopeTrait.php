@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -10,6 +11,7 @@ declare(strict_types=1);
  * @copyright By CatchAdmin
  * @license  https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt
  */
+
 namespace catcher\traits\db;
 
 use catchAdmin\permissions\model\Users;
@@ -28,7 +30,7 @@ trait ScopeTrait
         if (property_exists($this, 'field') && in_array('creator_id', $this->field)) {
             return $query->addSelectSub(function () {
                 $user = app(Users::class);
-                return $user->whereColumn($this->getTable() . '.creator_id', $user->getTable() . '.id')
+                return $user->whereColumn($this->getTable().'.creator_id', $user->getTable().'.id')
                     ->field('username');
             }, 'creator');
         }

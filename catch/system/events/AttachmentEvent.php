@@ -1,6 +1,6 @@
 <?php
-namespace catchAdmin\system\events;
 
+namespace catchAdmin\system\events;
 
 use catchAdmin\system\model\Attachments;
 

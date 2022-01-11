@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -21,19 +22,17 @@ class WechatMenus extends Model
     protected $name = 'wechat_menus';
 
     protected $field = [
-        'id', // 
-		'name', // 菜单名称
-		'parent_id', // 父级ID
-		'type', // 类型
-		'key', // key
-		'url', // view 类型  url 链接
-		'appid', // 小程序 appid
-		'pagepath', // 小程序页面
-		'media_id', // 调用新增永久素材接口返回的合法media_id
-		'created_at', // 创建时间
-		'updated_at', // 更新时间
-		'deleted_at', // 软删除
+        'id', //
+        'name', // 菜单名称
+        'parent_id', // 父级ID
+        'type', // 类型
+        'key', // key
+        'url', // view 类型  url 链接
+        'appid', // 小程序 appid
+        'pagepath', // 小程序页面
+        'media_id', // 调用新增永久素材接口返回的合法media_id
+        'created_at', // 创建时间
+        'updated_at', // 更新时间
+        'deleted_at', // 软删除
     ];
-    
-  
 }

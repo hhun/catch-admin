@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher\library\crontab;
 
 use Cron\CronExpression;
@@ -116,10 +118,9 @@ class Cron
 
         if ($this->expression) {
             $cron = CronExpression::factory($this->expression);
-            return $cron->getNextRunDate(date('Y-m-d H:i:s'), 0 , true)->getTimestamp() == time();
+            return $cron->getNextRunDate(date('Y-m-d H:i:s'), 0, true)->getTimestamp() == time();
         }
 
         return  false;
     }
-
 }

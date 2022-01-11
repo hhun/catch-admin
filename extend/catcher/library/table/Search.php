@@ -1,7 +1,7 @@
 <?php
+
 namespace catcher\library\table;
 
-use catcher\base\CatchModel;
 use catcher\enums\Status;
 use FormBuilder\UI\Elm\Components\Input;
 use FormBuilder\UI\Elm\Components\Select;
@@ -12,7 +12,7 @@ class Search
 {
     protected static $label = '';
 
-    public static function label(string $label): Search
+    public static function label(string $label): self
     {
         self::$label = $label;
 
@@ -28,7 +28,7 @@ class Search
      */
     public static function name(string $placeholder): Input
     {
-       return Form::input('name', self::$label)->placeholder($placeholder);
+        return Form::input('name', self::$label)->placeholder($placeholder);
     }
 
     /**
@@ -40,10 +40,10 @@ class Search
      */
     public static function status(string $placeholder = '请选择状态'): Select
     {
-      return self::select('status', $placeholder, [
-                          [ 'value' => Status::Enable, 'label'=> ' 正常'],
-                          [ 'value' => Status::Disable, 'label'=> ' 禁用']
-                      ]);
+        return self::select('status', $placeholder, [
+            ['value' => Status::Enable, 'label' => ' 正常'],
+            ['value' => Status::Disable, 'label' => ' 禁用']
+        ]);
     }
 
     /**
@@ -55,7 +55,7 @@ class Search
      */
     public static function startAt(string $placeholder = '请选择开始时间'): DatePicker
     {
-        return self::label(self::$label ? : '开始时间')->datetime('start_at', $placeholder);
+        return self::label(self::$label ?: '开始时间')->datetime('start_at', $placeholder);
     }
 
     /**
@@ -67,7 +67,7 @@ class Search
      */
     public static function endAt(string $placeholder = '请选择结束时间'): DatePicker
     {
-        return self::label(self::$label ? : '结束时间')->datetime('end_at', $placeholder);
+        return self::label(self::$label ?: '结束时间')->datetime('end_at', $placeholder);
     }
 
     /**

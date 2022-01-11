@@ -1,4 +1,5 @@
 <?php
+
 namespace catcher\generate\factory;
 
 use catcher\facade\FileSystem;
@@ -21,7 +22,7 @@ class Route extends Factory
 
     protected $methods = [];
 
-    const VARIABLE_ST = 'scapegoat';
+    public const VARIABLE_ST = 'scapegoat';
 
     /**
      * 实现
@@ -33,12 +34,12 @@ class Route extends Factory
      */
     public function done(array $params = [])
     {
-        $router = $this->getModulePath($this->controller) . DIRECTORY_SEPARATOR . 'route.php';
+        $router = $this->getModulePath($this->controller).DIRECTORY_SEPARATOR.'route.php';
 
         $content = $this->generateRoute($router);
 
-        $content = '<?php' . PHP_EOL .
-            trim(str_replace(['$scapegoat ='], [''], $content), ';') . ';';
+        $content = '<?php'.PHP_EOL.
+            trim(str_replace(['$scapegoat ='], [''], $content), ';').';';
 
         if (! file_exists($router)) {
             return FileSystem::put($router, $content);
@@ -68,13 +69,15 @@ class Route extends Factory
             ]), sprintf('// %s 路由', $this->controllerName));
         }
 
-        if (!empty($this->methods)) {
+        if (! empty($this->methods)) {
             foreach ($this->methods as $method) {
-                $stmts[] = Define::variable(self::VARIABLE_ST,
+                $stmts[] = Define::variable(
+                    self::VARIABLE_ST,
                     $generate->methodCall(['router', $method[1]], [
-                    Value::fetch(sprintf('%s/%s',  $this->controllerName, $method[0])),
-                    Value::fetch(sprintf('%s@%s',  $this->controller, $method[0]))
-                ]));
+                        Value::fetch(sprintf('%s/%s', $this->controllerName, $method[0])),
+                        Value::fetch(sprintf('%s@%s', $this->controller, $method[0]))
+                    ])
+                );
             }
         }
 
@@ -97,16 +100,17 @@ class Route extends Factory
             $stmts = $this->parseRouteMethods();
 
             $expr = Define::variable(self::VARIABLE_ST, $generate->call(
-                            $generate->methodCall(['router', 'group'], [
-                                Value::fetch($this->module),
-                                $generate->closure()->uses('router')->body($stmts)
-                             ]))
+                $generate->methodCall(['router', 'group'], [
+                    Value::fetch($this->module),
+                    $generate->closure()->uses('router')->body($stmts)
+                ])
+            )
                         ->call('middleware', [Value::fetch('auth')])
-                        ->call(),   $this->header() . PHP_EOL . '/* @var \think\Route $router */');
+                        ->call(), $this->header().PHP_EOL.'/* @var \think\Route $router */');
 
             return $generate->getContent([$expr]);
         } else {
-            $factory = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
+            $factory = (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
 
             $ast = $factory->parse(file_get_contents($router));
 
@@ -133,7 +137,7 @@ class Route extends Factory
      * @param $class
      * @return $this
      */
-    public function controller($class): Route
+    public function controller($class): self
     {
         $this->controller = $class;
 
@@ -155,7 +159,7 @@ class Route extends Factory
      * @param $restful
      * @return $this
      */
-    public function restful($restful): Route
+    public function restful($restful): self
     {
         $this->restful = $restful;
 
@@ -169,7 +173,7 @@ class Route extends Factory
      * @param $methods
      * @return $this
      */
-    public function methods($methods): Route
+    public function methods($methods): self
     {
         $this->methods = $methods;
 

@@ -1,14 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher\library\client;
 
-use catcher\exceptions\FailedException;
 use GuzzleHttp\Client;
-use GuzzleHttp\Promise\Promise;
-use GuzzleHttp\TransferStats;
-use Psr\Http\Message\ResponseInterface;
-use function GuzzleHttp\Psr7\stream_for;
 
 class Http
 {
@@ -107,8 +103,8 @@ class Http
      */
     public function getClient()
     {
-        if (!$this->client) {
-            $this->client = new Client;
+        if (! $this->client) {
+            $this->client = new Client();
         }
 
         return $this->client;
@@ -123,10 +119,9 @@ class Http
      */
     public function headers(array $headers)
     {
-
         $this->header = isset($this->header['headers']) ?
                             array_merge($this->header['headers'], $headers) :
-                            [ 'headers' => $headers ];
+                            ['headers' => $headers];
 
         return $this;
     }
@@ -140,7 +135,7 @@ class Http
      */
     public function token(string $token)
     {
-        $this->header['headers']['authorization'] = 'Bearer '. $token;
+        $this->header['headers']['authorization'] = 'Bearer '.$token;
 
         return $this;
     }
@@ -309,8 +304,15 @@ class Http
      */
     protected function merge()
     {
-        return array_merge($this->header, $this->query, $this->timeout,
-            $this->options, $this->body, $this->auth, $this->multipart, $this->formParams,
+        return array_merge(
+            $this->header,
+            $this->query,
+            $this->timeout,
+            $this->options,
+            $this->body,
+            $this->auth,
+            $this->multipart,
+            $this->formParams,
             $this->ignoreSsl
         );
     }
@@ -361,7 +363,7 @@ class Http
      */
     protected function asyncMethod($method)
     {
-        return $this->async ? $method . 'Async' : $method;
+        return $this->async ? $method.'Async' : $method;
     }
 
     /**

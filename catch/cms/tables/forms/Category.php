@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -38,7 +39,7 @@ class Category extends BaseForm
                         'label' => 'name',
                         'checkStrictly' => true
                     ]
-            ])->showAllLevels(false)->style(['width' => '100%']),
+                ])->showAllLevels(false)->style(['width' => '100%']),
 
             Form::input('title', 'seo标题'),
             Form::input('keywords', 'seo关键词'),

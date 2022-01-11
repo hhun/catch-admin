@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\cms\model\events;
 
 use catchAdmin\cms\model\Banners;

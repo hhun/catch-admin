@@ -12,17 +12,9 @@
 namespace catchAdmin\wechat\command;
 
 use catchAdmin\wechat\library\SyncWechatUsers;
-use catchAdmin\wechat\model\WechatUsers;
-use catcher\exceptions\FailedException;
-use catcher\facade\Trie;
-use catcher\library\ProgressBar;
-use catcher\library\WeChat;
-use catcher\Utils;
-use think\Collection;
 use think\console\Command;
 use think\console\Input;
 use think\console\Output;
-use think\Db;
 
 class SyncUsersCommand extends Command
 {

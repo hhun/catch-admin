@@ -1,4 +1,5 @@
 <?php
+
 namespace catcher\generate\factory;
 
 use catcher\CatchAdmin;
@@ -6,7 +7,7 @@ use think\facade\Db;
 
 abstract class Factory
 {
-   abstract public function done(array $params);
+    abstract public function done(array $params);
 
     /**
      * parse psr4 path
@@ -16,7 +17,7 @@ abstract class Factory
      */
     public function parsePsr4()
     {
-        $composer = \json_decode(file_get_contents(root_path() . 'composer.json'), true);
+        $composer = \json_decode(file_get_contents(root_path().'composer.json'), true);
 
         return $composer['autoload']['psr-4'];
     }
@@ -38,11 +39,11 @@ abstract class Factory
 
         $psr4 = $this->parsePsr4();
 
-        $filePath = root_path() . $psr4[$projectRootNamespace.'\\'] . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $path);
+        $filePath = root_path().$psr4[$projectRootNamespace.'\\'].DIRECTORY_SEPARATOR.implode(DIRECTORY_SEPARATOR, $path);
 
         CatchAdmin::makeDirectory($filePath);
 
-        return $filePath . DIRECTORY_SEPARATOR . ucfirst($filename ). '.php';
+        return $filePath.DIRECTORY_SEPARATOR.ucfirst($filename).'.php';
     }
 
     /**
@@ -62,7 +63,7 @@ abstract class Factory
 
         $psr4 = $this->parsePsr4();
 
-        return root_path() . $psr4[$projectRootNamespace.'\\'] . DIRECTORY_SEPARATOR. $module . DIRECTORY_SEPARATOR;
+        return root_path().$psr4[$projectRootNamespace.'\\'].DIRECTORY_SEPARATOR.$module.DIRECTORY_SEPARATOR;
     }
 
     /**

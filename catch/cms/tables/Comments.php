@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\cms\tables;
 
 use catcher\CatchTable;
@@ -12,7 +13,7 @@ class Comments extends CatchTable
     public function table()
     {
         // TODO: Implement table() method.
-       return $this->getTable('comments')
+        return $this->getTable('comments')
                    ->header([
                        HeaderItem::label('编号')->prop('id')->width(50),
 

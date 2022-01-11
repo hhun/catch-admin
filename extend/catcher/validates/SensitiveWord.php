@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher\validates;
@@ -19,13 +20,13 @@ class SensitiveWord implements ValidateInterface
     {
         $trie = app(Trie::class);
 
-        if (!$trie->getTries()) {
+        if (! $trie->getTries()) {
             return true;
         }
 
         $word = $trie->getSensitiveWords($trie->getTries(), $value, false);
 
-        return !$word;
+        return ! $word;
     }
 
     public function message(): string

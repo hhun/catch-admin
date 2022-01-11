@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\domain\support;
 
 use think\Paginator;
@@ -27,7 +29,7 @@ class Transformer
         foreach ($data['Domains']['Domain'] as $item) {
             $list[] = [
                 'name' => $item['DomainName'],
-                'created_at' => date('Y-m-d', $item['CreateTimestamp']/1000),
+                'created_at' => date('Y-m-d', $item['CreateTimestamp'] / 1000),
                 'dns_server' => $item['DnsServers']['DnsServer'],
                 'from' => $item['VersionName'],
                 'free' => $item['VersionCode'] === 'mianfei',
@@ -36,7 +38,7 @@ class Transformer
                 'id' => $item['DomainId']
             ];
         }
-        
+
         return Paginator::make($list, $data['PageSize'], $data['PageNumber'], $data['TotalCount']);
     }
 
@@ -68,7 +70,7 @@ class Transformer
             ];
         }
 
-        return Paginator::make($list,  $limit, $page + 1,$info['domain_total']);
+        return Paginator::make($list, $limit, $page + 1, $info['domain_total']);
     }
 
     /**

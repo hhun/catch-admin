@@ -1,10 +1,10 @@
 <?php
-declare (strict_types = 1);
+
+declare(strict_types=1);
 
 namespace catcher\command\Tools;
 
 use catcher\CatchAdmin;
-use catcher\facade\Http;
 use catcher\Tree;
 use catcher\Utils;
 use think\console\Command;
@@ -40,8 +40,6 @@ class ExportDataCommand extends Command
                                     ->where('module', $module)
                                     ->select()
                                     ->toArray();
-
-
         } else {
             $data = Db::name($table)->where('deleted_at', 0)
                                     ->select()
@@ -53,23 +51,22 @@ class ExportDataCommand extends Command
         }
 
         if ($module) {
-            $data = 'return ' . var_export($data, true) . ';';
+            $data = 'return '.var_export($data, true).';';
             $this->exportSeed($data, $module);
         } else {
-            file_put_contents(root_path() . DIRECTORY_SEPARATOR . $table . '.php', "<?php\r\n return " . var_export($data, true) . ';');
+            file_put_contents(root_path().DIRECTORY_SEPARATOR.$table.'.php', "<?php\r\n return ".var_export($data, true).';');
         }
         $output->info('succeed!');
     }
 
     protected function exportSeed($data, $module)
     {
-        $stub = file_get_contents(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'permissionSeed.stub');
+        $stub = file_get_contents(dirname(__DIR__).DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'permissionSeed.stub');
 
-        $class = ucfirst($module) . 'MenusSeed';
+        $class = ucfirst($module).'MenusSeed';
 
         $stub = str_replace('{CLASS}', $class, $stub);
 
-        file_put_contents(CatchAdmin::moduleSeedsDirectory($module) . $class .'.php', str_replace('{DATA}', $data, $stub));
+        file_put_contents(CatchAdmin::moduleSeedsDirectory($module).$class.'.php', str_replace('{DATA}', $data, $stub));
     }
 }
-

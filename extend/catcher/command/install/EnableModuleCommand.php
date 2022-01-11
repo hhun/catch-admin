@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,9 +9,9 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher\command\install;
 
-use catchAdmin\permissions\model\Permissions;
 use catcher\CatchAdmin;
 use catcher\library\InstallLocalModule;
 use think\console\Command;
@@ -31,7 +32,7 @@ class EnableModuleCommand extends Command
     {
         $module = $input->getArgument('module');
 
-        if (empty(CatchAdmin::getModuleInfo(CatchAdmin::directory() .$module))) {
+        if (empty(CatchAdmin::getModuleInfo(CatchAdmin::directory().$module))) {
             $output->error("module [$module] not exist");
         } else {
             (new InstallLocalModule($module))->enableModule();

@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\cms\tables;
 
 use catcher\CatchTable;
@@ -11,7 +12,7 @@ class Banners extends CatchTable
     public function table()
     {
         // TODO: Implement table() method.
-       return $this->getTable('banners')
+        return $this->getTable('banners')
                     ->header([
                         HeaderItem::label('编号')->prop('id')->width(50),
 
@@ -46,5 +47,4 @@ class Banners extends CatchTable
         // TODO: Implement form() method.
         return Factory::create('banners');
     }
-    
 }

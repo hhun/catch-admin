@@ -1,11 +1,10 @@
 <?php
-namespace catcher\generate;
 
+namespace catcher\generate;
 
 use catcher\CatchAdmin;
 use catcher\facade\FileSystem;
 use catcher\library\Composer;
-use catcher\library\form\FormFactory;
 
 class CreateModule
 {
@@ -44,10 +43,9 @@ class CreateModule
             $this->dirs = $params['dirs'];
 
             $this->init();
-
         } catch (\Exception $exception) {
-             $this->rollback();
-             dd($exception->getMessage());
+            $this->rollback();
+            dd($exception->getMessage());
         }
     }
 
@@ -55,15 +53,15 @@ class CreateModule
     {
         $this->moduleDir = CatchAdmin::moduleDirectory($this->module);
 
-        $this->stubDir =dirname(__DIR__) . DIRECTORY_SEPARATOR .
+        $this->stubDir = dirname(__DIR__).DIRECTORY_SEPARATOR.
             'command'.DIRECTORY_SEPARATOR.
-            'stubs' . DIRECTORY_SEPARATOR;
+            'stubs'.DIRECTORY_SEPARATOR;
 
         $psr4 = (new Composer())->psr4Autoload();
 
         foreach ($psr4 as $namespace => $des) {
             if ($des === CatchAdmin::$root) {
-                $this->namespaces = $namespace . $this->module . '\\';
+                $this->namespaces = $namespace.$this->module.'\\';
                 break;
             }
         }
@@ -81,9 +79,9 @@ class CreateModule
     protected function moduleFiles(): array
     {
         return [
-            $this->moduleDir . ucfirst($this->module). 'Service.php',
-            $this->moduleDir . 'module.json',
-            $this->moduleDir . 'route.php',
+            $this->moduleDir.ucfirst($this->module).'Service.php',
+            $this->moduleDir.'module.json',
+            $this->moduleDir.'route.php',
         ];
     }
 
@@ -106,22 +104,21 @@ class CreateModule
      */
     protected function modulePath(): array
     {
-
         $dirs = [];
 
         foreach (explode(',', $this->dirs) as $dir) {
             if ($dir == 'database') {
-                $dirs[] = $this->moduleDir . 'database' . DIRECTORY_SEPARATOR . 'migrations';
-                $dirs[] = $this->moduleDir . 'database' . DIRECTORY_SEPARATOR . 'seeds';
+                $dirs[] = $this->moduleDir.'database'.DIRECTORY_SEPARATOR.'migrations';
+                $dirs[] = $this->moduleDir.'database'.DIRECTORY_SEPARATOR.'seeds';
             } else {
-                $dirs[] = $this->moduleDir . $dir;
+                $dirs[] = $this->moduleDir.$dir;
             }
         }
 
 
-        $dirs[] = $this->moduleDir . 'tables';
+        $dirs[] = $this->moduleDir.'tables';
 
-        $dirs[] = $this->moduleDir . 'tables'.DIRECTORY_SEPARATOR.'forms';
+        $dirs[] = $this->moduleDir.'tables'.DIRECTORY_SEPARATOR.'forms';
 
         return $dirs;
     }
@@ -134,8 +131,7 @@ class CreateModule
      */
     protected function createDir()
     {
-        foreach ($this->modulePath() as $path)
-        {
+        foreach ($this->modulePath() as $path) {
             CatchAdmin::makeDirectory($path);
         }
     }
@@ -163,13 +159,16 @@ class CreateModule
      */
     protected function createService()
     {
-        $service = FileSystem::sharedGet($this->stubDir . 'service.stub');
+        $service = FileSystem::sharedGet($this->stubDir.'service.stub');
 
-        $content = str_replace(['{NAMESPACE}', '{SERVICE}'],
-            [substr($this->namespaces, 0, -1),
-                ucfirst($this->module) . 'Service'], $service);
+        $content = str_replace(
+            ['{NAMESPACE}', '{SERVICE}'],
+            [mb_substr($this->namespaces, 0, -1),
+                ucfirst($this->module).'Service'],
+            $service
+        );
 
-        FileSystem::put($this->moduleDir . ucfirst($this->module) . 'Service.php', $content);
+        FileSystem::put($this->moduleDir.ucfirst($this->module).'Service.php', $content);
     }
 
     /**
@@ -180,23 +179,26 @@ class CreateModule
      */
     protected function createModuleJson()
     {
-        $moduleJson = FileSystem::sharedGet( $this->stubDir . 'module.stub');
+        $moduleJson = FileSystem::sharedGet($this->stubDir.'module.stub');
 
         $keywords = '';
-        foreach (explode(',',$this->keywords) as $k) {
+        foreach (explode(',', $this->keywords) as $k) {
             $keywords .= "\"{$k}\",";
         }
 
-        $content = str_replace(['{NAME}','{DESCRIPTION}','{MODULE}', '{KEYWORDS}','{SERVICE}'],
+        $content = str_replace(
+            ['{NAME}','{DESCRIPTION}','{MODULE}', '{KEYWORDS}','{SERVICE}'],
             [
                 $this->name,
                 $this->description,
                 $this->module,
                 trim($keywords, ','),
-                '\\\\'. str_replace('\\', '\\\\',$this->namespaces . ucfirst($this->module) . 'Service')
-            ], $moduleJson);
+                '\\\\'.str_replace('\\', '\\\\', $this->namespaces.ucfirst($this->module).'Service')
+            ],
+            $moduleJson
+        );
 
-        FileSystem::put($this->moduleDir . 'module.json', $content);
+        FileSystem::put($this->moduleDir.'module.json', $content);
     }
 
     /**
@@ -207,7 +209,7 @@ class CreateModule
      */
     protected function createRoute()
     {
-        FileSystem::put($this->moduleDir . 'route.php', FileSystem::sharedGet($this->stubDir . 'route.stub'));
+        FileSystem::put($this->moduleDir.'route.php', FileSystem::sharedGet($this->stubDir.'route.stub'));
     }
 
 
@@ -219,7 +221,6 @@ class CreateModule
      */
     protected function createFormFactory()
     {
-
         $factoryContent = <<<PHP
 <?php
 namespace catchAdmin\\{$this->module}\\tables\\forms;
@@ -235,9 +236,9 @@ class Factory extends FormFactory
 }
 PHP;
 
-        FileSystem::put($this->moduleDir . 'tables' . DIRECTORY_SEPARATOR . 'forms' . DIRECTORY_SEPARATOR . 'Factory.php',
+        FileSystem::put(
+            $this->moduleDir.'tables'.DIRECTORY_SEPARATOR.'forms'.DIRECTORY_SEPARATOR.'Factory.php',
             $factoryContent
         );
-
     }
 }

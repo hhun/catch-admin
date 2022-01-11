@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 // +----------------------------------------------------------------------
@@ -10,8 +11,8 @@ declare(strict_types=1);
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
-namespace catcher\library;
 
+namespace catcher\library;
 
 use catchAdmin\permissions\model\Permissions;
 use catcher\CatchAdmin;
@@ -80,7 +81,7 @@ class InstallLocalModule
 
         $info = [];
         foreach ($modules as $module) {
-            $moduleInfo = CatchAdmin::getModuleInfo(CatchAdmin::directory() . $module['value']);
+            $moduleInfo = CatchAdmin::getModuleInfo(CatchAdmin::directory().$module['value']);
             // 获取全部
             if ($enabled) {
                 $info[] = [
@@ -90,7 +91,7 @@ class InstallLocalModule
                 ];
             } else {
                 // 获取未开启的
-                if (!$moduleInfo['enable']) {
+                if (! $moduleInfo['enable']) {
                     $info[] = [
                         'name' => $module['value'],
                         'title' => $module['title'],

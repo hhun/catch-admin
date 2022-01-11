@@ -10,7 +10,7 @@
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
 
-declare (strict_types=1);
+declare(strict_types=1);
 
 namespace catchAdmin\monitor\command;
 
@@ -39,16 +39,15 @@ class ScheduleCommand extends Command
     {
         try {
             foreach ($this->getExecuteAbleCommands() as $command) {
-
                 $process = new Process(function (Process $process) use ($command) {
-                        $this->executeCommand($command);
-                        $process->exit();
+                    $this->executeCommand($command);
+                    $process->exit();
                 });
 
                 $process->start();
             }
         } catch (\Exception $e) {
-            Log::error('CatchSchedule Error:' . $e->getMessage());
+            Log::error('CatchSchedule Error:'.$e->getMessage());
         }
     }
 
@@ -100,17 +99,19 @@ class ScheduleCommand extends Command
 
         Crontab::where('status', Crontab::ENABLE)
             ->select()
-            ->each(function ($command) use (&$executeAbleCommands){
+            ->each(function ($command) use (&$executeAbleCommands) {
                 if ($command->tactics == Crontab::EXECUTE_IMMEDIATELY) {
                     $executeAbleCommands[] = $command;
                     $command->tactics = Crontab::EXECUTE_NORMAL;
                     return $command->save();
                 }
 
-                $can = date('Y-m-d H:i',
-                        (new CronExpression(trim($command->cron)))
+                $can = date(
+                    'Y-m-d H:i',
+                    (new CronExpression(trim($command->cron)))
                         ->getNextRunDate(date('Y-m-d H:i:s'), 0, true)
-                        ->getTimestamp()) == date('Y-m-d H:i', time());
+                        ->getTimestamp()
+                ) == date('Y-m-d H:i', time());
 
                 if ($can) {
                     // 如果任务只执行一次 之后禁用该任务

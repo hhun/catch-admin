@@ -1,4 +1,5 @@
 <?php
+
 namespace catcher\generate\support;
 
 use catcher\Utils;

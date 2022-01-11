@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher\library\crontab;
 
 use think\helper\Str;
@@ -20,7 +22,6 @@ use think\helper\Str;
  */
 trait Frequencies
 {
-
     /**
      * The Cron expression representing the event's frequency.
      *
@@ -437,32 +438,31 @@ trait Frequencies
      */
     public function __call($name, $arguments)
     {
-       if (Str::contains($name, 'every')) {
-           $num = (int)Str::substr(str_replace('every', '',$name), 0, 2);
-           if (Str::contains($name, 'second')) {
-               return $this->spliceIntoPosition(1, $num < 60 ? $num : 1);
-           }
+        if (Str::contains($name, 'every')) {
+            $num = (int) Str::substr(str_replace('every', '', $name), 0, 2);
+            if (Str::contains($name, 'second')) {
+                return $this->spliceIntoPosition(1, $num < 60 ? $num : 1);
+            }
 
-           if (Str::contains($name, 'minute')) {
-               return $this->spliceIntoPosition(2, $num < 60 ? $num : 1);
-           }
+            if (Str::contains($name, 'minute')) {
+                return $this->spliceIntoPosition(2, $num < 60 ? $num : 1);
+            }
 
-           if (Str::contains($name, 'hour')) {
-               return $this->spliceIntoPosition(3, $num < 24 ? $num : 1);
-           }
+            if (Str::contains($name, 'hour')) {
+                return $this->spliceIntoPosition(3, $num < 24 ? $num : 1);
+            }
 
-           if (Str::contains($name, 'day')) {
-               return $this->spliceIntoPosition(4, $num < 31 ? $num : 1);
-           }
+            if (Str::contains($name, 'day')) {
+                return $this->spliceIntoPosition(4, $num < 31 ? $num : 1);
+            }
 
-           if (Str::contains($name, 'month')) {
-               return $this->spliceIntoPosition(5, $num < 12 ? $num : 1);
-           }
+            if (Str::contains($name, 'month')) {
+                return $this->spliceIntoPosition(5, $num < 12 ? $num : 1);
+            }
         }
 
-       // other to do
+        // other to do
 
-       return $this;
-   }
-
+        return $this;
+    }
 }

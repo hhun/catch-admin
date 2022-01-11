@@ -1,10 +1,10 @@
 <?php
+
 namespace catchAdmin\cms\tables;
 
 use catchAdmin\cms\tables\forms\Factory;
 use catcher\CatchTable;
 use catcher\library\table\Actions;
-use catcher\library\table\Excel;
 use catcher\library\table\HeaderItem;
 use catcher\library\table\Search;
 
@@ -54,6 +54,4 @@ class Category extends CatchTable
         // TODO: Implement form() method.
         return Factory::create('category');
     }
-
-
 }

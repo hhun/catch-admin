@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher\library;
@@ -8,7 +9,7 @@ use think\facade\Cache;
 
 class Trie
 {
-    protected  $tree = [];
+    protected $tree = [];
 
     protected $end = 'end';
 
@@ -33,18 +34,18 @@ class Trie
 
         $end = true;
         while ($len > 0) {
-             if ($end) {
-                 $array[] = [
-                     $words[$len - 1] => ['end' => true],
-                 ];
-             } else {
+            if ($end) {
+                $array[] = [
+                    $words[$len - 1] => ['end' => true],
+                ];
+            } else {
                 $latest = array_pop($array);
                 $array[] = [
-                    $words[$len-1] => $latest,
+                    $words[$len - 1] => $latest,
                 ];
-             }
-             $end = false;
-             $len--;
+            }
+            $end = false;
+            $len--;
         }
 
         $this->tree = array_merge_recursive($this->tree, array_pop($array));
@@ -61,7 +62,7 @@ class Trie
      */
     public function getTries()
     {
-        if (!empty($this->tree)) {
+        if (! empty($this->tree)) {
             return $this->tree;
         }
 
@@ -83,13 +84,13 @@ class Trie
         $len = count($words);
         for ($start = 0; $start < $len; $start++) {
             // 未搜索到
-            if (!isset($trieTree[$words[$start]]))  {
+            if (! isset($trieTree[$words[$start]])) {
                 continue;
             }
             $node = $trieTree[$words[$start]];
             $this->sensitiveWord = $words[$start];
             // 从敏感词开始查找内容中是否又符合的
-            for ($i = $start+1; $i< $len; $i++) {
+            for ($i = $start + 1; $i < $len; $i++) {
                 $node = $node[$words[$i]] ?? null;
                 $this->sensitiveWord .= $words[$i];
                 if (isset($node['end'])) {
@@ -97,12 +98,12 @@ class Trie
                         $this->sensitiveWords[] = $this->sensitiveWord;
                         $this->sensitiveWord = '';
                     } else {
-                       break 2;
+                        break 2;
                     }
                 }
-                if (!$node) {
+                if (! $node) {
                     $this->sensitiveWord = '';
-                    $start = $i-1;
+                    $start = $i - 1;
                     break;
                 }
             }
@@ -110,7 +111,7 @@ class Trie
             // 使用敏感词【傻子】校验【傻】这个词
             // 会提取【傻】
             // 再次判断是否是尾部
-            if (!isset($node['end'])) {
+            if (! isset($node['end'])) {
                 $this->sensitiveWord = '';
             }
         }
@@ -146,6 +147,6 @@ class Trie
      */
     public function cached()
     {
-       return Cache::store('redis')->set(CatchCacheKeys::TRIE_TREE, $this->tree);
+        return Cache::store('redis')->set(CatchCacheKeys::TRIE_TREE, $this->tree);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace catcher\base;
@@ -10,9 +11,9 @@ use catcher\Utils;
 
 class CatchRequest extends Request
 {
-  /**
-   * @var bool
-   */
+    /**
+     * @var bool
+     */
     protected $needCreatorId = true;
     /**
      *  批量验证
@@ -43,24 +44,24 @@ class CatchRequest extends Request
     protected function validate()
     {
         if (method_exists($this, 'rules')) {
-          try {
-            $validate = app('validate');
-            // 批量验证
-            if ($this->batch) {
-              $validate->batch($this->batch);
-            }
+            try {
+                $validate = app('validate');
+                // 批量验证
+                if ($this->batch) {
+                    $validate->batch($this->batch);
+                }
 
-            // 验证
-            $message = [];
-            if (method_exists($this, 'message')) {
-                $message = $this->message();
+                // 验证
+                $message = [];
+                if (method_exists($this, 'message')) {
+                    $message = $this->message();
+                }
+                if (! $validate->message(empty($message) ? [] : $message)->check(request()->param(), $this->rules())) {
+                    throw new FailedException($validate->getError());
+                }
+            } catch (\Exception $e) {
+                throw new ValidateFailedException($e->getMessage());
             }
-            if (!$validate->message(empty($message) ? [] : $message)->check(request()->param(), $this->rules())) {
-              throw new FailedException($validate->getError());
-            }
-          } catch (\Exception $e) {
-            throw new ValidateFailedException($e->getMessage());
-          }
         }
 
         // 设置默认参数
@@ -95,14 +96,14 @@ class CatchRequest extends Request
      * @time 2021年01月16日
      * @return $this
      */
-    public function filterEmptyField(): CatchRequest
+    public function filterEmptyField(): self
     {
         if ($this->isGet()) {
             $this->get = Utils::filterEmptyValue($this->get);
         } elseif ($this->isPost()) {
-            $this->post =  Utils::filterEmptyValue($this->post);
+            $this->post = Utils::filterEmptyValue($this->post);
         } else {
-            $this->put =  Utils::filterEmptyValue($this->put);
+            $this->put = Utils::filterEmptyValue($this->put);
         }
 
         return $this;

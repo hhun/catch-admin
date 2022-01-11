@@ -1,7 +1,6 @@
 <?php
 
 use think\migration\Migrator;
-use think\migration\db\Column;
 
 class UpdateRoles extends Migrator
 {
@@ -32,10 +31,10 @@ class UpdateRoles extends Migrator
             $table = $this->table('roles');
 
             $table->addColumn('identify', 'string', [
-                            'limit' => 20,
-                            'default' => 1,
-                            'comment' => '角色的标识，用英文表示，用于后台路由权限',
-                            'after' => 'role_name'])
+                'limit' => 20,
+                'default' => 1,
+                'comment' => '角色的标识，用英文表示，用于后台路由权限',
+                'after' => 'role_name'])
                             ->update();
         }
     }

@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -25,7 +26,7 @@ return [
 
             'access_key' => Env::get('aliyun.access_key', ''),
 
-            'access_secret' =>  Env::get('aliyun.access_secret', ''),
+            'access_secret' => Env::get('aliyun.access_secret', ''),
         ],
 
         /**

@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -19,12 +20,11 @@ use catcher\CatchResponse;
 use catcher\base\CatchController;
 use catchAdmin\cms\model\ModelFields as ModelFieldsModel;
 use catchAdmin\cms\model\Models;
-use catcher\exceptions\FailedException;
 
 class ModelFields extends CatchController
 {
     protected $modelFields;
-    
+
     public function __construct(ModelFieldsModel $modelFields)
     {
         $this->modelFields = $modelFields;
@@ -42,8 +42,8 @@ class ModelFields extends CatchController
         // $columns = Table::columns($models::where('id',$request->param('model_id'))->value('table_name'));
 
         //foreach ($columns as &$column) {
-          //  $column['title'] = $column['comment'];
-       // }
+        //  $column['title'] = $column['comment'];
+        // }
 
         return CatchResponse::success($this->modelFields->getFieldsByModelId($request->param('model_id')));
     }

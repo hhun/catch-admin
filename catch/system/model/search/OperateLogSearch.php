@@ -18,7 +18,7 @@ trait OperateLogSearch
 
     public function searchCreatorAttr($query, $value, $data)
     {
-        return $query->whereLike(app(Users::class)->getTable() . '.username', $value);
+        return $query->whereLike(app(Users::class)->getTable().'.username', $value);
     }
 
     public function searchCreateAtAttr($query, $value, $data)

@@ -1,4 +1,5 @@
 <?php
+
 namespace catcher\library\table;
 
 class HeaderItem
@@ -27,7 +28,7 @@ class HeaderItem
      * @param string $label
      * @return HeaderItem
      */
-    public static function label(string $label = ''): HeaderItem
+    public static function label(string $label = ''): self
     {
         return new self($label);
     }
@@ -39,7 +40,7 @@ class HeaderItem
      * @param string $prop
      * @return $this
      */
-    public function prop(string $prop): HeaderItem
+    public function prop(string $prop): self
     {
         $this->attributes['prop'] = $prop;
 
@@ -53,7 +54,7 @@ class HeaderItem
      * @param string $width
      * @return $this
      */
-    public function width(string $width): HeaderItem
+    public function width(string $width): self
     {
         $this->attributes['width'] = $width;
 
@@ -67,7 +68,7 @@ class HeaderItem
      * @param string $align
      * @return $this
      */
-    public function align(string $align): HeaderItem
+    public function align(string $align): self
     {
         $this->attributes['align'] = $align;
 
@@ -80,7 +81,7 @@ class HeaderItem
      * @time 2021年05月15日
      * @return $this
      */
-    public function alignCenter(): HeaderItem
+    public function alignCenter(): self
     {
         $this->attributes['align'] = 'center';
 
@@ -93,7 +94,7 @@ class HeaderItem
      * @time 2021年05月15日
      * @return $this
      */
-    public function alignRight(): HeaderItem
+    public function alignRight(): self
     {
         $this->attributes['align'] = 'right';
 
@@ -107,7 +108,7 @@ class HeaderItem
      * @param array $actions
      * @return $this
      */
-    public function actions(array $actions): HeaderItem
+    public function actions(array $actions): self
     {
         foreach ($actions as $action) {
             $this->attributes['action'][] = $action->render();
@@ -123,7 +124,7 @@ class HeaderItem
      * @param false $bubble
      * @return $this
      */
-    public function isBubble($bubble = false): HeaderItem
+    public function isBubble($bubble = false): self
     {
         $this->attributes['isBubble'] = $bubble;
 
@@ -136,7 +137,7 @@ class HeaderItem
      * @time 2021年03月31日
      * @return $this
      */
-    public function sortable(): HeaderItem
+    public function sortable(): self
     {
         $this->attributes['sortable'] = true;
 
@@ -185,7 +186,7 @@ class HeaderItem
      * @time 2021年04月22日
      * @return $this
      */
-    public function dontExport(): HeaderItem
+    public function dontExport(): self
     {
         $this->attributes['export'] = false;
 
@@ -198,7 +199,7 @@ class HeaderItem
      * @time 2021年04月22日
      * @return $this
      */
-    public function dontImport(): HeaderItem
+    public function dontImport(): self
     {
         $this->attributes['import'] = false;
 
@@ -213,7 +214,7 @@ class HeaderItem
      * @param $params
      * @return $this
      */
-    public function __call($method, $params): HeaderItem
+    public function __call($method, $params): self
     {
         $this->attributes[$method] = $params[0];
 

@@ -1,11 +1,10 @@
 <?php
+
 namespace catchAdmin\system\tables;
 
-use catchAdmin\system\tables\forms\Factory;
 use catcher\CatchTable;
 use catcher\library\table\HeaderItem;
 use catcher\library\table\Search;
-
 
 class LoginLog extends CatchTable
 {
@@ -35,6 +34,5 @@ class LoginLog extends CatchTable
                     ])
                     ->selectionChange()
                     ->render();
-
     }
 }

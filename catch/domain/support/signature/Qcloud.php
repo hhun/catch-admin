@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\domain\support\signature;
 
 class Qcloud
@@ -34,7 +36,7 @@ class Qcloud
      */
     protected function replaceKey($key)
     {
-        return strpos($key, '_') === false ?
+        return mb_strpos($key, '_') === false ?
             $key : str_replace('_', '.', $key);
     }
 
@@ -52,11 +54,11 @@ class Qcloud
         $queryString = '';
 
         foreach ($this->params as $key => $param) {
-            $queryString .= '&' . $this->replaceKey($key) . '=' . $param;
+            $queryString .= '&'.$this->replaceKey($key).'='.$param;
         }
 
-        $signString = $method . config('catch.domains.qcloud.api_domain') . '/v2/index.php?'
-                              . substr($queryString, 1);
+        $signString = $method.config('catch.domains.qcloud.api_domain').'/v2/index.php?'
+                              .mb_substr($queryString, 1);
 
         return base64_encode(hash_hmac('sha1', $signString, config('catch.domains.qcloud.access_secret'), true));
     }

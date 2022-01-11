@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\permissions\request;
 
 use catchAdmin\permissions\model\Users;
@@ -11,7 +12,7 @@ class ProfileRequest extends CatchRequest
         // TODO: Implement rules() method.
         return [
             'username|用户名' => 'require|max:20',
-            'email|邮箱'    => 'require|email|unique:'.Users::class . ',email,' . $this->user()->id,
+            'email|邮箱' => 'require|email|unique:'.Users::class.',email,'.$this->user()->id,
         ];
     }
 }

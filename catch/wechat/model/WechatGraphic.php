@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -12,24 +13,21 @@
 namespace catchAdmin\wechat\model;
 
 use catcher\base\CatchModel as Model;
-use catcher\traits\db\BaseOptionsTrait;
 
 class WechatGraphic extends Model
 {
     protected $name = 'wechat_graphic';
 
     protected $field = [
-        'id', // 
-		'title', // 标题
-		'author', // 作者
-		'parent_id', // 图文第一篇
-		'cover', // 封面
-		'content', // 内容
-		'creator_id', // 创建人ID
-		'created_at', // 创建时间
-		'updated_at', // 更新时间
-		'deleted_at', // 软删除
+        'id', //
+        'title', // 标题
+        'author', // 作者
+        'parent_id', // 图文第一篇
+        'cover', // 封面
+        'content', // 内容
+        'creator_id', // 创建人ID
+        'created_at', // 创建时间
+        'updated_at', // 更新时间
+        'deleted_at', // 软删除
     ];
-    
-  
 }

@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -12,8 +13,7 @@
 // +----------------------------------------------------------------------
 
 namespace catchAdmin\cms\tables\forms;
-use catchAdmin\cms\support\Table;
-use catchAdmin\cms\support\TableColumn;
+
 use catcher\library\form\Form;
 use think\facade\Db;
 use think\helper\Str;
@@ -57,7 +57,7 @@ class Model extends Form
         $options = self::options();
 
         foreach (Db::getTables() as $table) {
-            if (Str::contains($table, 'cms') && !Str::contains($table, 'relate')) {
+            if (Str::contains($table, 'cms') && ! Str::contains($table, 'relate')) {
                 $options->add($table, $table);
             }
         }

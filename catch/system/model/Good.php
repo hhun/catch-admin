@@ -5,6 +5,7 @@ namespace catchAdmin\system\model;
 use think\Model;
 use catcher\traits\db\BaseOptionsTrait;
 use catcher\traits\db\ScopeTrait;
+
 /**
  *
  * @property int $id
@@ -15,19 +16,20 @@ use catcher\traits\db\ScopeTrait;
  */
 class Good extends Model
 {
-    use BaseOptionsTrait, ScopeTrait;
-    
+    use BaseOptionsTrait;
+    use ScopeTrait;
+
     public $name = 'good';
-    
+
     public $field = [
         'id',
-        
+
         'hi',
-        
+
         'created_at',
-        
+
         'updated_at',
-        
+
         'creator_id',
     ];
 }

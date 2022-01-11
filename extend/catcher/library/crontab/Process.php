@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher\library\crontab;
 
 use catcher\CatchAdmin;
@@ -21,7 +23,7 @@ trait Process
      *
      * @var boolean
      */
-    protected $quit =false;
+    protected $quit = false;
 
     /**
      * 设置最大内存/256M
@@ -42,11 +44,11 @@ trait Process
             // Swoole\Process::signal ignalfd 和 EventLoop 是异步 IO，不能用于阻塞的程序中，会导致注册的监听回调函数得不到调度
             // 同步阻塞的程序可以使用 pcntl 扩展提供的 pcntl_signal
             // 安全退出进程
-            pcntl_signal(SIGTERM, function() {
+            pcntl_signal(SIGTERM, function () {
                 $this->quit = true;
             });
 
-            pcntl_signal(SIGUSR1, function () use ($process){
+            pcntl_signal(SIGUSR1, function () use ($process) {
                 // todo
                 $this->updateTask($process->pid);
             });
@@ -60,8 +62,8 @@ trait Process
                         $cron->run();
                     } catch (\Throwable $e) {
                         $this->addErrors($process->pid);
-                        Log::error($e->getMessage() . ': at ' . $e->getFile() . ' ' . $e->getLine() . '行'.
-                            PHP_EOL . $e->getTraceAsString());
+                        Log::error($e->getMessage().': at '.$e->getFile().' '.$e->getLine().'行'.
+                            PHP_EOL.$e->getTraceAsString());
                     }
                     $this->afterTask($process->pid);
                 }
@@ -92,7 +94,7 @@ trait Process
     protected function processInfo($process)
     {
         return [
-            'pid'  => $process->pid,
+            'pid' => $process->pid,
             'memory' => memory_get_usage(),
             'start_at' => time(),
             'running_time' => 0,
@@ -242,10 +244,10 @@ trait Process
         $phpV = PHP_VERSION;
 
         $processNumber = $this->table->count();
-        $memory = (int)(memory_get_usage()/1024/1024). 'M';
+        $memory = (int) (memory_get_usage() / 1024 / 1024).'M';
         $startAt = date('Y-m-d H:i:s', $this->master_start_at);
         $runtime = gmstrftime('%H:%M:%S', time() - $this->master_start_at);
-        $info =  <<<EOT
+        $info = <<<EOT
 -------------------------------------------------------------------------------------------------------
 |   ____      _       _        _       _           _         ____       _              _       _       | 
 |  / ___|__ _| |_ ___| |__    / \   __| |_ __ ___ (_)_ __   / ___|  ___| |__   ___  __| |_   _| | ___  |
@@ -268,8 +270,8 @@ EOT;
 
         foreach ($this->table as $process) {
             $processes[] = [
-                 $process['pid'],
-                (int)($process['memory']/1024/1024) . 'M',
+                $process['pid'],
+                (int) ($process['memory'] / 1024 / 1024).'M',
                 date('Y-m-d H:i', $process['start_at']),
                 gmstrftime('%H:%M:%S', $process['running_time']),
                 $process['status'],
@@ -282,6 +284,6 @@ EOT;
 
         $table->render();
 
-        return  $info . PHP_EOL . $table->render();
+        return  $info.PHP_EOL.$table->render();
     }
 }

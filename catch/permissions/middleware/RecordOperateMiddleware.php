@@ -1,12 +1,10 @@
 <?php
+
 namespace catchAdmin\permissions\middleware;
 
 use app\Request;
 use catchAdmin\permissions\model\Permissions;
-use catcher\CatchCacheKeys;
-use catcher\Code;
 use catcher\exceptions\PermissionForbiddenException;
-use think\facade\Cache;
 use catcher\Utils;
 
 class RecordOperateMiddleware
@@ -34,7 +32,7 @@ class RecordOperateMiddleware
         $this->operateEvent($request->user()->id, $permission);
 
         // 将权限带入
-        $request->permission  = $permission;
+        $request->permission = $permission;
         return $next($request);
     }
 

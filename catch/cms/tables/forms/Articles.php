@@ -1,4 +1,5 @@
 <?php
+
 namespace catchAdmin\cms\tables\forms;
 
 use catchAdmin\cms\model\Tags;
@@ -12,7 +13,7 @@ class Articles extends BaseForm
 
     public function fields(): array
     {
-        $categories =  Category::field(['id', 'name', 'parent_id'])->select()->toTree();
+        $categories = Category::field(['id', 'name', 'parent_id'])->select()->toTree();
 
         // TODO: Implement fields() method.
         return [
@@ -24,11 +25,11 @@ class Articles extends BaseForm
                 ->filterable(true)
                 ->showAllLevels(false)
                 ->props([
-                'props' => [
-                    'value' => 'id',
-                    'label' => 'name',
-                    'checkStrictly' => true
-                ],
+                    'props' => [
+                        'value' => 'id',
+                        'label' => 'name',
+                        'checkStrictly' => true
+                    ],
                 ])->style(['width' => '100%'])
                 ->required()->col(8),
 

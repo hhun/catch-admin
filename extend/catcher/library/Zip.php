@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 // +----------------------------------------------------------------------
@@ -10,6 +11,7 @@ declare(strict_types=1);
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher\library;
 
 use catcher\facade\FileSystem;
@@ -18,7 +20,7 @@ class Zip
 {
     protected $zipArchive;
 
-    const EXTENSION = 'zip';
+    public const EXTENSION = 'zip';
 
     protected $folder;
 
@@ -42,7 +44,7 @@ class Zip
             throw new \Exception("make zip muse set [zip] extension");
         }
 
-        $this->zipArchive->open($zip, $flags ? : \ZipArchive::CREATE);
+        $this->zipArchive->open($zip, $flags ?: \ZipArchive::CREATE);
 
         return $this;
     }
@@ -59,12 +61,11 @@ class Zip
     {
         if ($relative) {
             foreach ($files as $file) {
-                $this->zipArchive->addFile($file->getPathname(), $this->folder . $file->getRelativePathname());
+                $this->zipArchive->addFile($file->getPathname(), $this->folder.$file->getRelativePathname());
             }
-
         } else {
             foreach ($files as $file) {
-                $this->zipArchive->addFile($file->getPathname(), $this->folder . $file->getPathname());
+                $this->zipArchive->addFile($file->getPathname(), $this->folder.$file->getPathname());
             }
         }
 
@@ -82,7 +83,7 @@ class Zip
     {
         $this->zipArchive->addEmptyDir($folder);
 
-        $this->folder = $folder . DIRECTORY_SEPARATOR;
+        $this->folder = $folder.DIRECTORY_SEPARATOR;
 
         return $this;
     }
@@ -97,7 +98,7 @@ class Zip
      */
     public function extractTo($path)
     {
-        if (!$this->zipArchive->extractTo($path)) {
+        if (! $this->zipArchive->extractTo($path)) {
             throw new \Exception('extract failed');
         }
 
@@ -120,5 +121,4 @@ class Zip
             $this->zipArchive->close();
         }
     }
-
 }

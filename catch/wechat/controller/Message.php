@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\wechat\controller;
 
 use catchAdmin\wechat\library\messages\Factory;
@@ -30,6 +32,7 @@ class Message extends CatchController
             });
         }
 
-        $app->server->serve()->send();exit;
+        $app->server->serve()->send();
+        exit;
     }
 }

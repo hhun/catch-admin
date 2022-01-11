@@ -1,4 +1,5 @@
 <?php
+
 namespace catcher\library\table;
 
 trait ComponentsTrait
@@ -16,7 +17,7 @@ trait ComponentsTrait
     {
         $this->attributes['component'][] = [
             'name' => $name,
-            'field' => $updateField ? : $this->attributes['prop'],
+            'field' => $updateField ?: $this->attributes['prop'],
             'options' => $options
         ];
 
@@ -32,7 +33,7 @@ trait ComponentsTrait
      */
     public function withSwitchComponent(array $options = [], $updateFields = null): HeaderItem
     {
-        return $this->component('switch_', $updateFields ? : $this->attributes['prop'], $options);
+        return $this->component('switch_', $updateFields ?: $this->attributes['prop'], $options);
     }
 
     /**
@@ -44,7 +45,7 @@ trait ComponentsTrait
      */
     public function withEditComponent($updateFields = null): HeaderItem
     {
-        return $this->component('edit', $updateFields ? : $this->attributes['prop']);
+        return $this->component('edit', $updateFields ?: $this->attributes['prop']);
     }
 
     /**
@@ -56,7 +57,7 @@ trait ComponentsTrait
      */
     public function withEditNumberComponent($updateFields = null): HeaderItem
     {
-        return $this->component('editNumber', $updateFields ? : $this->attributes['prop']);
+        return $this->component('editNumber', $updateFields ?: $this->attributes['prop']);
     }
 
 
@@ -70,7 +71,7 @@ trait ComponentsTrait
      */
     public function withSelectComponent(array $options, $updateFields = null): HeaderItem
     {
-        return $this->component('select_', $updateFields ? : $this->attributes['prop'], $options);
+        return $this->component('select_', $updateFields ?: $this->attributes['prop'], $options);
     }
 
     /**
@@ -82,7 +83,7 @@ trait ComponentsTrait
      */
     public function withPreviewComponent($field = null)
     {
-        return $this->component('preview', $field ? : $this->attributes['prop']);
+        return $this->component('preview', $field ?: $this->attributes['prop']);
     }
 
     /**
@@ -94,7 +95,7 @@ trait ComponentsTrait
      */
     public function withUrlComponent($field = null)
     {
-        return $this->component('url', $field ? : $this->attributes['prop']);
+        return $this->component('url', $field ?: $this->attributes['prop']);
     }
 
     /**
@@ -106,7 +107,7 @@ trait ComponentsTrait
      */
     public function withCopyComponent($field = null)
     {
-        return $this->component('copy', $field ? : $this->attributes['prop']);
+        return $this->component('copy', $field ?: $this->attributes['prop']);
     }
 
     /**
@@ -118,6 +119,6 @@ trait ComponentsTrait
      */
     public function withDownloadComponent($field = null)
     {
-        return $this->component('download', $field ? : $this->attributes['prop']);
+        return $this->component('download', $field ?: $this->attributes['prop']);
     }
 }

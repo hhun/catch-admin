@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -18,7 +19,7 @@ class SiteLinks extends BaseModel
     // 表名
     public $name = 'cms_site_links';
     // 数据库字段映射
-    public $field = array(
+    public $field = [
         'id',
         // 友情链接标题
         'title',
@@ -38,7 +39,7 @@ class SiteLinks extends BaseModel
         'updated_at',
         // 软删除
         'deleted_at',
-    );
+    ];
 
     /**
      * 标题搜索

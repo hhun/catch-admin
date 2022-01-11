@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
@@ -8,6 +9,7 @@
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catchAdmin\domain\support\signature;
 
 class Aliyun
@@ -52,13 +54,13 @@ class Aliyun
         $queryString = '';
 
         foreach ($this->params as $key => $param) {
-            $queryString .= '&' . $this->percentEncode($key) . '=' . $this->percentEncode($param);
+            $queryString .= '&'.$this->percentEncode($key).'='.$this->percentEncode($param);
         }
 
-        $signString = $method . '&' .
-                      $this->percentEncode('/') . '&' .
-                      $this->percentEncode(substr($queryString, 1));
+        $signString = $method.'&'.
+                      $this->percentEncode('/').'&'.
+                      $this->percentEncode(mb_substr($queryString, 1));
 
-        return base64_encode(hash_hmac('sha1', $signString, config('catch.domains.aliyun.access_secret'). '&', true));
+        return base64_encode(hash_hmac('sha1', $signString, config('catch.domains.aliyun.access_secret').'&', true));
     }
 }

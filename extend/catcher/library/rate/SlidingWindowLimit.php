@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 // +----------------------------------------------------------------------
@@ -10,6 +11,7 @@ declare(strict_types=1);
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
 namespace catcher\library\rate;
 
 use catcher\exceptions\FailedException;
@@ -47,7 +49,7 @@ class SlidingWindowLimit
         // 开启管道
         $redis->pipeline();
         // 去除非窗口内的元素
-        $redis->zremrangeByScore($this->key, 0, $now - $this->window*1000);
+        $redis->zremrangeByScore($this->key, 0, $now - $this->window * 1000);
         // 获取集合内的所有元素数目
         $redis->zcard($this->key);
         // 增加元素

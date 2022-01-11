@@ -1,5 +1,6 @@
 <?php
-declare (strict_types = 1);
+
+declare(strict_types=1);
 
 namespace catcher\command\Tools;
 
@@ -31,7 +32,6 @@ class RegionCommand extends Command
         if ($input->hasOption('rollback')) {
             $this->deleteRegion();
         } else {
-
             $output->info('start create region');
 
             $this->createRegion();
@@ -92,17 +92,17 @@ class RegionCommand extends Command
 
             $this->output->info('start downloading');
 
-            $regionZip = runtime_path() . DIRECTORY_SEPARATOR . 'region.zip';
-            $regionJson = runtime_path() .DIRECTORY_SEPARATOR .  'region.json';
+            $regionZip = runtime_path().DIRECTORY_SEPARATOR.'region.zip';
+            $regionJson = runtime_path().DIRECTORY_SEPARATOR.'region.json';
 
             $compress->savePath($regionZip)
                 ->download('http://json.think-region.yupoxiong.com/region.json.zip');
 
-            if (!FileSystem::exists($regionZip)) {
+            if (! FileSystem::exists($regionZip)) {
                 $this->output->error('import failed! Json data download failed');
             }
 
-            (new Zip)->make($regionZip, \ZipArchive::CREATE)
+            (new Zip())->make($regionZip, \ZipArchive::CREATE)
                 ->extractTo(runtime_path())->close();
 
             $region = \json_decode(file_get_contents($regionJson, true));
@@ -120,7 +120,6 @@ class RegionCommand extends Command
             $bar = new ProgressBar($this->output, $total);
             $bar->start();
             foreach ($region as $k => $r) {
-
                 $data[] = [
                     'id' => $r->id,
                     'parent_id' => $r->parent_id,
@@ -135,7 +134,7 @@ class RegionCommand extends Command
 
 
                 if (count($data) >= 500) {
-                    if (!Db::name('region')->insertAll($data)) {
+                    if (! Db::name('region')->insertAll($data)) {
                         Db::rollback();
                         break;
                     }
@@ -143,8 +142,8 @@ class RegionCommand extends Command
                     $bar->advance(500);
                 }
 
-                if ($total == $k+1) {
-                    if (!Db::name('region')->insertAll($data)) {
+                if ($total == $k + 1) {
+                    if (! Db::name('region')->insertAll($data)) {
                         Db::rollback();
                         break;
                     }
@@ -157,11 +156,10 @@ class RegionCommand extends Command
 
             unlink($regionZip);
             unlink($regionJson);
-            $this->output->info(PHP_EOL . 'import region data successfully');
+            $this->output->info(PHP_EOL.'import region data successfully');
         } catch (\Exception $e) {
             $this->output->error($e->getMessage());
             exit();
         }
     }
-
 }

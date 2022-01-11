@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | Catch-CMS Design On 2020
 // +----------------------------------------------------------------------
@@ -22,7 +23,7 @@ class Tags extends BaseModel
     // 表名
     public $name = 'cms_tags';
     // 数据库字段映射
-    public $field = array(
+    public $field = [
         'id',
         // 标签名称
         'name',
@@ -40,7 +41,7 @@ class Tags extends BaseModel
         'updated_at',
         // 软删除
         'deleted_at',
-    );
+    ];
 
     /**
      * 列表
@@ -69,8 +70,11 @@ class Tags extends BaseModel
      */
     public function articles(): \think\model\relation\BelongsToMany
     {
-        return $this->belongsToMany(Articles::class,  'cms_article_relate_tags',
-            'article_id', 'tag_id'
+        return $this->belongsToMany(
+            Articles::class,
+            'cms_article_relate_tags',
+            'article_id',
+            'tag_id'
         );
     }
 
