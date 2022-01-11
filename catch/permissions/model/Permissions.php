@@ -3,6 +3,7 @@ namespace catchAdmin\permissions\model;
 
 use catchAdmin\permissions\model\search\PermissionsSearch;
 use catcher\base\CatchModel;
+use catcher\enums\Status;
 use think\helper\Str;
 use think\Model;
 
@@ -167,7 +168,7 @@ class Permissions extends CatchModel
 
         // 不能使用改属性判断，模型有该属性，使用数组方式
         // $permission->hidden
-        $hidden = $permission['hidden'] == Permissions::ENABLE ? Permissions::DISABLE : Permissions::ENABLE;
+        $hidden = $permission['hidden'] == Status::Enable ? Status::Disable : Status::Enable;
 
         $nextLevelIds = $this->getNextLevel([$id]);
 

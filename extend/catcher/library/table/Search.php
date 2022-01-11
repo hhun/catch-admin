@@ -2,6 +2,7 @@
 namespace catcher\library\table;
 
 use catcher\base\CatchModel;
+use catcher\enums\Status;
 use FormBuilder\UI\Elm\Components\Input;
 use FormBuilder\UI\Elm\Components\Select;
 use FormBuilder\UI\Elm\Components\DatePicker;
@@ -40,8 +41,8 @@ class Search
     public static function status(string $placeholder = '请选择状态'): Select
     {
       return self::select('status', $placeholder, [
-                          [ 'value' => CatchModel::ENABLE, 'label'=> ' 正常'],
-                          [ 'value' => CatchModel::DISABLE, 'label'=> ' 禁用']
+                          [ 'value' => Status::Enable, 'label'=> ' 正常'],
+                          [ 'value' => Status::Disable, 'label'=> ' 禁用']
                       ]);
     }
 

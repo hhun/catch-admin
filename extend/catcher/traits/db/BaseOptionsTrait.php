@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace catcher\traits\db;
 
+use catcher\enums\Status;
 use catcher\library\excel\reader\Reader;
 use catcher\Utils;
 
@@ -265,7 +266,7 @@ trait BaseOptionsTrait
     {
         $model = $this->findBy($id);
 
-        $status = $model->{$field} == self::DISABLE ? self::ENABLE : self::DISABLE;
+        $status = $model->{$field} == Status::Disable ? Status::Enable : Status::Disable;
 
         $model->{$field} = $status;
 

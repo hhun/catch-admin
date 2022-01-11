@@ -12,6 +12,7 @@
 namespace catchAdmin\monitor\command\process;
 
 use catchAdmin\monitor\model\Crontab;
+use catcher\enums\Status;
 use catcher\facade\FileSystem;
 use Cron\CronExpression;
 use EasyWeChat\Kernel\Messages\News;
@@ -100,7 +101,7 @@ trait RegisterSignal
                         // 如果任务只执行一次 之后禁用该任务
                         if ($crontab['tactics'] === Crontab::EXECUTE_ONCE) {
                             Crontab::where('id', $crontab['id'])->update([
-                                'status' => Crontab::DISABLE,
+                                'status' => Status::Disable,
                             ]);
                         }
 

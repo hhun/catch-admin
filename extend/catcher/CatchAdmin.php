@@ -7,7 +7,7 @@ use catcher\facade\FileSystem;
 
 class CatchAdmin
 {
-    public static $root = 'catch';
+    public static string $root = 'catch';
 
     public const VERSION = '2.6.0';
 
@@ -26,10 +26,10 @@ class CatchAdmin
      * 设置 root
      *
      * @time 2021年03月28日
-     * @param $root
+     * @param string $root
      * @return CatchAdmin
      */
-    public static function setRoot($root): CatchAdmin
+    public static function setRoot(string $root): CatchAdmin
     {
         self::$root = $root;
 
@@ -55,10 +55,10 @@ class CatchAdmin
     /**
      *
      * @time 2019年12月04日
-     * @param $module
+     * @param string $module
      * @return string
      */
-    public static function moduleDirectory($module): string
+    public static function moduleDirectory(string $module): string
     {
         return self::makeDirectory(self::directory() . $module . DIRECTORY_SEPARATOR);
     }
@@ -87,10 +87,10 @@ class CatchAdmin
     /**
      *
      * @time 2019年12月03日
-     * @param $module
+     * @param string $module
      * @return string
      */
-    public static function moduleMigrationsDirectory($module): string
+    public static function moduleMigrationsDirectory(string $module): string
     {
         return self::directory() . $module . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR. 'migrations' . DIRECTORY_SEPARATOR;
     }
@@ -98,10 +98,10 @@ class CatchAdmin
     /**
      *
      * @time 2019年12月03日
-     * @param $module
+     * @param string $module
      * @return string
      */
-    public static function moduleSeedsDirectory($module): string
+    public static function moduleSeedsDirectory(string $module): string
     {
         $seedPath = self::directory() . $module . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR. 'seeds' . DIRECTORY_SEPARATOR;
 
@@ -114,10 +114,10 @@ class CatchAdmin
      * 获取模块 view path
      *
      * @time 2019年12月03日
-     * @param $module
+     * @param string $module
      * @return string
      */
-    public static function getModuleViewPath($module): string
+    public static function getModuleViewPath(string $module): string
     {
         return self::makeDirectory(self::directory() . $module . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR);
     }
@@ -125,10 +125,10 @@ class CatchAdmin
     /**
      *
      * @time 2019年12月03日
-     * @param $module
+     * @param string $module
      * @return string
      */
-    public static function getModuleModelDirectory($module): string
+    public static function getModuleModelDirectory(string $module): string
     {
         return self::makeDirectory(self::directory() . $module . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR);
     }
@@ -158,7 +158,7 @@ class CatchAdmin
      * @param bool $select
      * @return array
      */
-    public static function getModulesInfo($select = true): array
+    public static function getModulesInfo(bool $select = true): array
     {
         $modules = [];
         if ($select) {
@@ -343,7 +343,7 @@ class CatchAdmin
      * @time 2019年11月30日
      * @return false|int
      */
-    public static function cacheRoutes()
+    public static function cacheRoutes(): bool|int
     {
         $routes = '';
 
@@ -359,7 +359,7 @@ class CatchAdmin
      * @time 2019年11月30日
      * @return false|int
      */
-    public static function cacheServices()
+    public static function cacheServices(): bool|int
     {
         return file_put_contents(self::getCacheServicesFile(), "<?php\r\n return "
             . var_export(self::getEnabledService(), true) . ';');
@@ -370,7 +370,7 @@ class CatchAdmin
      * @time 2019年11月30日
      * @return mixed
      */
-    protected static function getCacheServices()
+    protected static function getCacheServices(): mixed
     {
         return include self::getCacheServicesFile();
     }

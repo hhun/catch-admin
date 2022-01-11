@@ -9,14 +9,14 @@ use catcher\traits\db\RewriteTrait;
 use catcher\traits\db\WithTrait;
 use think\model\concern\SoftDelete;
 use catcher\traits\db\ScopeTrait;
-
+use think\Model;
 /**
  *
  * @mixin CatchQuery
  * Class CatchModel
  * @package catcher\base
  */
-abstract class CatchModel extends \think\Model
+abstract class CatchModel extends Model
 {
     use SoftDelete, BaseOptionsTrait, ScopeTrait, RewriteTrait, WithTrait;
 
@@ -24,7 +24,7 @@ abstract class CatchModel extends \think\Model
 
     protected $updateTime = 'updated_at';
 
-    protected $deleteTime = 'deleted_at';
+    protected string $deleteTime = 'deleted_at';
 
     protected $defaultSoftDelete = 0;
 

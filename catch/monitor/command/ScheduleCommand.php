@@ -17,6 +17,7 @@ namespace catchAdmin\monitor\command;
 use catchAdmin\monitor\command\process\Process;
 use catchAdmin\monitor\model\Crontab;
 use catchAdmin\monitor\model\CrontabLog;
+use catcher\enums\Status;
 use Cron\CronExpression;
 use think\console\Command;
 use think\console\Input;
@@ -114,7 +115,7 @@ class ScheduleCommand extends Command
                 if ($can) {
                     // 如果任务只执行一次 之后禁用该任务
                     if ($command->tactics === Crontab::EXECUTE_ONCE) {
-                        $command->tactics = Crontab::DISABLE;
+                        $command->tactics = Status::Disable;
                         $command->save();
                     }
 

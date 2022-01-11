@@ -69,9 +69,8 @@ abstract class CatchCronTask
      * @time 2020年07月29日
      * @return bool
      */
-    public function shouldExit()
+    public function shouldExit(): bool
     {
-        // var_dump($this->exceptionHappenTimes);
         return $this->exceptionHappenTimes > $this->exitTimes;
     }
 
@@ -82,16 +81,23 @@ abstract class CatchCronTask
      * @param array $crontab
      * @return $this
      */
-    public function setCrontab(array $crontab)
+    public function setCrontab(array $crontab): CatchCronTask
     {
         $this->crontab = $crontab;
 
         return $this;
     }
 
-    protected function recordLog($startAt, $message = '')
+    /**
+     * @desc
+     * @time 2022年01月11日
+     * @param int $startAt
+     * @param string $message
+     */
+    protected function recordLog(int $startAt,string $message = '')
     {
         $endAt = round(microtime(true) * 1000);
+
         CrontabLog::insert([
             'crontab_id' => $this->crontab['id'],
             'used_time' => $endAt - $startAt,

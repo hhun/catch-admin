@@ -13,6 +13,7 @@ use catcher\base\CatchController;
 use catcher\CatchAuth;
 use catcher\CatchCacheKeys;
 use catcher\CatchResponse;
+use catcher\enums\Status;
 use catcher\library\excel\Excel;
 use catcher\Tree;
 use catcher\Utils;
@@ -160,11 +161,10 @@ class User extends CatchController
         $ids = Utils::stringToArrayBy($id);
 
         foreach ($ids as $_id) {
-
           $user = $this->user->findBy($_id);
 
           $this->user->updateBy($_id, [
-            'status' => $user->status == Users::ENABLE ? Users::DISABLE : Users::ENABLE,
+            'status' => $user->status == Status::Enable ? Status::Disable : Status::Enable,
           ]);
         }
 

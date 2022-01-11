@@ -9,7 +9,7 @@ use think\facade\Db;
 
 class OperateLogEvent
 {
-    public function handle($params)
+    public function handle(array $params)
     {
         $permission = $params['permission'];
 
@@ -18,10 +18,8 @@ class OperateLogEvent
         $requestParams = request()->param();
 
         // 如果参数过长则不记录
-        if (!empty($requestParams)) {
-            if (strlen(\json_encode($requestParams)) > 1000) {
+        if (!empty($requestParams) && strlen(\json_encode($requestParams)) > 1000) {
                 $requestParams = [];
-            }
         }
 
         app(OperateLog::class)->storeBy([

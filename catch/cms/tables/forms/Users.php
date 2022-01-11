@@ -1,13 +1,13 @@
 <?php
 namespace catchAdmin\cms\tables\forms;
 
+use catcher\enums\Status;
 use catcher\library\form\Form;
 
 class Users extends Form
 {
     public function fields(): array
     {
-        // TODO: Implement fields() method.
         return [
             self::input('username', '用户名')->required()->clearable(true),
 
@@ -23,11 +23,10 @@ class Users extends Form
                 self::validateMobile()
             ])->clearable(true),
 
-
-            self::radio('status', '状态', \catchAdmin\cms\model\Users::ENABLE)
+            self::radio('status', '状态', Status::Enable)
             ->options(
-                self::options()->add('启用', \catchAdmin\cms\model\Users::ENABLE)
-                    ->add('禁用', \catchAdmin\cms\model\Users::DISABLE)->render()
+                self::options()->add('启用', Status::Enable)
+                    ->add('禁用', Status::Disable)->render()
             )
         ];
     }

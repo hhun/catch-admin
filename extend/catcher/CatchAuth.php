@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace catcher;
 
 use catchAdmin\permissions\model\Users;
+use catcher\enums\Status;
 use catcher\exceptions\FailedException;
 use catcher\exceptions\LoginFailedException;
 use thans\jwt\facade\JWTAuth;
@@ -69,7 +70,7 @@ class CatchAuth
         if (!$user) {
             throw new LoginFailedException();
         }
-        if ($user->status == Users::DISABLE) {
+        if ($user->status == Status::Disable) {
             throw new LoginFailedException('该用户已被禁用|' . $user->username, Code::USER_FORBIDDEN);
         }
 

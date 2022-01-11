@@ -2,14 +2,14 @@
 namespace catchAdmin\cms\tables\forms;
 
 use catchAdmin\cms\model\BaseModel;
+use catcher\enums\Status;
 
 class SiteLink extends BaseForm
 {
-    protected $table = 'cms_site_links';
+    protected ?string $table = 'cms_site_links';
 
     public function fields(): array
     {
-        // TODO: Implement fields() method.
         return [
             self::input('title', '网站标题')->required(),
 
@@ -19,9 +19,9 @@ class SiteLink extends BaseForm
 
             self::image('网站图标', 'icon'),
 
-            self::radio('is_show', '展示', BaseModel::ENABLE)->options(
-                self::options()->add('是', BaseModel::ENABLE)
-                    ->add('否', BaseModel::DISABLE)->render()
+            self::radio('is_show', '展示', Status::Enable)->options(
+                self::options()->add('是', Status::Enable)
+                    ->add('否', Status::Disable)->render()
             ),
 
             self::number('weight', '权重')->min(1)->max(10000)

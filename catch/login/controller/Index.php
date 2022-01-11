@@ -2,12 +2,10 @@
 namespace catchAdmin\login\controller;
 
 use catchAdmin\login\request\LoginRequest;
-use catchAdmin\permissions\model\Users;
 use catcher\base\CatchController;
 use catcher\CatchAuth;
 use catcher\CatchResponse;
 use catcher\Code;
-use catcher\exceptions\LoginFailedException;
 use thans\jwt\facade\JWTAuth;
 
 class Index extends CatchController
@@ -18,7 +16,7 @@ class Index extends CatchController
      * @time 2019年11月28日
      * @param LoginRequest $request
      * @param CatchAuth $auth
-     * @return bool|string
+     * @return \think\response\Json
      */
     public function login(LoginRequest $request, CatchAuth $auth)
     {

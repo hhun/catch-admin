@@ -4,6 +4,7 @@ namespace catchAdmin\cms\tables\forms;
 use catchAdmin\cms\model\Tags;
 use catchAdmin\cms\model\Articles as Article;
 use catchAdmin\cms\model\Category;
+use catcher\enums\Status;
 
 class Articles extends BaseForm
 {
@@ -62,9 +63,9 @@ class Articles extends BaseForm
                     ->add('否', Article::UN_RECOMMEND)->render()
             ),
 
-            self::radio('status', '展示', Article::ENABLE)->options(
-                self::options()->add('是', Article::ENABLE)
-                    ->add('否', Article::DISABLE)->render()
+            self::radio('status', '展示', Status::Disable)->options(
+                self::options()->add('是', Status::Enable)
+                    ->add('否', Status::Disable)->render()
             ),
 
             self::radio('is_can_comment', '允许评论', Article::UN_CAN_COMMENT)->options(
