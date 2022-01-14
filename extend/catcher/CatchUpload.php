@@ -32,7 +32,7 @@ class CatchUpload
      *
      * @var string
      */
-    protected $driver;
+    protected string $driver;
 
     /**
      * 本地
@@ -44,7 +44,7 @@ class CatchUpload
      *
      * @var string
      */
-    protected $path = '';
+    protected string $path = '';
 
     /**
      * upload files
@@ -90,9 +90,9 @@ class CatchUpload
      */
     public function toLocal($file): string
     {
-        $path = Filesystem::disk(self::LOCAL)->putFile($this->getPath(), $file);
-
-        return public_path().$this->getLocalPath($path);
+        return public_path().$this->getLocalPath(
+            Filesystem::disk(self::LOCAL)->putFile($this->getPath(), $file)
+        );
     }
 
 
@@ -106,7 +106,7 @@ class CatchUpload
     protected function getLocalPath($path): string
     {
         if ($this->getDriver() === self::LOCAL) {
-            $path = str_replace(root_path('public'), '', \config('filesystem.disks.local.root')).DIRECTORY_SEPARATOR.$path;
+            $path = str_replace(root_path('public'), '', \config('filesystem.disks.local.root')) . DIRECTORY_SEPARATOR . $path;
 
             return str_replace('\\', '/', $path);
         }
@@ -123,7 +123,7 @@ class CatchUpload
      * @param $attachments
      * @return array|string
      */
-    public function multiUpload($attachments)
+    public function multiUpload($attachments): array|string
     {
         if (! is_array($attachments)) {
             return $this->upload($attachments);
@@ -167,7 +167,7 @@ class CatchUpload
     public function setDriver($driver): self
     {
         if (! in_array($driver, [self::OSS, self::QCLOUD, self::QIQNIU, self::LOCAL])) {
-            throw new \Exception(sprintf('Upload Driver [%s] Not Supported', $driver));
+            throw new FailedException(sprintf('Upload Driver [%s] Not Supported', $driver));
         }
 
         $this->driver = $driver;
@@ -182,7 +182,7 @@ class CatchUpload
      * @time 2020/1/25
      * @return string
      */
-    protected function getPath()
+    protected function getPath(): string
     {
         return $this->path;
     }
@@ -195,7 +195,7 @@ class CatchUpload
      * @param string $path
      * @return $this
      */
-    public function setPath(string $path)
+    public function setPath(string $path): static
     {
         $this->path = $path;
 
@@ -208,7 +208,7 @@ class CatchUpload
      * @param UploadedFile $file
      * @return array
      */
-    protected function data(UploadedFile $file)
+    protected function data(UploadedFile $file): array
     {
         return [
             'file_size' => $file->getSize(),
@@ -228,7 +228,7 @@ class CatchUpload
      * @param array $images
      * @return $this
      */
-    public function checkImages(array $images)
+    public function checkImages(array $images): static
     {
         try {
             validate(['image' => config('catch.upload.image')])->check($images);
@@ -248,7 +248,7 @@ class CatchUpload
      * @param array $files
      * @return $this
      */
-    public function checkFiles(array $files)
+    public function checkFiles(array $files): static
     {
         try {
             validate(['file' => config('catch.upload.file')])->check($files);
@@ -275,34 +275,30 @@ class CatchUpload
      *
      * @time 2020年01月25日
      * @param $driver
-     * @return string
+     * @return string|null
      */
     public static function getCloudDomain($driver): ?string
     {
         $driver = \config('filesystem.disks.'.$driver);
 
-        switch ($driver['type']) {
-            case self::QIQNIU:
-            case self::LOCAL:
-                return $driver['domain'];
-            case self::OSS:
-                return self::getOssDomain();
-            case self::QCLOUD:
-                return $driver['cdn'];
-            default:
-                throw new FailedException(sprintf('Driver [%s] Not Supported.', $driver));
-        }
+        return match ($driver['type']) {
+            self::QIQNIU, self::LOCAL => $driver['domain'],
+            self::OSS => self::getOssDomain(),
+            self::QCLOUD => $driver['cdn'],
+            default => throw new FailedException(sprintf('Driver [%s] Not Supported.', $driver)),
+        };
     }
 
     /**
      * 获取 OSS Domain
      *
      * @time 2021年01月20日
-     * @return mixed|string
+     * @return string
      */
     protected static function getOssDomain(): string
     {
         $oss = \config('filesystem.disks.oss');
+
         if ($oss['is_cname'] === false) {
             return 'https://'.$oss['bucket'].'.'.$oss['end_point'];
         }

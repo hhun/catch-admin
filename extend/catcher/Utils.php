@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace catcher;
 
 use catchAdmin\system\model\Config;
+use Psr\SimpleCache\InvalidArgumentException;
 use think\facade\Cache;
 use think\facade\Db;
 use think\helper\Str;
@@ -19,7 +20,7 @@ class Utils
      * @param string $dep
      * @return array
      */
-    public static function stringToArrayBy(string  $string, $dep = ','): array
+    public static function stringToArrayBy(string $string, string $dep = ','): array
     {
         if (Str::contains($string, $dep)) {
             return explode($dep, trim($string, $dep));
@@ -64,6 +65,9 @@ class Utils
      * @param string $pid
      * @param string $primaryKey
      * @return void
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
      */
     public static function importTreeData($data, $table, string $pid = 'parent_id', string $primaryKey = 'id')
     {
@@ -130,7 +134,7 @@ class Utils
      * @return false|string[]
      * @throws \ReflectionException
      */
-    public static function isMethodNeedAuth($rule)
+    public static function isMethodNeedAuth($rule): array|bool
     {
         list($controller, $action) = explode(Str::contains($rule, '@') ? '@' : '/', $rule);
 
@@ -148,9 +152,9 @@ class Utils
      * 表前缀
      *
      * @time 2020年05月22日
-     * @return mixed
+     * @return string
      */
-    public static function tablePrefix()
+    public static function tablePrefix(): string
     {
         return \config('database.connections.mysql.prefix');
     }
@@ -162,7 +166,7 @@ class Utils
      * @param string $table
      * @return string|string[]
      */
-    public static function tableWithoutPrefix(string $table)
+    public static function tableWithoutPrefix(string $table): array|string
     {
         return str_replace(self::tablePrefix(), '', $table);
     }
@@ -198,7 +202,7 @@ class Utils
      * @param $key
      * @return mixed
      */
-    public static function config($key)
+    public static function config($key): mixed
     {
         return Config::where('key', $key)->value('value');
     }
@@ -223,7 +227,7 @@ class Utils
      * @param $data
      * @return mixed
      */
-    public static function filterEmptyValue($data)
+    public static function filterEmptyValue($data): mixed
     {
         foreach ($data as $k => $v) {
             if (! $v) {
@@ -303,9 +307,9 @@ class Utils
      * @param int $ttl
      * @param string $store
      * @return mixed
-     *@throws \Psr\SimpleCache\InvalidArgumentException
+     *@throws InvalidArgumentException
      */
-    public static function cache(string $key, \Closure $callable, int $ttl = 0, string $store = 'redis')
+    public static function cache(string $key, \Closure $callable, int $ttl = 0, string $store = 'redis'): mixed
     {
         if (Cache::store($store)->has($key)) {
             return Cache::store($store)->get($store);

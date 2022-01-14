@@ -7,7 +7,7 @@ namespace catcher;
 use catcher\enums\Status;
 use catcher\exceptions\FailedException;
 use catcher\exceptions\LoginFailedException;
-use thans\jwt\facade\JWTAuth;
+use catchAdmin\jwt\facade\JWTAuth;
 use think\facade\Session;
 
 class CatchAuth

@@ -16,7 +16,7 @@ abstract class CatchException extends HttpException
         parent::__construct($statusCode, $message ?: $this->getMessage(), $previous, $headers, $code);
     }
 
-    public function getStatusCode()
+    public function getStatusCode(): int
     {
         return self::HTTP_SUCCESS;
     }
