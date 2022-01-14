@@ -2,6 +2,8 @@
 /.vscode
 /vendor
 /package
+/extend/jwt-auth
+/extend/think-migration
 *.log
 .env
 composer.lock
