@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace catcher\exceptions;
 
-use catcher\Code;
+use catcher\enums\Code;
 
 class ValidateFailedException extends CatchException
 {
