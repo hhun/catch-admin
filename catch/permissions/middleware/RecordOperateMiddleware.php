@@ -29,7 +29,6 @@ class RecordOperateMiddleware
 
         $permission = $this->getPermission($module, $controller, $action);
 
-        $this->operateEvent($request->user()->id, $permission);
 
         // 将权限带入
         $request->permission = $permission;
