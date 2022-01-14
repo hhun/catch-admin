@@ -6,19 +6,19 @@ namespace catcher;
 
 class Tree
 {
-    protected static $pk = 'id';
+    protected static string $pk = 'id';
 
     /**
      *
-     * @author CatchAdmin
-     * @time 2021年05月25日
      * @param array $items
      * @param int $pid
      * @param string $pidField
      * @param string $children
      * @return array
+     *@author CatchAdmin
+     * @time 2021年05月25日
      */
-    public static function done(array $items, $pid = 0, $pidField = 'parent_id', $children = 'children'): array
+    public static function done(array $items, int $pid = 0, string $pidField = 'parent_id', string $children = 'children'): array
     {
         $tree = [];
 

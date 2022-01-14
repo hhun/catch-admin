@@ -6,6 +6,7 @@ namespace catcher;
 
 use think\Paginator;
 use think\response\Json;
+use catcher\enums\Code;
 
 class CatchResponse
 {
@@ -14,15 +15,15 @@ class CatchResponse
      *
      * @time 2019年12月02日
      * @param array $data
-     * @param $msg
-     * @param int $code
+     * @param string $msg
+     * @param Code $code
      * @return Json
      */
-    public static function success($data = [], $msg = 'success', $code = Code::SUCCESS): Json
+    public static function success(array $data = [], string $msg = '', Code $code = Code::SUCCESS): Json
     {
         return json([
-            'code' => $code,
-            'message' => $msg,
+            'code' => $code->value,
+            'message' => $msg ? : $code->message(),
             'data' => $data,
         ]);
     }
@@ -32,12 +33,12 @@ class CatchResponse
      *
      * @time 2019年12月06日
      * @param Paginator $list
-     * @return
+     * @return Json
      */
-    public static function paginate(Paginator $list)
+    public static function paginate(Paginator $list): Json
     {
         return json([
-            'code' => Code::SUCCESS,
+            'code' => Code::SUCCESS->value,
             'message' => 'success',
             'count' => $list->total(),
             'current' => $list->currentPage(),
@@ -51,14 +52,14 @@ class CatchResponse
      *
      * @time 2019年12月02日
      * @param string $msg
-     * @param int $code
+     * @param Code $code
      * @return Json
      */
-    public static function fail($msg = '', $code = Code::FAILED): Json
+    public static function fail(string $msg = '', Code $code = Code::FAILED): Json
     {
         return json([
-            'code' => $code,
-            'message' => $msg,
+            'code' => $code->value,
+            'message' => $msg ? : $code->message(),
         ]);
     }
 }

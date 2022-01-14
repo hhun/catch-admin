@@ -18,4 +18,18 @@ enum Status : int
 
     case Disable = 2;
 
+    /**
+     * @desc 描述
+     *
+     * @time 2022年01月14日
+     * @return string
+     */
+    public function label(): string
+    {
+        return match ($this) {
+            Status::Enable => '启用',
+
+            Status::Disable => '禁用'
+        };
+    }
 }
