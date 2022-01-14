@@ -3,18 +3,21 @@ namespace app;
 
 // 应用请求对象类
 
-use catchAdmin\permissions\model\Users;
 use catcher\CatchAuth;
-use catcher\Code;
+use catcher\enums\Status;
 use catcher\exceptions\FailedException;
 use catcher\exceptions\LoginFailedException;
-use thans\jwt\exception\TokenBlacklistException;
-use thans\jwt\exception\TokenExpiredException;
-use thans\jwt\exception\TokenInvalidException;
+use catchAdmin\jwt\exception\TokenBlacklistException;
+use catchAdmin\jwt\exception\TokenExpiredException;
+use catchAdmin\jwt\exception\TokenInvalidException;
+use catcher\enums\Code;
 
 class Request extends \think\Request
 {
-    protected $auth;
+    /**
+     * @var CatchAuth|null
+     */
+    protected ?CatchAuth $auth = null;
 
     /**
      * login user
@@ -23,31 +26,28 @@ class Request extends \think\Request
      * @param null $guard
      * @return mixed
      */
-  public function user($guard = null)
-  {
-    if (!$this->auth) {
-      $this->auth = new CatchAuth;
+    public function user($guard = null)
+    {
+        if (!$this->auth) {
+            $this->auth = new CatchAuth;
+        }
+
+        try {
+            $user = $this->auth->guard($guard ? : config('catch.auth.default.guard'))->user();
+
+            if ($user->status == Status::Disable->value) {
+                throw new LoginFailedException('该用户已被禁用', Code::USER_FORBIDDEN);
+            }
+        } catch (TokenExpiredException $e) {
+            throw new FailedException(Code::LOGIN_EXPIRED->message(), Code::LOGIN_EXPIRED);
+        } catch (TokenBlacklistException $e) {
+            throw new FailedException('Token '. Code::LOGIN_BLACKLIST->message(), Code::LOGIN_BLACKLIST);
+        } catch (TokenInvalidException $e) {
+            throw new FailedException(Code::LOST_LOGIN->message(), Code::LOST_LOGIN);
+        } catch (\Exception $e) {
+            throw new FailedException('登录用户不合法', Code::LOST_LOGIN);
+        }
+
+        return $user;
     }
-
-    try {
-        $user = $this->auth->guard($guard ? : config('catch.auth.default.guard'))->user();
-
-        if ($user->status == Users::DISABLE) {
-            throw new LoginFailedException('该用户已被禁用', Code::USER_FORBIDDEN);
-        }
-    }  catch (\Exception $e) {
-        if ($e instanceof TokenExpiredException) {
-            throw new FailedException('token 过期', Code::LOGIN_EXPIRED);
-        }
-        if ($e instanceof TokenBlacklistException) {
-            throw new FailedException('token 被加入黑名单', Code::LOGIN_BLACKLIST);
-        }
-        if ($e instanceof TokenInvalidException) {
-            throw new FailedException('token 不合法', Code::LOST_LOGIN);
-        }
-        throw new FailedException('认证失败: '. $e->getMessage(), $e->getCode());
-    }
-
-    return $user;
-  }
 }
