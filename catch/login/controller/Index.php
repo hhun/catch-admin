@@ -38,8 +38,8 @@ class Index extends CatchController
         } catch (\Exception $exception) {
             $this->detailWithLoginFailed($exception, $condition);
             $code = $exception->getCode();
-            return CatchResponse::fail($code == Code::User_Forbidden ?
-                '该账户已被禁用，请联系管理员' : '登录失败,请检查邮箱和密码', Code::Login_Failed);
+            return CatchResponse::fail($code == Code::USER_FORBIDDEN ?
+                '该账户已被禁用，请联系管理员' : '登录失败,请检查邮箱和密码', Code::LOGIN_FAILED);
         }
     }
 
