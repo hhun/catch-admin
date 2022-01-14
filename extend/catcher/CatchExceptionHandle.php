@@ -8,12 +8,14 @@ use catcher\exceptions\CatchException;
 use catcher\exceptions\FailedException;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\ModelNotFoundException;
+use think\exception\ErrorException;
 use think\exception\Handle;
 use think\exception\HttpException;
 use think\exception\HttpResponseException;
 use think\exception\ValidateException;
 use think\Response;
 use Throwable;
+use catcher\enums\Code;
 
 class CatchExceptionHandle extends Handle
 {
@@ -76,5 +78,24 @@ class CatchExceptionHandle extends Handle
         include $this->app->config->get('app.exception_tmpl') ?: __DIR__.'/../../tpl/think_exception.tpl';
 
         return ob_get_clean();
+    }
+
+    /**
+     * @desc rewrite parent getCode
+     *
+     * @time 2022年01月14日
+     * @param Throwable $exception
+     * @return int
+     */
+    protected function getCode(Throwable $exception): int
+    {
+        $code = $exception->getCode();
+
+        if (!$code && $exception instanceof ErrorException) {
+            $code = $exception->getSeverity();
+        }
+
+        // 如果 code 是枚举对象，则使用 code->value 获取值
+        return $code instanceof Code ? $code->value : $code;
     }
 }
