@@ -13,6 +13,7 @@ use think\db\exception\DbException;
 use think\db\exception\ModelNotFoundException;
 use think\facade\Cache;
 use catcher\Utils;
+use think\Model;
 
 class PermissionsMiddleware
 {
@@ -73,12 +74,12 @@ class PermissionsMiddleware
      * @param $module
      * @param $controllerName
      * @param $action
-     * @return array|\think\Model|null
+     * @return array|Model|null
      * @throws DbException
      * @throws ModelNotFoundException
      * @throws DataNotFoundException
      */
-    protected function getPermission($module, $controllerName, $action)
+    protected function getPermission($module, $controllerName, $action): array|Model|null
     {
         $permissionMark = sprintf('%s@%s', $controllerName, $action);
 
@@ -91,26 +92,9 @@ class PermissionsMiddleware
      * @time 2020年04月16日
      * @return array
      */
-    protected function ignoreModule()
+    protected function ignoreModule(): array
     {
         return ['login'];
-    }
-
-    /**
-     * 操作日志
-     *
-     * @time 2020年04月16日
-     * @param $creatorId
-     * @param $permission
-     * @return void
-     */
-    protected function operateEvent($creatorId, $permission)
-    {
-        // 操作日志
-        $permission && event('operateLog', [
-            'creator_id' => $creatorId,
-            'permission' => $permission,
-        ]);
     }
 
     /**
@@ -121,7 +105,7 @@ class PermissionsMiddleware
      * @return bool
      * @throws \ReflectionException
      */
-    protected function allowGet($request)
+    protected function allowGet($request): bool
     {
         if (Utils::isMethodNeedAuth($request->rule()->getName())) {
             return false;

@@ -20,13 +20,13 @@ class AuthTokenMiddleware extends Middleware
         try {
             JWTAuth::auth();
         } catch (TokenExpiredException $e) {
-            throw new FailedException('token 过期', Code::Login_Expired->value);
+            throw new FailedException(Code::LOGIN_EXPIRED->message(), Code::LOGIN_EXPIRED);
         } catch (TokenBlacklistException $e) {
-            throw new FailedException('token 被加入黑名单', Code::Login_BlackList->value);
+            throw new FailedException('Token '. Code::LOGIN_BLACKLIST->message(), Code::LOGIN_BLACKLIST);
         } catch (TokenInvalidException $e) {
-            throw new FailedException('token 不合法', Code::Lost_Login->value);
+            throw new FailedException(Code::LOST_LOGIN->message(), Code::LOST_LOGIN);
         } catch (\Exception $e) {
-            throw new FailedException('登录用户不合法', Code::Lost_Login->value);
+            throw new FailedException('登录用户不合法', Code::LOST_LOGIN);
         }
 
         return $next($request);
