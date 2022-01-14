@@ -6,8 +6,8 @@ use catchAdmin\login\request\LoginRequest;
 use catcher\base\CatchController;
 use catcher\CatchAuth;
 use catcher\CatchResponse;
-use catcher\Code;
-use thans\jwt\facade\JWTAuth;
+use catcher\enums\Code;
+use catchAdmin\jwt\facade\JWTAuth;
 
 class Index extends CatchController
 {
@@ -38,8 +38,8 @@ class Index extends CatchController
         } catch (\Exception $exception) {
             $this->detailWithLoginFailed($exception, $condition);
             $code = $exception->getCode();
-            return CatchResponse::fail($code == Code::USER_FORBIDDEN ?
-                '该账户已被禁用，请联系管理员' : '登录失败,请检查邮箱和密码', Code::LOGIN_FAILED);
+            return CatchResponse::fail($code == Code::User_Forbidden ?
+                '该账户已被禁用，请联系管理员' : '登录失败,请检查邮箱和密码', Code::Login_Failed);
         }
     }
 
@@ -86,11 +86,11 @@ class Index extends CatchController
      * 登录事件
      *
      * @time 2020年09月09日
-     * @param $name
+     * @param string $name
      * @param bool $success
      * @return void
      */
-    protected function loginEvent($name, $success = true)
+    protected function loginEvent(string $name, bool $success = true)
     {
         $params['login_name'] = $name;
         $params['success'] = $success ? 1 : 2;
