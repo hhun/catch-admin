@@ -9,18 +9,19 @@ use catcher\exceptions\FailedException;
 use catcher\exceptions\LoginFailedException;
 use catchAdmin\jwt\facade\JWTAuth;
 use think\facade\Session;
+use catchAdmin\jwt\contract\JWTSubject;
 
 class CatchAuth
 {
     /**
      * @var mixed
      */
-    protected mixed $auth;
+    protected $auth;
 
     /**
      * @var mixed
      */
-    protected mixed $guard;
+    protected $guard;
 
     // 默认获取
     protected string $username = 'email';
@@ -50,7 +51,7 @@ class CatchAuth
      * @param $guard
      * @return $this
      */
-    public function guard($guard): static
+    public function guard($guard): self
     {
         $this->guard = $guard;
 
@@ -63,7 +64,7 @@ class CatchAuth
      * @param $condition
      * @return mixed
      */
-    public function attempt($condition): mixed
+    public function attempt($condition)
     {
         $user = $this->authenticate($condition);
 
@@ -88,29 +89,51 @@ class CatchAuth
      * @time 2020年09月09日
      * @return mixed
      */
-    public function user(): mixed
+    public function user()
     {
         $user = $this->user[$this->guard] ?? null;
 
         if (! $user) {
-            switch ($this->getDriver()) {
-                case 'jwt':
-                    $model = app($this->getProvider()['model']);
-                    $user = $model->where($model->getPk(), JWTAuth::auth()[$this->jwtKey()])->find();
-                    break;
-                case 'session':
-                    $user = Session::get($this->sessionUserKey(), null);
-                    break;
-                default:
-                    throw new FailedException('user not found');
+            $driver = $this->getDriver();
+
+            $method = 'getUserFrom' . ucfirst($driver);
+
+            if (! method_exists($this, $method)) {
+                throw new FailedException('User not found');
             }
 
-            $this->user[$this->guard] = $user;
+            $user = $this->{$method}();
 
-            return $user;
+            $this->user[$this->guard] = $user;
         }
 
         return $user;
+    }
+
+    /**
+     * @desc jwt
+     *
+     * @time 2022年01月19日
+     * @return mixed
+     */
+    protected function getUserFromJWT()
+    {
+        $model = app($this->getProvider()['model']);
+
+        $this->isUserImplementJWTSubject($model);
+
+        return $model->where($model->getPk(), JWTAuth::auth()[$this->jwtKey()])->find();
+    }
+
+    /**
+     * @desc session
+     *
+     * @time 2022年01月19日
+     * @return mixed
+     */
+    protected function getUserFromSession()
+    {
+        return Session::get($this->sessionUserKey(), null);
     }
 
     /**
@@ -139,11 +162,31 @@ class CatchAuth
      */
     protected function jwt($user): string
     {
-        $token = JWTAuth::builder([$this->jwtKey() => $user->id]);
+        $this->isUserImplementJWTSubject($user);
+
+        $customClaims = array_merge([
+            $this->jwtKey() => $user->getJWTIdentifier()
+        ], $user->getJWTCustomClaims());
+
+        $token = JWTAuth::builder($customClaims);
 
         JWTAuth::setToken($token);
 
         return $token;
+    }
+
+
+    /**
+     * @desc is auth model implement JWTSubject
+     *
+     * @time 2022年01月19日
+     * @param $model
+     */
+    protected function isUserImplementJWTSubject($model)
+    {
+        if (! $model instanceof JWTSubject) {
+            throw new FailedException('If use JWT, Auth Model must implement catchAdmin\jwt\contract\JWTSubject');
+        }
     }
 
     /**
@@ -162,7 +205,7 @@ class CatchAuth
      * @time 2020年01月07日
      * @return string
      */
-    protected function sessionUserKey()
+    protected function sessionUserKey(): string
     {
         return $this->guard.'_user';
     }
@@ -172,7 +215,7 @@ class CatchAuth
      * @time 2020年01月07日
      * @return string
      */
-    protected function jwtKey()
+    protected function jwtKey(): string
     {
         return $this->guard.'_id';
     }
@@ -182,7 +225,7 @@ class CatchAuth
      * @time 2020年01月07日
      * @return mixed
      */
-    protected function getDriver(): mixed
+    protected function getDriver()
     {
         return $this->auth['guards'][$this->guard]['driver'];
     }
@@ -192,7 +235,7 @@ class CatchAuth
      * @time 2020年01月07日
      * @return mixed
      */
-    protected function getProvider(): mixed
+    protected function getProvider()
     {
         if (! isset($this->auth['guards'][$this->guard])) {
             throw new FailedException('Auth Guard Not Found');
@@ -207,7 +250,7 @@ class CatchAuth
      * @param $condition
      * @return mixed
      */
-    protected function authenticate($condition): mixed
+    protected function authenticate($condition)
     {
         $provider = $this->getProvider();
 
@@ -220,7 +263,7 @@ class CatchAuth
      * @param $condition
      * @return void
      */
-    protected function database($condition): void
+    protected function database($condition)
     {
     }
 
@@ -230,7 +273,7 @@ class CatchAuth
      * @param $condition
      * @return mixed
      */
-    protected function orm($condition): mixed
+    protected function orm($condition)
     {
         return app($this->getProvider()['model'])->where($this->filter($condition))->find();
     }
