@@ -8,6 +8,7 @@ use catcher\CatchAuth;
 use catcher\CatchResponse;
 use catcher\enums\Code;
 use catchAdmin\jwt\facade\JWTAuth;
+use catcher\exceptions\LoginFailedException;
 
 class Index extends CatchController
 {
@@ -35,12 +36,14 @@ class Index extends CatchController
             return CatchResponse::success([
                 'token' => $token,
             ], '登录成功');
-        } catch (\Exception $exception) {
+        } catch (LoginFailedException $exception) {
             $this->detailWithLoginFailed($exception, $condition);
             $code = $exception->getCode();
             return CatchResponse::fail($code == Code::USER_FORBIDDEN ?
                 '该账户已被禁用，请联系管理员' : '登录失败,请检查邮箱和密码', Code::LOGIN_FAILED);
-        }
+        } catch (\Exception $exception) {
+            $this->detailWithLoginFailed($exception, $condition);
+        } finally {}
     }
 
     /**
