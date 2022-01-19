@@ -2,12 +2,13 @@
 
 namespace catchAdmin\permissions\model;
 
+use catchAdmin\jwt\contract\JWTSubject;
 use catchAdmin\permissions\model\search\UserSearch;
 use catcher\base\CatchModel;
 use catcher\Utils;
 use think\Paginator;
 
-class Users extends CatchModel
+class Users extends CatchModel implements JWTSubject
 {
     use HasJobsTrait;
     use HasRolesTrait;
@@ -106,7 +107,7 @@ class Users extends CatchModel
     *
     * 用法  request()->user()->can('permission@create');
     */
-    public function can($permission_mark)
+    public function can(string $permission_mark)
     {
         // 超级管理员直接返回true
         if (Utils::isSuperAdmin()) {
@@ -117,5 +118,17 @@ class Users extends CatchModel
             Permissions::where('permission_mark', $permission_mark)->value('id') ?: 0,
             $this->getPermissionsBy()
         );
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims(): array
+    {
+        return [
+
+        ];
     }
 }
