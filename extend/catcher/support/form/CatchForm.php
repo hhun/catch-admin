@@ -136,11 +136,15 @@ class CatchForm implements \ArrayAccess, \Iterator
      */
     protected Closure $afterDestroy;
 
-
     /**
      * @var bool
      */
     protected bool $autoWriteCreatorId = true;
+
+    /**
+     * @var array
+     */
+    protected array $fields = [];
 
     /**
      * create form
@@ -492,7 +496,7 @@ class CatchForm implements \ArrayAccess, \Iterator
      * @param mixed $fields
      * @return array
      */
-    public static function col(int $col, mixed $fields): array
+    public function col(int $col, Closure $fields): array
     {
         if (is_array($fields)) {
             foreach ($fields as $field) {
@@ -571,7 +575,7 @@ class CatchForm implements \ArrayAccess, \Iterator
      * @time 2021年09月15日
      * @return mixed
      */
-    public function getPrimaryKeyValue(): mixed
+    public function getPrimaryKeyValue()
     {
         return $this->condition[$this->getModel()->getPk()];
     }
@@ -594,9 +598,13 @@ class CatchForm implements \ArrayAccess, \Iterator
      * @param $arguments
      * @return false|mixed
      */
-    public static function __callStatic($name, $arguments)
+    public function __call($name, $arguments)
     {
-        return call_user_func_array([__NAMESPACE__ . '\\fields\\' . ucfirst($name), 'make'], $arguments);
+        $field = call_user_func_array([__NAMESPACE__ . '\\fields\\' . ucfirst($name), 'make'], $arguments);
+
+        $this->fields[] = $field;
+
+        return $field;
     }
 
     /**
@@ -647,16 +655,19 @@ class CatchForm implements \ArrayAccess, \Iterator
      * @param $key
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function __unset($key)
     {
         unset($this->data[$key]);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset): bool
     {
         return isset($this->data[$offset]);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         $this->data[$offset] = $value;
@@ -664,11 +675,13 @@ class CatchForm implements \ArrayAccess, \Iterator
         return $this;
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->data[$offset]);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->data[$offset];

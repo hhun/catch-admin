@@ -9,14 +9,13 @@
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
 
-namespace Catcher\Support\form\fields\Traits;
+namespace catcher\support\form\fields\traits;
 
 use Catcher\Support\form\fields\Relation\BelongsTo;
 use Catcher\Support\form\fields\Relation\BelongsToMany;
 use Catcher\Support\form\fields\Relation\BelongsToManyTree;
 use Catcher\Support\form\fields\Relation\HasMany;
 use Catcher\Support\form\fields\Relation\HasOne;
-use Illuminate\Contracts\Container\BindingResolutionException;
 
 trait RelationsTrait
 {
@@ -26,7 +25,6 @@ trait RelationsTrait
      *
      * @time 2021年09月26日
      * @param $field
-     * @throws BindingResolutionException
      * @return mixed
      */
     public function parseRelate($field)
@@ -54,7 +52,6 @@ trait RelationsTrait
      * @time 2021年08月20日
      * @param $field
      * @return mixed
-     * @throws BindingResolutionException
      */
     public function hasMany($field)
     {
@@ -69,7 +66,6 @@ trait RelationsTrait
      * @time 2021年08月20日
      * @param $field
      * @return mixed
-     * @throws BindingResolutionException
      */
     public function hasOne($field)
     {
@@ -84,7 +80,6 @@ trait RelationsTrait
      * @time 2021年08月20日
      * @param $field
      * @return mixed
-     * @throws BindingResolutionException
      */
     public function belongsTo($field)
     {
@@ -99,7 +94,6 @@ trait RelationsTrait
      * @time 2021年08月20日
      * @param $field
      * @return mixed
-     * @throws BindingResolutionException
      */
     public function belongsToMany($field)
     {
@@ -115,7 +109,6 @@ trait RelationsTrait
      * @time 2021年08月20日
      * @param $field
      * @return mixed
-     * @throws BindingResolutionException
      */
     public function belongsToManyTree($field)
     {
@@ -154,12 +147,9 @@ trait RelationsTrait
      * @time 2021年08月20日
      * @param $field
      * @return mixed
-     * @throws BindingResolutionException
      */
     protected function getRelateData($field)
     {
-        // $relation = $this->attrs['as'] ?? $field->getField();
-
         $relateModel = $this->getModel()->{ $field->getField() }()->getRelated();
 
         return $relateModel->when($this->attrs['label'] ?? false, function ($query) use ($field) {

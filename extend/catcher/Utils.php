@@ -131,10 +131,10 @@ class Utils
      *
      * @time 2020年10月12日
      * @param $rule
-     * @return false|string[]
+     * @return bool|false
      * @throws \ReflectionException
      */
-    public static function isMethodNeedAuth($rule): array|bool
+    public static function isMethodNeedAuth($rule): bool
     {
         list($controller, $action) = explode(Str::contains($rule, '@') ? '@' : '/', $rule);
 
@@ -164,9 +164,9 @@ class Utils
      *
      * @time 2020年12月01日
      * @param string $table
-     * @return string|string[]
+     * @return string
      */
-    public static function tableWithoutPrefix(string $table): array|string
+    public static function tableWithoutPrefix(string $table): string
     {
         return str_replace(self::tablePrefix(), '', $table);
     }
@@ -202,7 +202,7 @@ class Utils
      * @param $key
      * @return mixed
      */
-    public static function config($key): mixed
+    public static function config($key)
     {
         return Config::where('key', $key)->value('value');
     }
@@ -227,7 +227,7 @@ class Utils
      * @param $data
      * @return mixed
      */
-    public static function filterEmptyValue($data): mixed
+    public static function filterEmptyValue($data)
     {
         foreach ($data as $k => $v) {
             if (! $v) {
@@ -309,7 +309,7 @@ class Utils
      * @return mixed
      *@throws InvalidArgumentException
      */
-    public static function cache(string $key, \Closure $callable, int $ttl = 0, string $store = 'redis'): mixed
+    public static function cache(string $key, \Closure $callable, int $ttl = 0, string $store = 'redis')
     {
         if (Cache::store($store)->has($key)) {
             return Cache::store($store)->get($store);

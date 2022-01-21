@@ -261,16 +261,6 @@ class CatchAuth
      *
      * @time 2020年01月07日
      * @param $condition
-     * @return void
-     */
-    protected function database($condition)
-    {
-    }
-
-    /**
-     *
-     * @time 2020年01月07日
-     * @param $condition
      * @return mixed
      */
     protected function orm($condition)
