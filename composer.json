@@ -32,16 +32,13 @@
         "xaboy/form-builder": "~2.0",
         "ext-zip": "*",
         "lcobucci/jwt": "^4.1",
-        "robmorgan/phinx": "^0.12.9"
+        "catchadmin/phinx": "1.0.0"
     },
     "require-dev": {
         "topthink/think-trace": "^1.0",
         "symfony/var-dumper": "^5.1",
-        "swoole/ide-helper": "^4.5",
         "nikic/php-parser": "^4.10",
         "jaguarjack/file-generate": "dev-master",
-        "friendsofphp/php-cs-fixer": "^3.4",
-        "brainmaestro/composer-git-hooks": "^2.8",
         "fzaninotto/faker": "^1.9"
     },
     "autoload": {
@@ -60,13 +57,6 @@
             "catchAdmin\\tests\\": "tests"
         }
     },
-    "extra": {
-        "hooks": {
-            "pre-commit": [
-                "composer lint"
-            ]
-        }
-    },
     "config": {
         "preferred-install": "dist"
     },
@@ -74,10 +64,6 @@
         "post-autoload-dump": [
             "@php think service:discover",
             "@php think vendor:publish"
-        ],
-
-        "lint": "php-cs-fixer fix --allow-risky=yes --dry-run --diff",
-
-        "lint-fix": "php-cs-fixer fix --allow-risky=yes"
+        ]
     }
 }
