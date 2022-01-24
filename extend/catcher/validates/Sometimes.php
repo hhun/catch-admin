@@ -1,4 +1,13 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
 declare(strict_types=1);
 
@@ -8,23 +17,16 @@ class Sometimes implements ValidateInterface
 {
     public function type(): string
     {
-        // TODO: Implement type() method.
         return 'sometimes';
     }
 
     public function verify($value): bool
     {
-        // TODO: Implement verify() method.
-        return (bool) ($value)
-
-
-
-         ;
+        return (bool) ($value);
     }
 
     public function message(): string
     {
-        // TODO: Implement message() method.
         return '';
     }
 }

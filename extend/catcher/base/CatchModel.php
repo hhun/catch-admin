@@ -1,4 +1,13 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
 declare(strict_types=1);
 
@@ -46,7 +55,6 @@ abstract class CatchModel extends Model
     /**
      * 是否有 field
      *
-     * @time 2020年11月23日
      * @param string $field
      * @return bool
      */
@@ -58,7 +66,6 @@ abstract class CatchModel extends Model
     public function __construct(array $data = [])
     {
         parent::__construct($data);
-
 
         if (method_exists($this, 'autoWithRelation')) {
             $this->autoWithRelation();

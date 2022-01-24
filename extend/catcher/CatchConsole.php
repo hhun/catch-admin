@@ -1,30 +1,30 @@
 <?php
-
-declare(strict_types=1);
-
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2017~2020 http://catchadmin.com All rights reserved.
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
 
+declare(strict_types=1);
+
 namespace catcher;
 
 use catcher\library\Composer;
 use catcher\facade\FileSystem;
+use Symfony\Component\Finder\SplFileInfo;
 use think\App;
 
 class CatchConsole
 {
-    protected $app;
+    protected App $app;
 
-    protected $namespace = '';
+    protected string $namespace = '';
 
-    protected $path = __DIR__.DIRECTORY_SEPARATOR.'command';
+    protected string $path = __DIR__.DIRECTORY_SEPARATOR.'command';
 
     public function __construct(App $app)
     {
@@ -121,7 +121,7 @@ class CatchConsole
 
         $commands = [];
 
-        /* \Symfony\Component\Finder\SplFileInfo $command */
+        /* @var SplFileInfo $command */
         foreach ($defaultCommands as $command) {
             if ($command->getExtension() === 'php') {
                 $filename = str_replace('.php', '', str_replace(__DIR__, '', $command->getPathname()));

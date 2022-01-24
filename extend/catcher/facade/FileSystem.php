@@ -1,16 +1,15 @@
 <?php
-
-declare(strict_types=1);
-
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2017~2020 http://catchadmin.com All rights reserved.
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
+declare(strict_types=1);
 
 namespace catcher\facade;
 
@@ -55,7 +54,7 @@ use think\Facade;
 */
 class FileSystem extends Facade
 {
-    protected static function getFacadeClass()
+    protected static function getFacadeClass(): string
     {
         return \catcher\library\FileSystem::class;
     }

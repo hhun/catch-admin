@@ -1,4 +1,13 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
 declare(strict_types=1);
 
@@ -14,12 +23,12 @@ class CatchResponse
      * 成功的响应
      *
      * @time 2019年12月02日
-     * @param array $data
+     * @param mixed $data
      * @param string $msg
      * @param Code $code
      * @return Json
      */
-    public static function success(array $data = [], string $msg = '', Code $code = Code::SUCCESS): Json
+    public static function success(array $data, string $msg = '', Code $code = Code::SUCCESS): Json
     {
         return json([
             'code' => $code->value,

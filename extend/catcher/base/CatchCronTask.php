@@ -1,16 +1,15 @@
 <?php
-
-declare(strict_types=1);
-
 // +----------------------------------------------------------------------
 // | CatchAdmin [Just Like ～ ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2017~2020 http://catchadmin.com All rights reserved.
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
 // +----------------------------------------------------------------------
 // | Author: JaguarJack [ njphper@gmail.com ]
 // +----------------------------------------------------------------------
+
+declare(strict_types=1);
 
 namespace catcher\base;
 
@@ -18,14 +17,13 @@ use catchAdmin\monitor\model\CrontabLog;
 
 abstract class CatchCronTask
 {
-    protected $exceptionHappenTimes = 0;
+    protected int $exceptionHappenTimes = 0;
 
-    protected $exitTimes = 1;
+    protected int $exitTimes = 1;
 
     protected $crontab;
 
     /**
-     * @time 2020年07月29日
      * @return mixed
      */
     abstract public function deal();
@@ -40,12 +38,11 @@ abstract class CatchCronTask
     /**
      * 执行
      *
-     * @time 2020年07月23日
      * @return void|bool
      */
     public function run()
     {
-        $startAt = round(microtime(true) * 1000);
+        $startAt = (int) round(microtime(true) * 1000);
         try {
             if ($this->deal() === false) {
                 return false;
@@ -66,7 +63,6 @@ abstract class CatchCronTask
     /**
      * 退出
      *
-     * @time 2020年07月29日
      * @return bool
      */
     public function shouldExit(): bool
@@ -89,8 +85,6 @@ abstract class CatchCronTask
     }
 
     /**
-     * @desc
-     * @time 2022年01月11日
      * @param int $startAt
      * @param string $message
      */

@@ -1,16 +1,15 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
 declare(strict_types=1);
-
-/**
- * @filename  WechatResponseException.php
- * @createdAt 2020/6/21
- * @project  https://github.com/yanwenwu/catch-admin
- * @document http://doc.catchadmin.com
- * @author   JaguarJack <njphper@gmail.com>
- * @copyright By CatchAdmin
- * @license  https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt
- */
 
 namespace catcher\exceptions;
 
