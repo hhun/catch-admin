@@ -1,4 +1,13 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
 namespace catchAdmin\permissions\controller;
 
@@ -16,11 +25,13 @@ use catcher\CatchResponse;
 use catcher\enums\Status;
 use catcher\library\excel\Excel;
 use catcher\Utils;
+use think\db\exception\DbException;
 use think\facade\Cache;
+use think\response\Json;
 
 class User extends CatchController
 {
-    protected $user;
+    protected Users $user;
 
     public function __construct(Users $user)
     {
@@ -28,10 +39,8 @@ class User extends CatchController
     }
 
     /**
-     *
-     * @time 2020年04月24日
-     * @throws \think\db\exception\DbException
-     * @return \think\response\Json
+     * @throws DbException
+     * @return Json
      */
     public function index()
     {
@@ -44,9 +53,9 @@ class User extends CatchController
      * @time 2020年01月07日
      * @param CatchAuth $auth
      * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
+     * @throws DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @return \think\response\Json
+     * @return Json
      */
     public function info(CatchAuth $auth)
     {
@@ -72,7 +81,7 @@ class User extends CatchController
      *
      * @param CreateRequest $request
      * @time 2019年12月06日
-     * @return \think\response\Json
+     * @return Json
      */
     public function save(CreateRequest $request)
     {
@@ -91,7 +100,7 @@ class User extends CatchController
      *
      * @time 2019年12月04日
      * @param $id
-     * @return \think\response\Json
+     * @return Json
      */
     public function read($id)
     {
@@ -106,7 +115,7 @@ class User extends CatchController
      * @time 2019年12月04日
      * @param $id
      * @param UpdateRequest $request
-     * @return \think\response\Json
+     * @return Json
      */
     public function update($id, UpdateRequest $request)
     {
@@ -130,7 +139,7 @@ class User extends CatchController
      *
      * @time 2019年12月04日
      * @param $id
-     * @return \think\response\Json
+     * @return Json
      */
     public function delete($id)
     {
@@ -153,9 +162,9 @@ class User extends CatchController
      *
      * @time 2019年12月07日
      * @param $id
-     * @return \think\response\Json
+     * @return Json
      */
-    public function switchStatus($id): \think\response\Json
+    public function switchStatus($id): Json
     {
         $ids = Utils::stringToArrayBy($id);
 
@@ -177,7 +186,7 @@ class User extends CatchController
      * @param Excel $excel
      * @param UserExport $userExport
      * @throws \PhpOffice\PhpSpreadsheet\Exception
-     * @return \think\response\Json
+     * @return Json
      */
     public function export(Excel $excel, UserExport $userExport)
     {
@@ -189,7 +198,7 @@ class User extends CatchController
      *
      * @time 2020年09月20日
      * @param ProfileRequest $request
-     * @return \think\response\Json
+     * @return Json
      */
     public function profile(ProfileRequest $request)
     {

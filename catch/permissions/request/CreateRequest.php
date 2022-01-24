@@ -1,4 +1,13 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
 namespace catchAdmin\permissions\request;
 
@@ -9,7 +18,6 @@ class CreateRequest extends CatchRequest
 {
     protected function rules(): array
     {
-        // TODO: Implement rules() method.
         return [
             'username|用户名' => 'require|max:20',
             'password|密码' => 'require|min:5|max:12',
@@ -19,6 +27,5 @@ class CreateRequest extends CatchRequest
 
     protected function message()
     {
-        // TODO: Implement message() method.
     }
 }

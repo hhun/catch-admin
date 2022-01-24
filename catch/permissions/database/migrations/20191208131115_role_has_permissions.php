@@ -1,6 +1,17 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
-use think\migration\Migrator;
+use catchAdmin\migration\Migrator;
+use catchAdmin\migration\builder\Scheme;
+use catchAdmin\migration\builder\Table;
 
 class RoleHasPermissions extends Migrator
 {
@@ -25,11 +36,19 @@ class RoleHasPermissions extends Migrator
      * Remember to call "create()" or "update()" and NOT "save()" when working
      * with the Table class.
      */
-    public function change()
+    public function up()
     {
-        $table = $this->table('role_has_permissions', ['engine' => 'Innodb', 'comment' => '角色权限表', 'signed' => false]);
-        $table->addColumn('role_id', 'integer', ['comment' => '角色ID', 'signed' => false])
-            ->addColumn('permission_id', 'integer', ['comment' => '权限ID', 'signed' => false])
-            ->create();
+        Scheme::create('role_has_permissions', function (Table $table){
+           $table->unsignedInteger('role_id') ->comment('角色ID');
+
+           $table->unsignedInteger('permission_id')->comment('权限ID');
+
+           $table->comment('角色权限表');
+        });
+    }
+
+    public function down()
+    {
+        Scheme::dropIfExist('role_haas_permissions');
     }
 }

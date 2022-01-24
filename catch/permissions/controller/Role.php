@@ -1,19 +1,30 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
 namespace catchAdmin\permissions\controller;
 
 use catchAdmin\permissions\model\Permissions;
-use catchAdmin\permissions\model\Roles;
+use catchAdmin\permissions\model\Roles as RoleModel;
 use catcher\base\CatchRequest as Request;
 use catcher\base\CatchController;
 use catcher\CatchResponse;
 use catcher\exceptions\FailedException;
+use think\db\exception\DataNotFoundException;
+use think\db\exception\DbException;
+use think\db\exception\ModelNotFoundException;
 use think\response\Json;
-use catchAdmin\permissions\model\Roles as RoleModel;
 
 class Role extends CatchController
 {
-    protected $role;
+    protected RoleModel $role;
 
     public function __construct(RoleModel $role)
     {
@@ -21,27 +32,23 @@ class Role extends CatchController
     }
 
     /**
-     *
-     * @time 2019年12月09日
-     * @return string|Json
+     * @return Json
      */
-    public function index()
+    public function index(): Json
     {
         return CatchResponse::success($this->role->getList());
     }
 
     /**
-     *
-     * @time 2019年12月11日
      * @param Request $request
      * @return Json
-     * @throws \think\db\exception\DbException
+     * @throws DbException
      */
-    public function save(Request $request)
+    public function save(Request $request): Json
     {
         $params = $request->param();
 
-        if (Roles::where('identify', $params['identify'])->find()) {
+        if ($this->role::where('identify', $params['identify'])->find()) {
             throw new FailedException('角色标识 ['.$params['identify'].']已存在');
         }
 
@@ -58,21 +65,26 @@ class Role extends CatchController
         return CatchResponse::success();
     }
 
-    public function read($id)
+    /**
+     * @param $id
+     * @return Json
+     */
+    public function read($id): Json
     {
+        /* @var RoleModel $role */
         $role = $this->role->findBy($id);
+
         $role->permissions = $role->getPermissions();
         $role->departments = $role->getDepartments();
+
         return CatchResponse::success($role);
     }
 
     /**
-     *
-     * @time 2019年12月11日
      * @param $id
      * @param Request $request
      * @return Json
-     * @throws \think\db\exception\DbException
+     * @throws DbException
      */
     public function update($id, Request $request): Json
     {
@@ -81,6 +93,8 @@ class Role extends CatchController
         }
 
         $this->role->updateBy($id, $request->param());
+
+        /* @var RoleModel $role */
         $role = $this->role->findBy($id);
 
         $hasPermissionIds = $role->getPermissions()->column('id');
@@ -127,17 +141,15 @@ class Role extends CatchController
             $role->attachDepartments(array_unique($attachDepartmentIds));
         }
 
-        return CatchResponse::success();
+        return CatchResponse::success([]);
     }
 
     /**
-     *
-     * @time 2019年12月11日
      * @param $id
      * @throws FailedException
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
+     * @throws DataNotFoundException
+     * @throws DbException
+     * @throws ModelNotFoundException
      * @return Json
      */
     public function delete($id): Json
@@ -145,7 +157,9 @@ class Role extends CatchController
         if ($this->role->where('parent_id', $id)->find()) {
             throw new FailedException('存在子角色，无法删除');
         }
+        /* @var RoleModel $role */
         $role = $this->role->findBy($id);
+
         // 删除权限
         $role->detachPermissions();
         // 删除部门关联
@@ -155,18 +169,17 @@ class Role extends CatchController
         // 删除
         $this->role->deleteBy($id);
 
-        return CatchResponse::success();
+        return CatchResponse::success([]);
     }
 
     /**
      * 获取角色权限
      *
-     * @time 2021年07月29日
      * @param $id
      * @return Json
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\db\exception\DataNotFoundException
+     * @throws DbException
+     * @throws ModelNotFoundException
+     * @throws DataNotFoundException
      */
     public function getPermissions($id): Json
     {

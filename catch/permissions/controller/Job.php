@@ -1,4 +1,13 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
 namespace catchAdmin\permissions\controller;
 
@@ -6,10 +15,14 @@ use catchAdmin\permissions\model\Job as JobModel;
 use catcher\base\CatchController;
 use catcher\base\CatchRequest;
 use catcher\CatchResponse;
+use think\db\exception\DataNotFoundException;
+use think\db\exception\DbException;
+use think\db\exception\ModelNotFoundException;
+use think\response\Json;
 
 class Job extends CatchController
 {
-    protected $job;
+    protected JobModel $job;
 
     public function __construct(JobModel $job)
     {
@@ -19,12 +32,10 @@ class Job extends CatchController
     /**
      * 列表
      *
-     * @time 2020年01月09日
-     * @param CatchRequest $request
-     * @return \think\response\Json
-     * @throws \think\db\exception\DbException
+     * @return Json
+     * @throws DbException
      */
-    public function index(): \think\response\Json
+    public function index(): Json
     {
         return CatchResponse::paginate($this->job->getList());
     }
@@ -32,11 +43,10 @@ class Job extends CatchController
     /**
      * 保存
      *
-     * @time 2020年01月09日
      * @param CatchRequest $request
-     * @return \think\response\Json
+     * @return Json
      */
-    public function save(CatchRequest $request): \think\response\Json
+    public function save(CatchRequest $request): Json
     {
         return CatchResponse::success($this->job->storeBy($request->post()));
     }
@@ -44,12 +54,14 @@ class Job extends CatchController
     /**
      * 更新
      *
-     * @time 2020年01月09日
      * @param $id
      * @param CatchRequest $request
-     * @return \think\response\Json
+     * @return Json
+     * @throws DbException
+     * @throws DataNotFoundException
+     * @throws ModelNotFoundException
      */
-    public function update($id, CatchRequest $request): \think\response\Json
+    public function update($id, CatchRequest $request): Json
     {
         return CatchResponse::success($this->job->updateBy($id, $request->post()));
     }
@@ -57,11 +69,10 @@ class Job extends CatchController
     /**
      * 删除
      *
-     * @time 2020年01月09日
      * @param $id
-     * @return \think\response\Json
+     * @return Json
      */
-    public function delete($id): \think\response\Json
+    public function delete($id): Json
     {
         return CatchResponse::success($this->job->deleteBy($id));
     }
@@ -69,12 +80,12 @@ class Job extends CatchController
     /**
      * 获取所有
      *
-     * @return \think\response\Json
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
+     * @return Json
+     * @throws DataNotFoundException
+     * @throws DbException
+     * @throws ModelNotFoundException
      */
-    public function getAll()
+    public function getAll(): Json
     {
         return CatchResponse::success($this->job->field(['id', 'job_name'])->select());
     }

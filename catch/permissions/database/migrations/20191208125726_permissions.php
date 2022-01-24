@@ -1,6 +1,17 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
-use think\migration\Migrator;
+use catchAdmin\migration\Migrator;
+use catchAdmin\migration\builder\Scheme;
+use catchAdmin\migration\builder\Table;
 
 class Permissions extends Migrator
 {
@@ -25,22 +36,49 @@ class Permissions extends Migrator
      * Remember to call "create()" or "update()" and NOT "save()" when working
      * with the Table class.
      */
-    public function change()
+    public function up()
     {
-        $table = $this->table('permissions', ['engine' => 'Innodb', 'comment' => '菜单表', 'signed' => false]);
-        $table->addColumn('permission_name', 'string', ['limit' => 15,'default' => '','comment' => '菜单名称'])
-            ->addColumn('parent_id', 'integer', ['default' => 0,'comment' => '父级ID', 'signed' => false])
-            ->addColumn('route', 'string', ['default' => '', 'comment' => '路由', 'limit' => 50])
-            ->addColumn('icon', 'string', ['default' => '', 'comment' => '菜单图标', 'limit' => 50])
-            ->addColumn('module', 'string', ['default' => '', 'comment' => '模块', 'limit' => 20])
-            ->addColumn('creator_id', 'integer', ['default' => 0, 'comment' => '创建人ID'])
-            ->addColumn('method', 'string', ['default' => 'get', 'comment' => '路由请求方法', 'limit' => 15])
-            ->addColumn('permission_mark', 'string', ['null' => false, 'comment' => '权限标识', 'limit' => 50])
-            ->addColumn('type', 'integer', ['limit' => \Phinx\Db\Adapter\MysqlAdapter::INT_TINY,'default' => 1,'comment' => '1 菜单 2 按钮'])
-            ->addColumn('sort', 'integer', ['default' => 0,'comment' => '排序字段'])
-            ->addColumn('created_at', 'integer', ['default' => 0,'comment' => '创建时间', 'signed' => false])
-            ->addColumn('updated_at', 'integer', ['default' => 0,'comment' => '更新时间', 'signed' => false])
-            ->addColumn('deleted_at', 'integer', ['default' => 0,'comment' => '删除状态，null 未删除 timestamp 已删除', 'signed' => false])
-            ->create();
+        Scheme::create('permissions', function (Table $table){
+            $table->id();
+
+            $table->string('permission_name', 15)->default('')->comment('菜单名称');
+
+            $table->integer('parent_id')->default(0)->comment('父级ID');
+
+            $table->string('level', 50)->default('')->comment('层级');
+
+            $table->string('route', 50)->default('')->comment('路由');
+
+            $table->string('icon', 50)->default('')->comment('菜单图标');
+
+            $table->string('module', 20)->default('')->comment('模块名称');
+
+            $table->integer('creator_id')->default(0)->comment('创建人ID');
+
+            $table->string('permission_mark', 50)->default('')->nullable(false)->comment('权限标识别');
+
+            $table->string('component')->default('')->comment('组件名称');
+
+            $table->string('redirect')->default('')->comment('跳转地址');
+
+            $table->tinyInteger('keepalive')->default(1)->comment('1 缓存 2 不存在');
+
+            $table->tinyInteger('type')->default(1)->comment('1 菜单 2 按钮');
+
+            $table->tinyInteger('hidden')->default(1)->comment('1 显示 2 隐藏');
+
+            $table->integer('sort')->default(0)->comment('排序字段');
+
+            $table->timestamps();
+
+            $table->softDelete();
+
+            $table->comment('菜单表');
+        });
+    }
+
+    public function down()
+    {
+        Scheme::dropIfExist('permissions');
     }
 }

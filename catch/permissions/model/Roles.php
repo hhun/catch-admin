@@ -1,9 +1,22 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
 namespace catchAdmin\permissions\model;
 
 use catchAdmin\permissions\model\search\RolesSearch;
 use catcher\base\CatchModel;
+use think\db\exception\DataNotFoundException;
+use think\db\exception\DbException;
+use think\db\exception\ModelNotFoundException;
+use think\model\relation\BelongsToMany;
 
 class Roles extends CatchModel
 {
@@ -33,6 +46,12 @@ class Roles extends CatchModel
 
     ];
 
+    /**
+     * @return mixed
+     * @throws DataNotFoundException
+     * @throws DbException
+     * @throws ModelNotFoundException
+     */
     public function getList()
     {
         return $this->catchSearch()
@@ -52,11 +71,9 @@ class Roles extends CatchModel
     }
 
     /**
-     *
-     * @time 2019年12月08日
-     * @return \think\model\relation\BelongsToMany
+     * @return BelongsToMany
      */
-    public function users(): \think\model\relation\BelongsToMany
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(Users::class, 'user_has_roles', 'uid', 'role_id');
     }

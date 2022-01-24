@@ -1,9 +1,20 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
 namespace catchAdmin\permissions\model;
 
 use catchAdmin\permissions\model\search\JobsSearch;
 use catcher\base\CatchModel;
+use think\db\exception\DbException;
+use think\Paginator;
 
 class Job extends CatchModel
 {
@@ -28,9 +39,8 @@ class Job extends CatchModel
      * 列表
      *
      * @time 2020年01月09日
-     * @param $params
-     * @throws \think\db\exception\DbException
-     * @return \think\Paginator
+     * @return Paginator
+     * @throws DbException
      */
     public function getList()
     {

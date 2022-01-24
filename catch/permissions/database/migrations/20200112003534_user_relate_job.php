@@ -1,6 +1,17 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
-use think\migration\Migrator;
+use catchAdmin\migration\Migrator;
+use catchAdmin\migration\builder\Scheme;
+use catchAdmin\migration\builder\Table;
 
 class UserRelateJob extends Migrator
 {
@@ -25,11 +36,19 @@ class UserRelateJob extends Migrator
      * Remember to call "create()" or "update()" and NOT "save()" when working
      * with the Table class.
      */
-    public function change()
+    public function up()
     {
-        $table = $this->table('user_has_jobs', ['engine' => 'Innodb', 'comment' => '用户角色表', 'signed' => false]);
-        $table->addColumn('uid', 'integer', ['comment' => '用户ID', 'signed' => false])
-            ->addColumn('job_id', 'integer', ['comment' => '岗位ID', 'signed' => false])
-            ->create();
+        Scheme::create('user_has_jobs', function (Table $table){
+           $table->unsignedInteger('uid')->comment('用户ID');
+
+           $table->unsignedInteger('job_id')->comment('岗位ID');
+
+           $table->comment('用户岗位表');
+        });
+    }
+
+    public function down()
+    {
+        Scheme::dropIfExist('user_has_jobs');
     }
 }

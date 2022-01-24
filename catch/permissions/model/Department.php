@@ -1,10 +1,21 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
 namespace catchAdmin\permissions\model;
 
 use catchAdmin\permissions\model\search\DepartmentSearch;
 use catcher\base\CatchModel;
+use think\db\exception\DataNotFoundException;
 use think\db\exception\DbException;
+use think\db\exception\ModelNotFoundException;
 
 class Department extends CatchModel
 {
@@ -27,7 +38,7 @@ class Department extends CatchModel
         'deleted_at', // 删除状态，null 未删除 timestamp 已删除
     ];
 
-    protected $updateChildrenFields = 'status';
+    protected string $updateChildrenFields = 'status';
 
     /**
    * 列表数据
@@ -49,8 +60,8 @@ class Department extends CatchModel
      * @time 2020年11月04日
      * @param $id
      * @throws DbException
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
+     * @throws DataNotFoundException
+     * @throws ModelNotFoundException
      * @return mixed
      */
     public static function getChildrenDepartmentIds($id)

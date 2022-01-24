@@ -1,4 +1,13 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
 namespace catchAdmin\permissions\model;
 
@@ -6,6 +15,9 @@ use catchAdmin\jwt\contract\JWTSubject;
 use catchAdmin\permissions\model\search\UserSearch;
 use catcher\base\CatchModel;
 use catcher\Utils;
+use think\db\exception\DataNotFoundException;
+use think\db\exception\DbException;
+use think\db\exception\ModelNotFoundException;
 use think\Paginator;
 
 class Users extends CatchModel implements JWTSubject
@@ -46,13 +58,31 @@ class Users extends CatchModel implements JWTSubject
     }
 
     /**
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * @return array
+     */
+    public function getJWTCustomClaims(): array
+    {
+        return [
+
+        ];
+    }
+
+    /**
      * 用户列表
      *
      * @time 2019年12月08日
-     * @return array|\think\Paginator
-     *@throws \think\db\exception\DbException
+     * @return Paginator
+     *@throws DbException
      */
-    public function getList()
+    public function getList(): Paginator
     {
         $users = $this->withoutField(['updated_at', 'password', 'remember_token'], true)
                     ->catchSearch()
@@ -74,13 +104,13 @@ class Users extends CatchModel implements JWTSubject
      * 获取权限
      *
      * @time 2019年12月12日
-     * @param $uid
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
+     * @param int $uid
      * @return array
+     *@throws DbException
+     * @throws ModelNotFoundException
+     * @throws DataNotFoundException
      */
-    public function getPermissionsBy($uid = 0): array
+    public function getPermissionsBy(int $uid = 0): array
     {
         // 获取超级管理配置 超级管理员全部权限
         if ($uid == config('catch.permissions.super_admin_id')) {
@@ -99,11 +129,12 @@ class Users extends CatchModel implements JWTSubject
 
     /**
     * 后台根据权限标识判断用户是否拥有某个权限
+    *
     * @param string $permission_mark
     * @return bool
-    * @throws \think\db\exception\DataNotFoundException
-    * @throws \think\db\exception\DbException
-    * @throws \think\db\exception\ModelNotFoundException
+    * @throws DataNotFoundException
+    * @throws DbException
+    * @throws ModelNotFoundException
     *
     * 用法  request()->user()->can('permission@create');
     */
@@ -120,15 +151,20 @@ class Users extends CatchModel implements JWTSubject
         );
     }
 
-    public function getJWTIdentifier()
+    /**
+     * user is super admin
+     *
+     * @time 2022年01月24日
+     * @return bool
+     */
+    public function isSuperAdmin(): bool
     {
-        return $this->getKey();
-    }
+        $adminId = $this->getKey();
 
-    public function getJWTCustomClaims(): array
-    {
-        return [
+        if (! $adminId) {
+            return false;
+        }
 
-        ];
+        return $adminId == config('catch.permissions.super_admin_id');
     }
 }

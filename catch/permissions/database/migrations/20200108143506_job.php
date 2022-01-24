@@ -1,6 +1,17 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
-use think\migration\Migrator;
+use catchAdmin\migration\Migrator;
+use catchAdmin\migration\builder\Scheme;
+use catchAdmin\migration\builder\Table;
 
 class Job extends Migrator
 {
@@ -25,18 +36,31 @@ class Job extends Migrator
      * Remember to call "create()" or "update()" and NOT "save()" when working
      * with the Table class.
      */
-    public function change()
+    public function up()
     {
-        $table = $this->table('jobs', ['engine' => 'Innodb', 'comment' => '岗位表', 'signed' => false]);
-        $table->addColumn('job_name', 'string', ['limit' => 15,'default' => '','comment' => '岗位名称'])
-        ->addColumn('coding', 'string', ['default' => '', 'comment' => '编码', 'limit' => 50])
-        ->addColumn('creator_id', 'integer', ['default' => 0, 'comment' => '创建人ID'])
-        ->addColumn('status', 'integer', ['limit' => \Phinx\Db\Adapter\MysqlAdapter::INT_TINY,'default' => 1,'comment' => '1 正常 2 停用'])
-        ->addColumn('sort', 'integer', ['default' => 0,'comment' => '排序字段'])
-        ->addColumn('description', 'string', ['default' => '', 'comment' => '描述', 'limit' => 255])
-        ->addColumn('created_at', 'integer', ['default' => 0,'comment' => '创建时间', 'signed' => false])
-        ->addColumn('updated_at', 'integer', ['default' => 0,'comment' => '更新时间', 'signed' => false])
-        ->addColumn('deleted_at', 'integer', ['default' => 0,'comment' => '删除状态，null 未删除 timestamp 已删除', 'signed' => false])
-        ->create();
+        Scheme::create('jobs', function (Table $table){
+            $table->id();
+
+            $table->string('job_name', 15)->default('')->comment('岗位名称');
+
+            $table->string('coding', 50)->default('')->comment('编码');
+
+            $table->integer('creator_id')->default(0)->comment('创建人ID');
+
+            $table->tinyInteger('status')->default(1)->comment('1 正常 2 停用');
+
+            $table->integer('sort')->default(0)->comment('排序字段');
+
+            $table->string('description')->default('')->comment('描述');
+
+            $table->timestamps();
+
+            $table->softDelete();
+        });
+    }
+
+    public function down()
+    {
+        Scheme::dropIfExist('jobs');
     }
 }

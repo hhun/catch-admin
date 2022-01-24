@@ -1,12 +1,26 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
 namespace catchAdmin\permissions\model;
 
 use catchAdmin\permissions\model\search\PermissionsSearch;
 use catcher\base\CatchModel;
 use catcher\enums\Status;
+use think\Collection;
+use think\db\exception\DataNotFoundException;
+use think\db\exception\DbException;
+use think\db\exception\ModelNotFoundException;
 use think\helper\Str;
 use think\Model;
+use think\model\relation\BelongsToMany;
 
 class Permissions extends CatchModel
 {
@@ -48,12 +62,12 @@ class Permissions extends CatchModel
      *
      * @time 2021年05月13日
      * @param false $isMenu
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @return mixed|\think\Collection
+     * @return Collection
+     *@throws DbException
+     * @throws ModelNotFoundException
+     * @throws DataNotFoundException
      */
-    public function getList($isMenu = false)
+    public function getList(bool $isMenu = false): Collection
     {
         return $this->catchSearch()
                     ->catchOrder()
@@ -63,7 +77,10 @@ class Permissions extends CatchModel
                     ->select();
     }
 
-    public function roles(): \think\model\relation\BelongsToMany
+    /**
+     * @return BelongsToMany
+     */
+    public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Roles::class, 'role_has_permissions', 'role_id', 'permission_id');
     }
@@ -71,14 +88,13 @@ class Permissions extends CatchModel
     /**
      * 获取当前用户权限
      *
-     * @time 2020年01月14日
      * @param array $permissionIds
-     * @return \think\Collection
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\db\exception\DataNotFoundException
+     * @return Collection
+     * @throws DbException
+     * @throws ModelNotFoundException
+     * @throws DataNotFoundException
      */
-    public static function getCurrentUserPermissions(array $permissionIds): \think\Collection
+    public static function getCurrentUserPermissions(array $permissionIds): Collection
     {
         return parent::whereIn('id', $permissionIds)
                       ->field(['permission_name as title', 'id', 'parent_id',
@@ -92,14 +108,13 @@ class Permissions extends CatchModel
     /**
      * 插入后回调 更新 level
      *
-     * @time 2020年04月22日
      * @param Model $model
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @return array|bool|Model|void|null
-     */
-    public static function onAfterInsert(Model $model)
+     * @return bool
+     *@throws DbException
+     * @throws ModelNotFoundException
+     * @throws DataNotFoundException
+          */
+    public static function onAfterInsert(Model $model): bool
     {
         $modelData = $model->getData();
 
@@ -126,7 +141,6 @@ class Permissions extends CatchModel
     /**
      * 创建 restful 菜单
      *
-     * @time 2021年04月20日
      * @param Model $model
      * @param $level
      * @return void
@@ -159,7 +173,6 @@ class Permissions extends CatchModel
     /**
      * 展示
      *
-     * @time 2021年05月13日
      * @param $id
      * @return mixed
      */
@@ -184,12 +197,11 @@ class Permissions extends CatchModel
     /**
      * 获取 level ids
      *
-     * @time 2020年09月06日
      * @param array $id
      * @param array $ids
      * @return array
      */
-    protected function getNextLevel(array $id, &$ids = []): array
+    protected function getNextLevel(array $id, array &$ids = []): array
     {
         $_ids = $this->whereIn('parent_id', $id)
              ->where('type', self::MENU_TYPE)
@@ -205,10 +217,12 @@ class Permissions extends CatchModel
     /**
      * 更新 button
      *
-     * @time 2021年05月13日
      * @param $params
      * @param $permission
      * @return bool
+     * @throws DataNotFoundException
+     * @throws DbException
+     * @throws ModelNotFoundException
      */
     public function updateButton($params, $permission): bool
     {
@@ -241,6 +255,9 @@ class Permissions extends CatchModel
      * @param $id
      * @param $params
      * @return bool
+     * @throws DataNotFoundException
+     * @throws DbException
+     * @throws ModelNotFoundException
      */
     public function updateMenu($id, $params): bool
     {

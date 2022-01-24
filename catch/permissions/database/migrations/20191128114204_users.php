@@ -1,6 +1,17 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
-use think\migration\Migrator;
+use catchAdmin\migration\Migrator;
+use catchAdmin\migration\builder\Scheme;
+use catchAdmin\migration\builder\Table;
 
 class Users extends Migrator
 {
@@ -25,20 +36,39 @@ class Users extends Migrator
      * Remember to call "create()" or "update()" and NOT "save()" when working
      * with the Table class.
      */
-    public function change()
+    public function up()
     {
-        $table = $this->table('users', ['engine' => 'Innodb', 'comment' => '用户表', 'signed' => false]);
-        $table->addColumn('username', 'string', ['limit' => 15,'default' => '','comment' => '用户名'])
-            ->addColumn('password', 'string', ['limit' => 255,'comment' => '用户密码'])
-            ->addColumn('email', 'string', ['limit' => 100, 'comment' => '邮箱 登录'])
-            ->addColumn('creator_id', 'integer', ['default' => 0, 'comment' => '创建人ID'])
-            ->addColumn('department_id', 'integer', ['default' => 0, 'comment' => '部门ID'])
-            ->addColumn('status', 'boolean', ['limit' => 1,'default' => 1,'comment' => '用户状态 1 正常 2 禁用'])
-            ->addColumn('last_login_ip', 'string', ['limit' => 50,'default' => 0,'comment' => '最后登录IP'])
-            ->addColumn('last_login_time', 'integer', ['default' => 0,'comment' => '最后登录时间', 'signed' => false])
-            ->addColumn('created_at', 'integer', ['default' => 0,'comment' => '创建时间', 'signed' => false])
-            ->addColumn('updated_at', 'integer', ['default' => 0,'comment' => '更新时间', 'signed' => false])
-            ->addColumn('deleted_at', 'integer', ['default' => 0,'comment' => '删除状态，0未删除 >0 已删除', 'signed' => false])
-            ->create();
+        Scheme::create('users', function (Table $table){
+            $table->id();
+
+            $table->string('user_name', 15)->default('')->comment('用户名');
+
+            $table->string('password')->comment('用户密码');
+
+            $table->string('email', 100)->comment('邮箱');
+
+            $table->string('avatar')->comment('头像')->default('');
+
+            $table->string('remember_token', 512)->comment('token')->default('');
+
+            $table->integer('creator_id')->default(0)->comment('创建人ID');
+
+            $table->integer('department_id')->default(0)->comment('部门ID');
+
+            $table->boolean('status')->default(1)->comment('用户状态 1 正常 2 禁用');
+
+            $table->string('last_login_ip', 30)->default('')->comment('最后登陆的IP');
+
+            $table->timestamps();
+
+            $table->softDelete();
+
+            $table->comment('用户表');
+        });
+    }
+
+    public function down()
+    {
+        Scheme::dropIfExist('users');
     }
 }

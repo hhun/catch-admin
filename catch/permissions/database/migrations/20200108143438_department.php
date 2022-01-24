@@ -1,6 +1,17 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
-use think\migration\Migrator;
+use catchAdmin\migration\Migrator;
+use catchAdmin\migration\builder\Scheme;
+use catchAdmin\migration\builder\Table;
 
 class Department extends Migrator
 {
@@ -25,20 +36,37 @@ class Department extends Migrator
      * Remember to call "create()" or "update()" and NOT "save()" when working
      * with the Table class.
      */
-    public function change()
+    public function up()
     {
-        $table = $this->table('departments', ['engine' => 'Innodb', 'comment' => '部门表', 'signed' => false]);
-        $table->addColumn('department_name', 'string', ['limit' => 15,'default' => '','comment' => '部门名称'])
-        ->addColumn('parent_id', 'integer', ['default' => 0,'comment' => '父级ID', 'signed' => false])
-        ->addColumn('principal', 'string', ['default' => '', 'comment' => '负责人', 'limit' => 20])
-        ->addColumn('mobile', 'string', ['default' => '', 'comment' => '联系电话', 'limit' => 20])
-        ->addColumn('email', 'string', ['default' => '', 'comment' => '联系又想', 'limit' => 100])
-        ->addColumn('creator_id', 'integer', ['default' => 0, 'comment' => '创建人ID'])
-        ->addColumn('status', 'integer', ['limit' => \Phinx\Db\Adapter\MysqlAdapter::INT_TINY,'default' => 1,'comment' => '1 正常 2 停用'])
-        ->addColumn('sort', 'integer', ['default' => 0,'comment' => '排序字段'])
-        ->addColumn('created_at', 'integer', ['default' => 0,'comment' => '创建时间', 'signed' => false])
-        ->addColumn('updated_at', 'integer', ['default' => 0,'comment' => '更新时间', 'signed' => false])
-        ->addColumn('deleted_at', 'integer', ['default' => 0,'comment' => '删除状态，null 未删除 timestamp 已删除', 'signed' => false])
-        ->create();
+        Scheme::create('departments', function (Table $table){
+            $table->id();
+
+            $table->string('department_name', 15)->default('')->comment('部门名称');
+
+            $table->integer('parent_id')->default(0)->comment('父级ID');
+
+            $table->string('principal', 20)->default('')->comment('负责人');
+
+            $table->string('mobile', 20)->default('')->comment('负责人电话');
+
+            $table->string('email', 100)->default('')->comment('联系人邮箱');
+
+            $table->integer('creator_id')->default(0)->comment('创建人ID');
+
+            $table->tinyInteger('status')->default(1)->comment('1 正常 2 停用');
+
+            $table->integer('sort')->default(0)->comment('排序字段');
+
+            $table->timestamps();
+
+            $table->softDelete();
+
+            $table->comment('部门表');
+        });
+    }
+
+    public function down()
+    {
+        Scheme::dropIfExist('departments');
     }
 }

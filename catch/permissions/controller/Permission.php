@@ -1,4 +1,13 @@
 <?php
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~2021 https://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
 namespace catchAdmin\permissions\controller;
 
@@ -7,12 +16,15 @@ use catcher\base\CatchController;
 use catcher\CatchResponse;
 use catcher\exceptions\FailedException;
 use catchAdmin\permissions\model\Permissions;
+use think\db\exception\DataNotFoundException;
+use think\db\exception\DbException;
+use think\db\exception\ModelNotFoundException;
 use think\helper\Str;
 use think\response\Json;
 
 class Permission extends CatchController
 {
-    protected $permissions;
+    protected Permissions $permissions;
 
     public function __construct(Permissions $permissions)
     {
@@ -21,12 +33,11 @@ class Permission extends CatchController
 
     /**
      *
-     * @time 2019年12月11日
      * @param Request $request
      * @return Json
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\db\exception\DataNotFoundException
+     * @throws DbException
+     * @throws ModelNotFoundException
+     * @throws DataNotFoundException
      */
     public function index(Request $request): Json
     {
@@ -52,12 +63,8 @@ class Permission extends CatchController
 
     /**
      *
-     * @time 2019年12月11日
      * @param Request $request
      * @return Json
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\db\exception\DataNotFoundException
      */
     public function save(Request $request): Json
     {
@@ -88,7 +95,6 @@ class Permission extends CatchController
 
     /**
      *
-     * @time 2019年12月11日
      * @param $id
      * @param Request $request
      * @return Json
@@ -117,13 +123,11 @@ class Permission extends CatchController
     }
 
     /**
-     *
-     * @time 2019年12月11日
      * @param $id
      * @throws FailedException
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
+     * @throws DataNotFoundException
+     * @throws DbException
+     * @throws ModelNotFoundException
      * @return Json
      */
     public function delete($id): Json
@@ -142,11 +146,10 @@ class Permission extends CatchController
      *
      * @author JaguarJack
      * @email njphper@gmail.com
-     * @time 2020/5/19
      * @param $id
      * @return Json
      */
-    public function show($id)
+    public function show($id): Json
     {
         return CatchResponse::success($this->permissions->show($id));
     }
