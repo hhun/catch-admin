@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace catcher\library\client;
 
+use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Promise\Promise;
+use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Promise\RejectedPromise;
 
 /**
  * http response
@@ -49,7 +52,6 @@ class Response implements \ArrayAccess
 
     /**
      *
-     * @time 2020年05月21日
      * @return array
      */
     public function json(): array
@@ -59,7 +61,6 @@ class Response implements \ArrayAccess
 
     /**
      *
-     * @time 2020年05月21日
      * @return int
      */
     public function status(): int
@@ -69,7 +70,6 @@ class Response implements \ArrayAccess
 
     /**
      *
-     * @time 2020年05月21日
      * @return bool
      */
     public function ok(): bool
@@ -79,7 +79,6 @@ class Response implements \ArrayAccess
 
     /**
      *
-     * @time 2020年05月21日
      * @return bool
      */
     public function successful(): bool
@@ -89,7 +88,6 @@ class Response implements \ArrayAccess
 
     /**
      *
-     * @time 2020年05月21日
      * @return bool
      */
     public function failed(): bool
@@ -99,7 +97,6 @@ class Response implements \ArrayAccess
 
     /**
      *
-     * @time 2020年05月21日
      * @return array
      */
     public function headers(): array
@@ -110,10 +107,9 @@ class Response implements \ArrayAccess
     /**
      * 异步回调
      *
-     * @time 2020年05月22日
      * @param callable $response
      * @param callable $exception
-     * @return \GuzzleHttp\Promise\FulfilledPromise|Promise|\GuzzleHttp\Promise\PromiseInterface|\GuzzleHttp\Promise\RejectedPromise
+     * @return FulfilledPromise|Promise|PromiseInterface|RejectedPromise
      */
     public function then(callable $response, callable $exception)
     {
@@ -122,55 +118,53 @@ class Response implements \ArrayAccess
 
     /**
      *
-     * @time 2020年05月21日
      * @param $name
      * @param $arguments
      * @return mixed
      */
     public function __call($name, $arguments)
     {
-        // TODO: Implement __call() method.
         return $this->response->{$name}(...$arguments);
     }
 
     /**
      *
-     * @time 2020年05月21日
      * @param mixed $offset
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
-        // TODO: Implement offsetExists() method.
         return isset($this->json()[$offset]);
     }
 
     /**
      *
-     * @time 2020年05月21日
      * @param mixed $offset
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        // TODO: Implement offsetGet() method.
         return $this->json()[$offset];
     }
 
     /**
      *
-     * @time 2020年05月21日
      * @param mixed $offset
      * @param mixed $value
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
-        // TODO: Implement offsetSet() method.
     }
 
+    /**
+     * @param mixed $offset
+     */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
-        // TODO: Implement offsetUnset() method.
     }
 }

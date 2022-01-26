@@ -9,91 +9,91 @@ use GuzzleHttp\Client;
 class Http
 {
     /**
-     * @var Client $client
+     * @var ?Client $client
      */
-    protected $client = null;
+    protected ?Client $client = null;
 
     /**
      * auth
      *
      * @var array
      */
-    protected $auth = [];
+    protected array $auth = [];
 
     /**
      * 代理
      *
      * @var array
      */
-    protected $proxy = [];
+    protected array $proxy = [];
 
     /**
      * body
      *
      * @var array
      */
-    protected $body = [];
+    protected array $body = [];
 
     /**
      * header
      *
      * @var array
      */
-    protected $header = [];
+    protected array $header = [];
 
     /**
      * form params
      *
      * @var array
      */
-    protected $formParams = [];
+    protected array $formParams = [];
 
     /**
      * query set
      *
      * @var array
      */
-    protected $query = [];
+    protected array $query = [];
 
     /**
      * json set
      *
      * @var array
      */
-    protected $json = [];
+    protected array $json = [];
 
     /**
      *  可选参数
      * @var array
      */
-    protected $options = [];
+    protected array $options = [];
 
     /**
      * 异步请求
      *
      * @var bool
      */
-    protected $async = false;
+    protected bool $async = false;
 
 
     /**
      * @var array
      */
-    protected $timeout = [];
+    protected array $timeout = [];
 
     /**
      * @var string
      */
-    protected $token = '';
+    protected string $token = '';
 
-    protected $multipart = [];
+    protected array $multipart = [];
 
     /**
      * 忽略证书
      *
      * @var array
      */
-    protected $ignoreSsl = [];
+    protected array $ignoreSsl = [];
 
     /**
      * 获取 Guzzle 客户端
@@ -101,7 +101,7 @@ class Http
      * @time 2020年05月21日
      * @return Client
      */
-    public function getClient()
+    public function getClient(): ?Client
     {
         if (! $this->client) {
             $this->client = new Client();
@@ -117,7 +117,7 @@ class Http
      * @param array $headers
      * @return $this
      */
-    public function headers(array $headers)
+    public function headers(array $headers): Http
     {
         $this->header = isset($this->header['headers']) ?
                             array_merge($this->header['headers'], $headers) :
@@ -133,7 +133,7 @@ class Http
      * @param string $token
      * @return $this
      */
-    public function token(string $token)
+    public function token(string $token): Http
     {
         $this->header['headers']['authorization'] = 'Bearer '.$token;
 
@@ -147,7 +147,7 @@ class Http
      * @param $body
      * @return $this
      */
-    public function body($body)
+    public function body($body): Http
     {
         $this->body = [
             'body' => $body
@@ -163,7 +163,7 @@ class Http
      * @param array $data
      * @return $this
      */
-    public function json(array $data)
+    public function json(array $data): Http
     {
         $this->json = [
             'json' => $data
@@ -179,7 +179,7 @@ class Http
      * @param array $query
      * @return $this
      */
-    public function query(array $query)
+    public function query(array $query): Http
     {
         $this->query = [
             'query' => $query,
@@ -192,10 +192,10 @@ class Http
      * form params
      *
      * @time 2020年05月21日
-     * @param $params
+     * @param array $params
      * @return $this
      */
-    public function form(array $params)
+    public function form(array $params): Http
     {
         $this->formParams = [
             'form_params' => array_merge($this->multipart, $params)
@@ -211,7 +211,7 @@ class Http
      * @param $timeout
      * @return $this
      */
-    public function timeout($timeout)
+    public function timeout($timeout): Http
     {
         $this->timeout = [
             'connect_timeout' => $timeout
@@ -225,7 +225,7 @@ class Http
      *
      * @return $this
      */
-    public function ignoreSsl()
+    public function ignoreSsl(): Http
     {
         $this->ignoreSsl = [
             'verify' => false,
@@ -241,7 +241,7 @@ class Http
      * @param array $options
      * @return $this
      */
-    public function options(array $options)
+    public function options(array $options): Http
     {
         $this->options = $options;
 
@@ -255,18 +255,19 @@ class Http
      * @param string $url
      * @return Response
      */
-    public function get(string $url)
+    public function get(string $url): Response
     {
         return new Response($this->getClient()->{$this->asyncMethod(__FUNCTION__)}($url, $this->merge()));
     }
+
     /**
      * Request post
      *
      * @time 2020年05月21日
-     * @param $url
-     * @return mixed
+     * @param string $url
+     * @return Response
      */
-    public function post(string $url)
+    public function post(string $url): Response
     {
         return new Response($this->getClient()->{$this->asyncMethod(__FUNCTION__)}($url, $this->merge()));
     }
@@ -275,10 +276,10 @@ class Http
      * Request put
      *
      * @time 2020年05月21日
-     * @param $url
-     * @return mixed
+     * @param string $url
+     * @return Response
      */
-    public function put(string $url)
+    public function put(string $url): Response
     {
         return new Response($this->getClient()->{$this->asyncMethod(__FUNCTION__)}($url, $this->merge()));
     }
@@ -287,10 +288,10 @@ class Http
      * Request delete
      *
      * @time 2020年05月21日
-     * @param $url
-     * @return mixed
+     * @param string $url
+     * @return Response
      */
-    public function delete(string $url)
+    public function delete(string $url): Response
     {
         return new Response($this->getClient()->{$this->asyncMethod(__FUNCTION__)}($url, $this->merge()));
     }
@@ -302,7 +303,7 @@ class Http
      * @time 2020年05月22日
      * @return array
      */
-    protected function merge()
+    protected function merge(): array
     {
         return array_merge(
             $this->header,
@@ -323,7 +324,7 @@ class Http
      * @time 2020年05月21日
      * @return $this
      */
-    public function async()
+    public function async(): Http
     {
         $this->async = true;
 
@@ -334,12 +335,12 @@ class Http
      * 附件
      *
      * @time 2020年05月22日
-     * @param $name
+     * @param string $name
      * @param $resource
-     * @param $filename
+     * @param string $filename
      * @return $this
      */
-    public function attach(string $name, $resource, string $filename)
+    public function attach(string $name, $resource, string $filename): Http
     {
         $this->multipart = [
             'multipart' => [
@@ -361,7 +362,7 @@ class Http
      * @param $method
      * @return string
      */
-    protected function asyncMethod($method)
+    protected function asyncMethod($method): string
     {
         return $this->async ? $method.'Async' : $method;
     }
@@ -371,9 +372,9 @@ class Http
      *
      * @time 2020年05月22日
      * @param callable $callable
-     * @return mixed
+     * @return Http
      */
-    public function onHeaders(callable $callable)
+    public function onHeaders(callable $callable): Http
     {
         $this->options['on_headers'] = $callable;
 
@@ -385,9 +386,9 @@ class Http
      *
      * @time 2020年05月22日
      * @param callable $callable
-     * @return mixed
+     * @return Http
      */
-    public function onStats(callable $callable)
+    public function onStats(callable $callable): Http
     {
         $this->options['on_stats'] = $callable;
 
@@ -402,7 +403,7 @@ class Http
      * @param $password
      * @return $this
      */
-    public function auth($username, $password)
+    public function auth($username, $password): Http
     {
         $this->options = [
             'auth' => $username, $password
@@ -418,7 +419,7 @@ class Http
      * @param array $proxy
      * @return $this
      */
-    public function proxy(array $proxy)
+    public function proxy(array $proxy): Http
     {
         $this->proxy = $proxy;
 
