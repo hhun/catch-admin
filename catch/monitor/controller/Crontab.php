@@ -12,9 +12,9 @@
 
 namespace catchAdmin\monitor\controller;
 
-use catcher\base\CatchRequest as Request;
-use catcher\CatchResponse;
-use catcher\base\CatchController;
+use catch\base\CatchRequest as Request;
+use catch\CatchResponse;
+use catch\base\CatchController;
 use catchAdmin\monitor\model\Crontab as CrontabModel;
 use Cron\CronExpression;
 

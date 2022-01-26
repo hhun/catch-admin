@@ -3,8 +3,8 @@
 namespace catchAdmin\permissions\tables\forms;
 
 use catchAdmin\permissions\model\Permissions;
-use catcher\CatchAdmin;
-use catcher\library\form\Form;
+use catch\CatchAdmin;
+use catch\library\form\Form;
 
 class Permission extends Form
 {

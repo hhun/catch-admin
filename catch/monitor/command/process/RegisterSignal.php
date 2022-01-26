@@ -13,7 +13,7 @@
 namespace catchAdmin\monitor\command\process;
 
 use catchAdmin\monitor\model\Crontab;
-use catcher\enums\Status;
+use catch\enums\Status;
 use Cron\CronExpression;
 
 trait RegisterSignal

@@ -12,8 +12,8 @@
 
 namespace catchAdmin\wechat\controller;
 
-use catcher\base\CatchController;
-use catcher\base\CatchRequest;
+use catch\base\CatchController;
+use catch\base\CatchRequest;
 use think\Request;
 
 class Material extends CatchController

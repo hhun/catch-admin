@@ -11,10 +11,10 @@
 
 namespace catchAdmin\permissions\controller;
 
-use catcher\base\CatchRequest as Request;
-use catcher\base\CatchController;
-use catcher\CatchResponse;
-use catcher\exceptions\FailedException;
+use catch\base\CatchRequest as Request;
+use catch\base\CatchController;
+use catch\CatchResponse;
+use catch\exceptions\FailedException;
 use catchAdmin\permissions\model\Permissions;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\DbException;

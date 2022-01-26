@@ -12,7 +12,7 @@
 namespace catchAdmin\permissions\model;
 
 use catchAdmin\permissions\model\search\RolesSearch;
-use catcher\base\CatchModel;
+use catch\base\CatchModel;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\DbException;
 use think\db\exception\ModelNotFoundException;
@@ -56,7 +56,7 @@ class Roles extends CatchModel
     {
         return $this->catchSearch()
                     ->with(['permissions', 'departments'])
-                    ->order('id', 'desc')
+                    ->orderDesc('id')
                     ->select()
                     ->each(function (&$item) {
                         $permissions = $item->permissions->column('id');

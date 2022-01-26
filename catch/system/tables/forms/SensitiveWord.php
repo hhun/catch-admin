@@ -2,7 +2,7 @@
 
 namespace catchAdmin\system\tables\forms;
 
-use catcher\library\form\Form;
+use catch\library\form\Form;
 
 class SensitiveWord extends Form
 {

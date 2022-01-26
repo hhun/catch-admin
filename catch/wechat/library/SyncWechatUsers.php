@@ -13,10 +13,10 @@
 namespace catchAdmin\wechat\library;
 
 use catchAdmin\wechat\model\WechatUsers;
-use catcher\exceptions\FailedException;
-use catcher\library\ProgressBar;
-use catcher\library\WeChat;
-use catcher\Utils;
+use catch\exceptions\FailedException;
+use catch\library\ProgressBar;
+use catch\library\WeChat;
+use catch\Utils;
 use think\Db;
 
 class SyncWechatUsers

@@ -12,9 +12,9 @@
 
 namespace catchAdmin\sms\controller;
 
-use catcher\base\CatchRequest as Request;
-use catcher\CatchResponse;
-use catcher\base\CatchController;
+use catch\base\CatchRequest as Request;
+use catch\CatchResponse;
+use catch\base\CatchController;
 use catchAdmin\sms\model\SmsTemplate as SmsTemplateModel;
 
 class Template extends CatchController

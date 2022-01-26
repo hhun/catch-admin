@@ -2,7 +2,7 @@
 
 namespace catchAdmin\permissions\tables\forms;
 
-use catcher\library\form\Form;
+use catch\library\form\Form;
 
 class Job extends Form
 {

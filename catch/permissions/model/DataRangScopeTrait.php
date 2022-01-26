@@ -11,7 +11,7 @@
 
 namespace catchAdmin\permissions\model;
 
-use catcher\Utils;
+use catch\Utils;
 
 trait DataRangScopeTrait
 {

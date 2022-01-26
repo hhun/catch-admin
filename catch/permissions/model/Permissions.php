@@ -12,8 +12,8 @@
 namespace catchAdmin\permissions\model;
 
 use catchAdmin\permissions\model\search\PermissionsSearch;
-use catcher\base\CatchModel;
-use catcher\enums\Status;
+use catch\base\CatchModel;
+use catch\enums\Status;
 use think\Collection;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\DbException;
@@ -51,11 +51,6 @@ class Permissions extends CatchModel
 
     public const MENU_TYPE = 1;
     public const BTN_TYPE = 2;
-
-    public const GET = 'get';
-    public const POST = 'post';
-    public const PUT = 'put';
-    public const DELETE = 'delete';
 
     /**
      * 列表

@@ -14,7 +14,7 @@
 
 namespace catchAdmin\cms\model;
 
-use catcher\exceptions\FailedException;
+use catch\exceptions\FailedException;
 
 class ModelAuxiliaryTable extends BaseModel
 {

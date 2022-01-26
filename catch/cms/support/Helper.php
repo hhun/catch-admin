@@ -14,7 +14,7 @@
 
 namespace catchAdmin\cms\support;
 
-use catcher\Utils;
+use catch\Utils;
 
 class Helper
 {

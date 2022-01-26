@@ -2,8 +2,8 @@
 
 namespace catchAdmin\system\model;
 
-use catcher\base\CatchModel;
-use catcher\exceptions\FailedException;
+use catch\base\CatchModel;
+use catch\exceptions\FailedException;
 use think\Model;
 
 class Config extends CatchModel

@@ -4,8 +4,8 @@ namespace catchAdmin\permissions\middleware;
 
 use app\Request;
 use catchAdmin\permissions\model\Permissions;
-use catcher\exceptions\PermissionForbiddenException;
-use catcher\Utils;
+use catch\exceptions\PermissionForbiddenException;
+use catch\Utils;
 
 class RecordOperateMiddleware
 {

@@ -12,7 +12,7 @@
 
 namespace catchAdmin\monitor\command\process;
 
-use catcher\exceptions\FailedException;
+use catch\exceptions\FailedException;
 
 class Process
 {

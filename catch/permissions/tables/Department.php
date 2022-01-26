@@ -3,11 +3,11 @@
 namespace catchAdmin\permissions\tables;
 
 use catchAdmin\permissions\tables\forms\Factory;
-use catcher\CatchTable;
-use catcher\library\table\Actions;
-use catcher\library\table\HeaderItem;
-use catcher\library\table\Search;
-use catcher\library\table\Table;
+use catch\CatchTable;
+use catch\library\table\Actions;
+use catch\library\table\HeaderItem;
+use catch\library\table\Search;
+use catch\library\table\Table;
 
 class Department extends CatchTable
 {

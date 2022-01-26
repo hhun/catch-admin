@@ -17,7 +17,7 @@ namespace catchAdmin\monitor\command;
 use catchAdmin\monitor\command\process\Process;
 use catchAdmin\monitor\model\Crontab;
 use catchAdmin\monitor\model\CrontabLog;
-use catcher\enums\Status;
+use catch\enums\Status;
 use Cron\CronExpression;
 use think\console\Command;
 use think\console\Input;

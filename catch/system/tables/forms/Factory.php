@@ -2,7 +2,7 @@
 
 namespace catchAdmin\system\tables\forms;
 
-use catcher\library\form\FormFactory;
+use catch\library\form\FormFactory;
 
 class Factory extends FormFactory
 {

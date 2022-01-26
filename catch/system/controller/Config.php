@@ -3,9 +3,9 @@
 namespace catchAdmin\system\controller;
 
 use app\Request;
-use catcher\base\CatchController;
+use catch\base\CatchController;
 use catchAdmin\system\model\Config as ConfigModel;
-use catcher\CatchResponse;
+use catch\CatchResponse;
 use think\response\Json;
 
 class Config extends CatchController

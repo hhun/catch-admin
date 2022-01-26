@@ -12,7 +12,7 @@
 
 namespace catchAdmin\login;
 
-use catcher\ModuleService;
+use catch\ModuleService;
 
 class LoginService extends ModuleService
 {

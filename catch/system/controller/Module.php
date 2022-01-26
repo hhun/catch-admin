@@ -3,11 +3,11 @@
 namespace catchAdmin\system\controller;
 
 use catchAdmin\permissions\model\Permissions;
-use catcher\base\CatchController;
-use catcher\CatchResponse;
-use catcher\CatchAdmin;
-use catcher\library\InstallLocalModule;
-use catcher\Utils;
+use catch\base\CatchController;
+use catch\CatchResponse;
+use catch\CatchAdmin;
+use catch\library\InstallLocalModule;
+use catch\Utils;
 use think\response\Json;
 
 class Module extends CatchController

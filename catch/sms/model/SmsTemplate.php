@@ -13,7 +13,7 @@
 namespace catchAdmin\sms\model;
 
 use catchAdmin\sms\model\search\SmsTemplateSearch;
-use catcher\base\CatchModel as Model;
+use catch\base\CatchModel as Model;
 
 class SmsTemplate extends Model
 {

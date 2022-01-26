@@ -2,11 +2,11 @@
 
 namespace catchAdmin\monitor\tables;
 
-use catcher\CatchTable;
+use catch\CatchTable;
 use catchAdmin\monitor\tables\forms\Factory;
-use catcher\library\table\Actions;
-use catcher\library\table\HeaderItem;
-use catcher\library\table\Search;
+use catch\library\table\Actions;
+use catch\library\table\HeaderItem;
+use catch\library\table\Search;
 
 class Crontab extends CatchTable
 {

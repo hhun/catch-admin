@@ -13,8 +13,8 @@ namespace catchAdmin\permissions\model;
 
 use catchAdmin\jwt\contract\JWTSubject;
 use catchAdmin\permissions\model\search\UserSearch;
-use catcher\base\CatchModel;
-use catcher\Utils;
+use catch\base\CatchModel;
+use catch\Utils;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\DbException;
 use think\db\exception\ModelNotFoundException;

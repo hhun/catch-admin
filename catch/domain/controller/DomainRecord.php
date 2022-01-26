@@ -13,9 +13,9 @@
 namespace catchAdmin\domain\controller;
 
 use catchAdmin\domain\support\contract\DomainRecordInterface;
-use catcher\base\CatchRequest as Request;
-use catcher\CatchResponse;
-use catcher\base\CatchController;
+use catch\base\CatchRequest as Request;
+use catch\CatchResponse;
+use catch\base\CatchController;
 
 class DomainRecord extends CatchController
 {

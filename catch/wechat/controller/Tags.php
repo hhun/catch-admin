@@ -13,8 +13,8 @@
 namespace catchAdmin\wechat\controller;
 
 use think\Request;
-use catcher\CatchResponse;
-use catcher\base\CatchController;
+use catch\CatchResponse;
+use catch\base\CatchController;
 use catchAdmin\wechat\repository\WechatTagsRepository;
 
 class Tags extends CatchController

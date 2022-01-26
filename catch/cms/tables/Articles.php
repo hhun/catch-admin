@@ -2,16 +2,27 @@
 
 namespace catchAdmin\cms\tables;
 
-use catcher\CatchTable;
+use catch\CatchTable;
 use catchAdmin\cms\tables\forms\Factory;
-use catcher\library\table\Actions;
-use catcher\library\table\HeaderItem;
-use catcher\library\table\Search;
 
 class Articles extends CatchTable
 {
     public function table()
     {
+        CatchTable::create('articles', function (CatchTable $table){
+            $table->header(function (CatchTable $table){
+                $table->header();
+            });
+            $table->fetch();
+
+            $table->action();
+
+            $table->search();
+
+            $table->sort();
+
+            $table->toTree();
+        });
         // TODO: Implement table() method.
         return $this->getTable('articles')
                    ->header([

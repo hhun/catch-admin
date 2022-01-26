@@ -13,8 +13,8 @@
 namespace catchAdmin\wechat\repository;
 
 use catchAdmin\wechat\model\WechatTags;
-use catcher\base\CatchRepository;
-use catcher\library\WeChat;
+use catch\base\CatchRepository;
+use catch\library\WeChat;
 
 class WechatTagsRepository extends CatchRepository
 {

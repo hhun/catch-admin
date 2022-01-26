@@ -13,7 +13,7 @@
 namespace catchAdmin\permissions\excel;
 
 use catchAdmin\permissions\model\Users;
-use catcher\library\excel\ExcelContract;
+use catch\library\excel\ExcelContract;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 class UserExport implements ExcelContract

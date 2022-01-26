@@ -5,7 +5,7 @@ namespace catchAdmin\permissions\tables\forms;
 use catchAdmin\permissions\model\Department as DepartmentModel;
 use catchAdmin\permissions\model\Job;
 use catchAdmin\permissions\model\Roles;
-use catcher\library\form\Form;
+use catch\library\form\Form;
 
 class User extends Form
 {

@@ -3,8 +3,8 @@
 namespace catchAdmin\system\model;
 
 use catchAdmin\system\model\search\AttachmentsSearch;
-use catcher\base\CatchModel;
-use catcher\Utils;
+use catch\base\CatchModel;
+use catch\Utils;
 use think\file\UploadedFile;
 use think\Model;
 use think\facade\Filesystem;

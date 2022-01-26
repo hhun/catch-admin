@@ -14,7 +14,7 @@
 
 namespace catchAdmin\cms\model\events;
 
-use catcher\exceptions\FailedException;
+use catch\exceptions\FailedException;
 
 trait CategoryEvent
 {

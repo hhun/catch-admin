@@ -13,7 +13,7 @@
 namespace catchAdmin\wechat\model;
 
 use think\Model;
-use catcher\traits\db\BaseOptionsTrait;
+use catch\traits\db\BaseOptionsTrait;
 
 class WechatMenus extends Model
 {

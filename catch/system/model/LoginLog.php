@@ -2,7 +2,7 @@
 
 namespace catchAdmin\system\model;
 
-use catcher\traits\db\BaseOptionsTrait;
+use catch\traits\db\BaseOptionsTrait;
 use catchAdmin\system\model\search\LoginLogSearch;
 
 class LoginLog extends \think\Model

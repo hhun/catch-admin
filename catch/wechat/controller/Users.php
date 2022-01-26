@@ -13,8 +13,8 @@ namespace catchAdmin\wechat\controller;
 
 use catchAdmin\wechat\library\SyncWechatUsers;
 use catchAdmin\wechat\repository\WechatUsersRepository;
-use catcher\base\CatchController;
-use catcher\CatchResponse;
+use catch\base\CatchController;
+use catch\CatchResponse;
 use think\Request;
 
 class Users extends CatchController

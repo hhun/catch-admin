@@ -2,10 +2,10 @@
 
 namespace catchAdmin\cms\tables;
 
-use catcher\CatchTable;
+use catch\CatchTable;
 use catchAdmin\cms\tables\forms\Factory;
-use catcher\library\table\Actions;
-use catcher\library\table\HeaderItem;
+use catch\library\table\Actions;
+use catch\library\table\HeaderItem;
 
 class Banners extends CatchTable
 {

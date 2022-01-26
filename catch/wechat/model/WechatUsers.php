@@ -13,7 +13,7 @@
 namespace catchAdmin\wechat\model;
 
 use catchAdmin\wechat\model\search\UserSearchTrait;
-use catcher\base\CatchModel;
+use catch\base\CatchModel;
 use think\facade\Db;
 
 class WechatUsers extends CatchModel

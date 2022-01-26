@@ -14,7 +14,7 @@ namespace catchAdmin\wechat\library\messages\events;
 
 use catchAdmin\wechat\library\messages\Message;
 use catchAdmin\wechat\model\WechatUsers;
-use catcher\library\WeChat;
+use catch\library\WeChat;
 
 /**
  * 订阅事件

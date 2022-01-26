@@ -12,9 +12,9 @@
 
 namespace catchAdmin\wechat\repository;
 
-use catcher\base\CatchRepository;
+use catch\base\CatchRepository;
 use catchAdmin\wechat\model\WechatGraphic;
-use catcher\exceptions\FailedException;
+use catch\exceptions\FailedException;
 
 class WechatGraphicRepository extends CatchRepository
 {

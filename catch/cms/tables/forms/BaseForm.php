@@ -3,8 +3,8 @@
 namespace catchAdmin\cms\tables\forms;
 
 use catchAdmin\cms\support\DynamicFormFields;
-use catcher\library\form\Form;
-use catcher\Utils;
+use catch\library\form\Form;
+use catch\Utils;
 
 abstract class BaseForm extends Form
 {

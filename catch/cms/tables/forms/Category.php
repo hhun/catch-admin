@@ -15,7 +15,7 @@
 namespace catchAdmin\cms\tables\forms;
 
 use catchAdmin\cms\model\Category as CategoryModel;
-use catcher\library\form\Form;
+use catch\library\form\Form;
 
 class Category extends BaseForm
 {

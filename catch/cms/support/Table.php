@@ -14,7 +14,7 @@
 
 namespace catchAdmin\cms\support;
 
-use catcher\generate\support\Table as _Table;
+use catch\generate\support\Table as _Table;
 
 /**
  * @method static create(string $primaryKey, string $engine, string $comment)

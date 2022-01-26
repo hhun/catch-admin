@@ -2,8 +2,8 @@
 
 namespace catchAdmin\system\controller;
 
-use catcher\base\CatchController;
-use catcher\CatchResponse;
+use catch\base\CatchController;
+use catch\CatchResponse;
 use catchAdmin\system\model\LoginLog as Log;
 
 class LoginLog extends CatchController

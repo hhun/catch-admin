@@ -4,15 +4,15 @@ namespace catchAdmin\permissions\middleware;
 
 use app\Request;
 use catchAdmin\permissions\model\Permissions;
-use catcher\CatchCacheKeys;
-use catcher\Code;
-use catcher\exceptions\PermissionForbiddenException;
+use catch\CatchCacheKeys;
+use catch\Code;
+use catch\exceptions\PermissionForbiddenException;
 use Closure;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\DbException;
 use think\db\exception\ModelNotFoundException;
 use think\facade\Cache;
-use catcher\Utils;
+use catch\Utils;
 use think\Model;
 
 class PermissionsMiddleware

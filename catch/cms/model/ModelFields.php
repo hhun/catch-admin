@@ -16,7 +16,7 @@ namespace catchAdmin\cms\model;
 
 use catchAdmin\cms\model\events\ModelFieldsEvent;
 use catchAdmin\cms\support\Helper;
-use catcher\Utils;
+use catch\Utils;
 
 class ModelFields extends BaseModel
 {

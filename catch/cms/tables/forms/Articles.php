@@ -5,7 +5,7 @@ namespace catchAdmin\cms\tables\forms;
 use catchAdmin\cms\model\Tags;
 use catchAdmin\cms\model\Articles as Article;
 use catchAdmin\cms\model\Category;
-use catcher\enums\Status;
+use catch\enums\Status;
 
 class Articles extends BaseForm
 {

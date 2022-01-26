@@ -12,7 +12,7 @@
 namespace catchAdmin\permissions\request;
 
 use catchAdmin\permissions\model\Users;
-use catcher\base\CatchRequest;
+use catch\base\CatchRequest;
 
 class UpdateRequest extends CatchRequest
 {

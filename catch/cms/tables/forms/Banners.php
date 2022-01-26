@@ -3,7 +3,7 @@
 namespace catchAdmin\cms\tables\forms;
 
 use catchAdmin\cms\model\Category;
-use catcher\library\form\Form;
+use catch\library\form\Form;
 
 class Banners extends Form
 {

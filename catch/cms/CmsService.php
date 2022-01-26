@@ -14,7 +14,7 @@
 
 namespace catchAdmin\cms;
 
-use catcher\ModuleService;
+use catch\ModuleService;
 
 class CmsService extends ModuleService
 {

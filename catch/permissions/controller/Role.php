@@ -13,10 +13,10 @@ namespace catchAdmin\permissions\controller;
 
 use catchAdmin\permissions\model\Permissions;
 use catchAdmin\permissions\model\Roles as RoleModel;
-use catcher\base\CatchRequest as Request;
-use catcher\base\CatchController;
-use catcher\CatchResponse;
-use catcher\exceptions\FailedException;
+use catch\base\CatchRequest as Request;
+use catch\base\CatchController;
+use catch\CatchResponse;
+use catch\exceptions\FailedException;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\DbException;
 use think\db\exception\ModelNotFoundException;

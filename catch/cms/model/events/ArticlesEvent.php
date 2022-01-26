@@ -4,7 +4,7 @@ namespace catchAdmin\cms\model\events;
 
 use catchAdmin\cms\model\Articles;
 use catchAdmin\cms\model\Tags;
-use catcher\Utils;
+use catch\Utils;
 
 trait ArticlesEvent
 {

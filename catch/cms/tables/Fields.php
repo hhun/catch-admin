@@ -3,10 +3,10 @@
 namespace catchAdmin\cms\tables;
 
 use catchAdmin\cms\tables\forms\Factory;
-use catcher\CatchTable;
-use catcher\library\table\Actions;
-use catcher\library\table\HeaderItem;
-use catcher\library\table\Search;
+use catch\CatchTable;
+use catch\library\table\Actions;
+use catch\library\table\HeaderItem;
+use catch\library\table\Search;
 
 class Fields extends CatchTable
 {

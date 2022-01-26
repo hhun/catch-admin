@@ -12,11 +12,11 @@
 namespace catchAdmin\system\controller;
 
 use catchAdmin\system\model\Attachments;
-use catcher\base\CatchController;
-use catcher\base\CatchRequest;
-use catcher\CatchResponse;
-use catcher\CatchUpload;
-use catcher\exceptions\FailedException;
+use catch\base\CatchController;
+use catch\base\CatchRequest;
+use catch\CatchResponse;
+use catch\CatchUpload;
+use catch\exceptions\FailedException;
 
 class Upload extends CatchController
 {

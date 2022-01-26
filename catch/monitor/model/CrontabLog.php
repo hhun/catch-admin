@@ -13,7 +13,7 @@
 namespace catchAdmin\monitor\model;
 
 use catchAdmin\monitor\model\search\CrontabLogSearch;
-use catcher\base\CatchModel;
+use catch\base\CatchModel;
 
 class CrontabLog extends CatchModel
 {

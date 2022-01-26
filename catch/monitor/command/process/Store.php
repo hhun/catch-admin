@@ -12,7 +12,7 @@
 
 namespace catchAdmin\monitor\command\process;
 
-use catcher\facade\FileSystem;
+use catch\facade\FileSystem;
 
 trait Store
 {

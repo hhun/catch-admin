@@ -3,7 +3,7 @@
 namespace catchAdmin\system\model;
 
 use catchAdmin\permissions\model\Users;
-use catcher\traits\db\BaseOptionsTrait;
+use catch\traits\db\BaseOptionsTrait;
 use catchAdmin\system\model\search\OperateLogSearch;
 
 class OperateLog extends \think\Model

@@ -12,7 +12,7 @@
 
 namespace catchAdmin\sms\model;
 
-use catcher\base\CatchModel as Model;
+use catch\base\CatchModel as Model;
 
 class SmsConfig extends Model
 {

@@ -2,7 +2,7 @@
 
 namespace catchAdmin\cms\tables;
 
-use catcher\CatchTable;
+use catch\CatchTable;
 use catchAdmin\cms\tables\forms\Factory;
 
 class UsedAt extends CatchTable

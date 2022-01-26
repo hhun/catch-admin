@@ -12,7 +12,7 @@
 
 namespace catchAdmin\monitor;
 
-use catcher\ModuleService;
+use catch\ModuleService;
 
 class MonitorService extends ModuleService
 {

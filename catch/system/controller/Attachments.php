@@ -2,8 +2,8 @@
 
 namespace catchAdmin\system\controller;
 
-use catcher\base\CatchController;
-use catcher\CatchResponse;
+use catch\base\CatchController;
+use catch\CatchResponse;
 use catchAdmin\system\model\Attachments as AttachmentsModel;
 
 class Attachments extends CatchController

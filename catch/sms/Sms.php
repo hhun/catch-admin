@@ -13,7 +13,7 @@
 namespace catchAdmin\sms;
 
 use catchAdmin\sms\model\SmsConfig;
-use catcher\exceptions\FailedException;
+use catch\exceptions\FailedException;
 use Overtrue\EasySms\EasySms;
 use think\helper\Str;
 

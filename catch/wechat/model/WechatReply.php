@@ -13,7 +13,7 @@
 namespace catchAdmin\wechat\model;
 
 use catchAdmin\wechat\model\search\ReplySearchTrait;
-use catcher\base\CatchModel;
+use catch\base\CatchModel;
 
 class WechatReply extends CatchModel
 {

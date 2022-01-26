@@ -12,7 +12,7 @@
 
 namespace catchAdmin\system\model;
 
-use catcher\base\CatchModel;
+use catch\base\CatchModel;
 
 class SensitiveWord extends CatchModel
 {

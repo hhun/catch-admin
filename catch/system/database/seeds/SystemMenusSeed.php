@@ -24,7 +24,7 @@ class SystemMenusSeed extends Seeder
      */
     public function run()
     {
-        \catcher\Utils::importTreeData($this->getPermissions(), 'permissions', 'parent_id');
+        \catch\Utils::importTreeData($this->getPermissions(), 'permissions', 'parent_id');
     }
 
     protected function getPermissions()

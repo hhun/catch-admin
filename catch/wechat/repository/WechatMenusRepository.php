@@ -13,10 +13,10 @@
 namespace catchAdmin\wechat\repository;
 
 use catchAdmin\wechat\model\WechatMenus;
-use catcher\base\CatchRepository;
-use catcher\exceptions\FailedException;
-use catcher\library\WeChat;
-use catcher\Tree;
+use catch\base\CatchRepository;
+use catch\exceptions\FailedException;
+use catch\library\WeChat;
+use catch\Tree;
 
 class WechatMenusRepository extends CatchRepository
 {

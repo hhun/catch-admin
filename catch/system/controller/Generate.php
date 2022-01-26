@@ -2,10 +2,10 @@
 
 namespace catchAdmin\system\controller;
 
-use catcher\base\CatchController;
-use catcher\CatchResponse;
-use catcher\generate\CreateModule;
-use catcher\generate\Generator;
+use catch\base\CatchController;
+use catch\CatchResponse;
+use catch\generate\CreateModule;
+use catch\generate\Generator;
 use think\Request;
 
 class Generate extends CatchController

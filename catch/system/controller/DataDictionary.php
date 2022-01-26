@@ -2,11 +2,11 @@
 
 namespace catchAdmin\system\controller;
 
-use catcher\base\CatchRequest as Request;
-use catcher\base\CatchController;
-use catcher\CatchResponse;
-use catcher\exceptions\FailedException;
-use catcher\library\BackUpDatabase;
+use catch\base\CatchRequest as Request;
+use catch\base\CatchController;
+use catch\CatchResponse;
+use catch\exceptions\FailedException;
+use catch\library\BackUpDatabase;
 use think\Collection;
 use think\facade\Db;
 use think\Paginator;

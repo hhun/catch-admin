@@ -46,5 +46,5 @@ $router->group('cms', function () use ($router) {
     $router->group('upload', function () use ($router) {
         $router->post('image', '\catchAdmin\cms\controller\Upload@image');
         $router->post('file', '\catchAdmin\cms\controller\Upload@file');
-    })->middleware(\catcher\middlewares\JsonResponseMiddleware::class);
+    })->middleware(\catch\middlewares\JsonResponseMiddleware::class);
 })->middleware('auth');

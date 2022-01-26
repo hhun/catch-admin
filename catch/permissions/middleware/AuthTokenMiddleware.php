@@ -2,13 +2,13 @@
 
 namespace catchAdmin\permissions\middleware;
 
-use catcher\exceptions\FailedException;
+use catch\exceptions\FailedException;
 use catchAdmin\jwt\exception\TokenBlacklistException;
 use catchAdmin\jwt\exception\TokenExpiredException;
 use catchAdmin\jwt\exception\TokenInvalidException;
 use catchAdmin\jwt\facade\JWTAuth;
 use think\Middleware;
-use catcher\enums\Code;
+use catch\enums\Code;
 
 /**
  * auth token middleware

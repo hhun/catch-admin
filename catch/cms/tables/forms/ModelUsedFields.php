@@ -3,7 +3,7 @@
 namespace catchAdmin\cms\tables\forms;
 
 use catchAdmin\cms\model\Models;
-use catcher\library\form\Form;
+use catch\library\form\Form;
 use think\facade\Db;
 
 class ModelUsedFields extends Form

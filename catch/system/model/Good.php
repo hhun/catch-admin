@@ -3,8 +3,8 @@
 namespace catchAdmin\system\model;
 
 use think\Model;
-use catcher\traits\db\BaseOptionsTrait;
-use catcher\traits\db\ScopeTrait;
+use catch\traits\db\BaseOptionsTrait;
+use catch\traits\db\ScopeTrait;
 
 /**
  *

@@ -13,9 +13,9 @@ namespace catchAdmin\wechat\repository;
 
 use catchAdmin\wechat\model\WechatTags;
 use catchAdmin\wechat\model\WechatUsers;
-use catcher\base\CatchRepository;
-use catcher\library\WeChat;
-use catcher\Utils;
+use catch\base\CatchRepository;
+use catch\library\WeChat;
+use catch\Utils;
 
 class WechatUsersRepository extends CatchRepository
 {

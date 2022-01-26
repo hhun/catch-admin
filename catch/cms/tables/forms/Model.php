@@ -14,7 +14,7 @@
 
 namespace catchAdmin\cms\tables\forms;
 
-use catcher\library\form\Form;
+use catch\library\form\Form;
 use think\facade\Db;
 use think\helper\Str;
 

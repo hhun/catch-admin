@@ -12,7 +12,7 @@
 
 namespace catchAdmin\wechat\model;
 
-use catcher\base\CatchModel as Model;
+use catch\base\CatchModel as Model;
 
 class WechatGraphic extends Model
 {

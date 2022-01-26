@@ -4,7 +4,7 @@ namespace catchAdmin\cms\support;
 
 use catchAdmin\cms\model\ModelAuxiliaryTable;
 use catchAdmin\cms\model\Models;
-use catcher\exceptions\FailedException;
+use catch\exceptions\FailedException;
 
 class AuxiliaryTable
 {

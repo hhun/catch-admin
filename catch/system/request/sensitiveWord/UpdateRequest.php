@@ -3,7 +3,7 @@
 namespace catchAdmin\system\request\sensitiveWord;
 
 use catchAdmin\system\model\SensitiveWord;
-use catcher\base\CatchRequest;
+use catch\base\CatchRequest;
 
 class UpdateRequest extends CatchRequest
 {

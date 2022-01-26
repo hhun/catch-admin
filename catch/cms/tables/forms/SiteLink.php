@@ -2,7 +2,7 @@
 
 namespace catchAdmin\cms\tables\forms;
 
-use catcher\enums\Status;
+use catch\enums\Status;
 
 class SiteLink extends BaseForm
 {

@@ -12,7 +12,7 @@
 namespace catchAdmin\permissions\model;
 
 use catchAdmin\permissions\model\search\JobsSearch;
-use catcher\base\CatchModel;
+use catch\base\CatchModel;
 use think\db\exception\DbException;
 use think\Paginator;
 

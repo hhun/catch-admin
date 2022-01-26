@@ -13,9 +13,9 @@
 namespace catchAdmin\system\controller;
 
 use think\Request as Request;
-use catcher\CatchAuth;
-use catcher\CatchResponse;
-use catcher\base\CatchController;
+use catch\CatchAuth;
+use catch\CatchResponse;
+use catch\base\CatchController;
 use catchAdmin\system\model\Developers as DevelopersModel;
 
 class Developer extends CatchController

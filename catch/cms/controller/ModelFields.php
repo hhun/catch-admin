@@ -15,9 +15,9 @@
 namespace catchAdmin\cms\controller;
 
 use catchAdmin\cms\support\Table;
-use catcher\base\CatchRequest as Request;
-use catcher\CatchResponse;
-use catcher\base\CatchController;
+use catch\base\CatchRequest as Request;
+use catch\CatchResponse;
+use catch\base\CatchController;
 use catchAdmin\cms\model\ModelFields as ModelFieldsModel;
 use catchAdmin\cms\model\Models;
 

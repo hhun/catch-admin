@@ -15,7 +15,7 @@ use catchAdmin\permissions\event\OperateLogEvent;
 use catchAdmin\permissions\middleware\AuthTokenMiddleware;
 use catchAdmin\permissions\middleware\PermissionsMiddleware;
 use catchAdmin\permissions\middleware\RecordOperateMiddleware;
-use catcher\ModuleService;
+use catch\ModuleService;
 
 class PermissionService extends ModuleService
 {

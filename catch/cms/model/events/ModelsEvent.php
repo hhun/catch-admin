@@ -15,7 +15,7 @@
 namespace catchAdmin\cms\model\events;
 
 use catchAdmin\cms\support\Table;
-use catcher\exceptions\FailedException;
+use catch\exceptions\FailedException;
 
 trait ModelsEvent
 {

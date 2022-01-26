@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace catchAdmin\cms\exceptions;
 
-use catcher\exceptions\CatchException;
+use catch\exceptions\CatchException;
 
 class TableException extends CatchException
 {

@@ -13,9 +13,9 @@
 namespace catchAdmin\wechat\controller;
 
 use catchAdmin\wechat\repository\WechatGraphicRepository;
-use catcher\base\CatchController;
-use catcher\base\CatchRequest;
-use catcher\CatchResponse;
+use catch\base\CatchController;
+use catch\base\CatchRequest;
+use catch\CatchResponse;
 
 class Graphic extends CatchController
 {

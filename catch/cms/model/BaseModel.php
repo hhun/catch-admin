@@ -14,8 +14,8 @@
 
 namespace catchAdmin\cms\model;
 
-use catcher\base\CatchModel as Model;
-use catcher\Utils;
+use catch\base\CatchModel as Model;
+use catch\Utils;
 
 class BaseModel extends Model
 {

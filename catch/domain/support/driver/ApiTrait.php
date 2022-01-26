@@ -12,7 +12,7 @@
 
 namespace catchAdmin\domain\support\driver;
 
-use catcher\facade\Http;
+use catch\facade\Http;
 use catchAdmin\domain\support\CommonParams;
 
 trait ApiTrait

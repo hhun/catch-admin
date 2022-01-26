@@ -13,9 +13,9 @@
 namespace catchAdmin\system;
 
 use catchAdmin\system\events\AttachmentEvent;
-use catcher\command\MigrateRunCommand;
-use catcher\command\SeedRunCommand;
-use catcher\ModuleService;
+use catch\command\MigrateRunCommand;
+use catch\command\SeedRunCommand;
+use catch\ModuleService;
 
 class SystemService extends ModuleService
 {

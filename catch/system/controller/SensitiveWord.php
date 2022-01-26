@@ -4,9 +4,9 @@ namespace catchAdmin\system\controller;
 
 use catchAdmin\system\request\sensitiveWord\CreateRequest;
 use catchAdmin\system\request\sensitiveWord\UpdateRequest;
-use catcher\base\CatchController;
+use catch\base\CatchController;
 use catchAdmin\system\model\SensitiveWord as Model;
-use catcher\CatchResponse;
+use catch\CatchResponse;
 
 class SensitiveWord extends CatchController
 {

@@ -14,9 +14,9 @@
 
 namespace catchAdmin\cms\controller;
 
-use catcher\base\CatchRequest as Request;
-use catcher\CatchResponse;
-use catcher\base\CatchController;
+use catch\base\CatchRequest as Request;
+use catch\CatchResponse;
+use catch\base\CatchController;
 use catchAdmin\cms\model\FormData as formDataModel;
 
 class FormData extends CatchController

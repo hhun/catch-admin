@@ -11,11 +11,11 @@
 
 namespace catchAdmin\permissions\controller;
 
-use catcher\base\CatchController;
+use catch\base\CatchController;
 use catchAdmin\permissions\model\Department as DepartmentModel;
-use catcher\base\CatchRequest;
-use catcher\CatchResponse;
-use catcher\exceptions\FailedException;
+use catch\base\CatchRequest;
+use catch\CatchResponse;
+use catch\exceptions\FailedException;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\DbException;
 use think\db\exception\ModelNotFoundException;

@@ -6,7 +6,7 @@ use catchAdmin\cms\exceptions\ColumnException;
 use catchAdmin\cms\model\Models;
 use catchAdmin\cms\support\Table;
 use catchAdmin\cms\support\TableColumn;
-use catcher\exceptions\FailedException;
+use catch\exceptions\FailedException;
 
 trait ModelFieldsEvent
 {

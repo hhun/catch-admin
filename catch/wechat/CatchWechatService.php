@@ -2,7 +2,7 @@
 
 namespace catchAdmin\wechat;
 
-use catcher\ModuleService;
+use catch\ModuleService;
 
 class CatchWechatService extends ModuleService
 {

@@ -13,7 +13,7 @@
 namespace catchAdmin\wechat\model;
 
 use catchAdmin\wechat\model\search\TagSearchTrait;
-use catcher\base\CatchModel as Model;
+use catch\base\CatchModel as Model;
 
 class WechatTags extends Model
 {

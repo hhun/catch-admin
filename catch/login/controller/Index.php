@@ -3,12 +3,12 @@
 namespace catchAdmin\login\controller;
 
 use catchAdmin\login\request\LoginRequest;
-use catcher\base\CatchController;
-use catcher\CatchAuth;
-use catcher\CatchResponse;
-use catcher\enums\Code;
+use catch\base\CatchController;
+use catch\CatchAuth;
+use catch\CatchResponse;
+use catch\enums\Code;
 use catchAdmin\jwt\facade\JWTAuth;
-use catcher\exceptions\LoginFailedException;
+use catch\exceptions\LoginFailedException;
 
 class Index extends CatchController
 {

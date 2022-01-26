@@ -12,9 +12,9 @@
 namespace catchAdmin\permissions\controller;
 
 use catchAdmin\permissions\model\Job as JobModel;
-use catcher\base\CatchController;
-use catcher\base\CatchRequest;
-use catcher\CatchResponse;
+use catch\base\CatchController;
+use catch\base\CatchRequest;
+use catch\CatchResponse;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\DbException;
 use think\db\exception\ModelNotFoundException;

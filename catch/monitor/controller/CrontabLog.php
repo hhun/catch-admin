@@ -13,8 +13,8 @@
 namespace catchAdmin\monitor\controller;
 
 use catchAdmin\monitor\model\CrontabLog as LogModel;
-use catcher\base\CatchController;
-use catcher\CatchResponse;
+use catch\base\CatchController;
+use catch\CatchResponse;
 
 class CrontabLog extends CatchController
 {

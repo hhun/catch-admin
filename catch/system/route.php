@@ -21,7 +21,7 @@ $router->group(function () use ($router) {
     $router->group('upload', function () use ($router) {
         $router->post('image', '\catchAdmin\system\controller\Upload@image');
         $router->post('file', '\catchAdmin\system\controller\Upload@file');
-    })->middleware(\catcher\middlewares\JsonResponseMiddleware::class);
+    })->middleware(\catch\middlewares\JsonResponseMiddleware::class);
 
     // 附件
     $router->resource('attachments', '\catchAdmin\system\controller\Attachments');

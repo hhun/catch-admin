@@ -2,11 +2,11 @@
 
 namespace catchAdmin\login\request;
 
-use catcher\base\CatchRequest;
+use catch\base\CatchRequest;
 
 class LoginRequest extends CatchRequest
 {
-    protected $needCreatorId = false;
+    protected bool $needCreatorId = false;
 
     protected function rules(): array
     {

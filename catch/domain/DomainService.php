@@ -14,7 +14,7 @@ namespace catchAdmin\domain;
 
 use catchAdmin\domain\support\contract\DomainActionInterface;
 use catchAdmin\domain\support\contract\DomainRecordInterface;
-use catcher\ModuleService;
+use catch\ModuleService;
 
 class DomainService extends ModuleService
 {

@@ -3,7 +3,7 @@
 namespace catchAdmin\permissions\tables\forms;
 
 use catchAdmin\permissions\model\Department as DepartmentModel;
-use catcher\library\form\Form;
+use catch\library\form\Form;
 
 class Department extends Form
 {

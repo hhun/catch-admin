@@ -13,8 +13,8 @@
 namespace catchAdmin\wechat\controller;
 
 use catchAdmin\wechat\library\messages\Factory;
-use catcher\base\CatchController;
-use catcher\library\WeChat;
+use catch\base\CatchController;
+use catch\library\WeChat;
 use think\Request;
 
 class Message extends CatchController

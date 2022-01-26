@@ -4,7 +4,7 @@ namespace catchAdmin\permissions\event;
 
 use catchAdmin\permissions\model\Permissions;
 use catchAdmin\system\model\OperateLog;
-use catcher\Utils;
+use catch\Utils;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\DbException;
 use think\db\exception\ModelNotFoundException;

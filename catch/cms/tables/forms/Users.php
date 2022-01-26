@@ -2,8 +2,8 @@
 
 namespace catchAdmin\cms\tables\forms;
 
-use catcher\enums\Status;
-use catcher\library\form\Form;
+use catch\enums\Status;
+use catch\library\form\Form;
 
 class Users extends Form
 {

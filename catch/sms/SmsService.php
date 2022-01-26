@@ -12,7 +12,7 @@
 
 namespace catchAdmin\sms;
 
-use catcher\ModuleService;
+use catch\ModuleService;
 
 class SmsService extends ModuleService
 {
