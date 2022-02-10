@@ -11,7 +11,7 @@
 
 namespace catch\enums;
 
-enum Code : int
+enum Code :int implements Enum
 {
     case SUCCESS = 10000; // 成功
     case LOST_LOGIN = 10001; //  登录失效
@@ -45,4 +45,28 @@ enum Code : int
             self::WECHAT_RESPONSE_ERROR => '微信响应错误'
         };
     }
+
+
+    /**
+     * get value
+     *
+     * @return int
+     */
+    public function value(): int
+    {
+        return match ($this) {
+            Code::SUCCESS => 10000,
+            Code::LOST_LOGIN => 10001,
+            Code::VALIDATE_FAILED => 10002,
+            Code::PERMISSION_FORBIDDEN => 10003,
+            Code::LOGIN_FAILED => 10004,
+            Code::FAILED => 10005,
+            Code::LOGIN_EXPIRED => 10006,
+            Code::LOGIN_BLACKLIST => 10007,
+            Code::USER_FORBIDDEN => 10008,
+            Code::WECHAT_RESPONSE_ERROR => 40000,
+        };
+    }
+
+    public function name(){}
 }

@@ -21,24 +21,38 @@ namespace catch\enums;
  * 2: 禁用
  *
  */
-enum Status : int
+enum Status : int implements Enum
 {
     case Enable = 1;
 
     case Disable = 2;
 
     /**
-     * @desc 描述
+     * @desc name
      *
      * @time 2022年01月14日
      * @return string
      */
-    public function label(): string
+    public function name(): string
     {
         return match ($this) {
             Status::Enable => '启用',
 
             Status::Disable => '禁用'
+        };
+    }
+
+    /**
+     * get value
+     *
+     * @return int
+     */
+    public function value(): int
+    {
+        return match ($this) {
+            Status::Enable => 1,
+
+            Status::Disable => 2,
         };
     }
 }
