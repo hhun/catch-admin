@@ -38,9 +38,9 @@ use catch\support\form\element\rule\ValidateFactory;
  */
 class Rate extends FormComponent
 {
-    protected $selectComponent = true;
+    protected bool $selectComponent = true;
 
-    protected static $propsRule = [
+    protected static array $propsRule = [
         'max' => 'float',
         'disabled' => 'bool',
         'allowHalf' => 'bool',

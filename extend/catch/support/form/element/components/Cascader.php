@@ -50,7 +50,7 @@ class Cascader extends FormComponent
     const TYPE_OTHER = 'other';
 
 
-    protected array $defaultValue = [];
+    protected $defaultValue = [];
 
     protected bool $selectComponent = true;
 
@@ -81,7 +81,7 @@ class Cascader extends FormComponent
      * @param mixed $value
      * @return $this
      */
-    public function value($value): self
+    public function value(mixed $value): self
     {
         $this->value = $value;
 

@@ -32,7 +32,7 @@ use catch\support\form\element\driver\CustomComponent;
  */
 class Button extends CustomComponent
 {
-    protected static $propsRule = [
+    protected static array $propsRule = [
         'size' => 'string',
         'type' => 'string',
         'plain' => 'bool',

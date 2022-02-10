@@ -18,6 +18,9 @@ use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Promise\Promise;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Promise\RejectedPromise;
+use GuzzleHttp\Psr7\PumpStream;
+use GuzzleHttp\Psr7\Stream;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * http response
@@ -42,7 +45,7 @@ class Response implements \ArrayAccess
     /**
      *
      * @time 2020年05月22日
-     * @return bool|callable|float|\GuzzleHttp\Psr7\PumpStream|\GuzzleHttp\Psr7\Stream|int|\Iterator|\Psr\Http\Message\StreamInterface|resource|string|null
+     * @return bool|callable|float|PumpStream|Stream|int|\Iterator|StreamInterface|resource|string|null
      */
     public function body()
     {
@@ -55,7 +58,7 @@ class Response implements \ArrayAccess
      * @time 2020年05月22日
      * @return false|string
      */
-    public function contents()
+    public function contents(): bool|string
     {
         return $this->body()->getContents();
     }

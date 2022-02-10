@@ -58,11 +58,11 @@ class Input extends FormComponent
     const TYPE_DATE = 'date';
 
 
-    protected $defaultProps = [
+    protected array $defaultProps = [
         'type' => self::TYPE_TEXT
     ];
 
-    protected static $propsRule = [
+    protected static array $propsRule = [
         'type' => 'string',
         'maxlength' => 'float',
         'minlength' => 'float',

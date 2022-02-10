@@ -33,7 +33,7 @@ class Checkbox extends FormOptionsComponent
 
     const TYPE_GROUP = 'group';
 
-    protected array $defaultValue = [];
+    protected $defaultValue = [];
 
     protected bool $selectComponent = true;
 

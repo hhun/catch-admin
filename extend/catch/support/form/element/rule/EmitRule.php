@@ -18,14 +18,18 @@ trait EmitRule
      * 组件模式下配置使用emit方式触发的事件名
      * @var array
      */
-    protected $emit = [];
+    protected array $emit = [];
 
     /**
      * 自定义组件emit事件的前缀
-     * @var
+     * @var string
      */
-    protected $emitPrefix;
+    protected string $emitPrefix;
 
+    /**
+     * @param array $emits
+     * @return $this
+     */
     public function emit(array $emits)
     {
         $this->emit = array_merge($this->emit, array_map('strval', $emits));
@@ -33,31 +37,52 @@ trait EmitRule
         return $this;
     }
 
-    public function appendEmit($emit)
+    /**
+     * @param string $emit
+     * @return $this
+     */
+    public function appendEmit(string $emit)
     {
-        $this->emit[] = (string)$emit;
+        $this->emit[] = $emit;
 
         return $this;
     }
 
-    public function emitPrefix($prefix)
+    /**
+     *
+     * @param string $prefix
+     * @return mixed
+     */
+    public function emitPrefix(string $prefix)
     {
-        $this->emitPrefix = (string)$prefix;
+        $this->emitPrefix = $prefix;
 
         return $prefix;
     }
 
-    public function getEmit()
+    /**
+     *
+     * @return array
+     */
+    public function getEmit(): array
     {
         return $this->emit;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getEmitPrefix()
     {
         return $this->emitPrefix;
     }
 
-    public function parseEmitRule()
+    /**
+     *
+     * @return array
+     */
+    public function parseEmitRule(): array
     {
         $rule = [];
 

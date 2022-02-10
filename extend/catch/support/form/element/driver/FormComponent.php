@@ -25,9 +25,9 @@ abstract class FormComponent extends CustomComponent
      *
      * @param string $field 字段名
      * @param string $title 字段昵称
-     * @param mixed $value 字段值
+     * @param mixed|null $value 字段值
      */
-    public function __construct(string $field, string $title, $value = null)
+    public function __construct(string $field, string $title, mixed $value = null)
     {
         parent::__construct();
 
@@ -63,7 +63,7 @@ abstract class FormComponent extends CustomComponent
      * @param string|null $message
      * @return $this
      */
-    public function required(string $message = null)
+    public function required(string $message = null): self
     {
         if (is_null($message)) {
             $message = $this->getPlaceHolder();
@@ -101,9 +101,9 @@ abstract class FormComponent extends CustomComponent
      *
      * @time 2021年08月09日
      * @param int $width
-     * @return mixed
+     * @return self
      */
-    public function width(int $width)
+    public function width(int $width): self
     {
         $this->style(['width' => $width . '%']);
 
@@ -114,9 +114,9 @@ abstract class FormComponent extends CustomComponent
      * 100% width
      *
      * @time 2021年08月09日
-     * @return mixed
+     * @return $this
      */
-    public function fullWidth()
+    public function fullWidth(): self
     {
         return $this->width(100);
     }
@@ -125,9 +125,9 @@ abstract class FormComponent extends CustomComponent
      * half width
      *
      * @time 2021年08月09日
-     * @return mixed
+     * @return $this
      */
-    public function halfWidth()
+    public function halfWidth(): self
     {
         return $this->width(50);
     }

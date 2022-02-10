@@ -81,14 +81,14 @@ class DatePicker extends FormComponent
     const TYPE_MONTH = 'month';
 
 
-    protected $selectComponent = true;
+    protected bool $selectComponent = true;
 
-    protected $defaultProps = [
+    protected array $defaultProps = [
         'type' => self::TYPE_DATE,
         'editable' => false
     ];
 
-    protected static $propsRule = [
+    protected static array $propsRule = [
         'readonly' => 'bool',
         'disabled' => 'bool',
         'editable' => 'bool',
@@ -114,12 +114,12 @@ class DatePicker extends FormComponent
         'validateEvent' => 'bool',
     ];
 
-    protected function isRange()
+    protected function isRange(): bool
     {
         return in_array(strtolower($this->props['type']), ['datetimerange', 'daterange', 'monthrange']);
     }
 
-    protected function isMultiple()
+    protected function isMultiple(): bool
     {
         return isset($this->props['type']) && strtolower($this->props['type']) == 'dates';
     }
@@ -133,7 +133,12 @@ class DatePicker extends FormComponent
         }
     }
 
-    public function required(string $message = null)
+    /**
+     *
+     * @param string|null $message
+     * @return $this
+     */
+    public function required(string $message = null): self
     {
         if (is_null($message)) {
             $message = $this->getPlaceHolder();

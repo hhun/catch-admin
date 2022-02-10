@@ -19,34 +19,34 @@ trait PropsRule
      *
      * @var array
      */
-    protected $props = [];
+    protected array $props = [];
 
     /**
      * 组件普通的 HTML 特性
      *
      * @var array
      */
-    protected $attrs = [];
+    protected array $attrs = [];
 
     /**
      * 组件的样式
      * @var string|array
      */
-    protected $style;
+    protected string|array $style;
 
     /**
      * 组件的 DOM 属性
      *
      * @var array
      */
-    protected $domProps = [];
+    protected array $domProps = [];
 
     /**
      * 设置组件的 style 属性
-     * @param string|array $style
+     * @param array|string $style
      * @return $this
      */
-    public function style($style): self
+    public function style(array|string $style): self
     {
         $this->style = $style;
 
@@ -56,7 +56,7 @@ trait PropsRule
     /**
      * @return array|string
      */
-    public function getStyle()
+    public function getStyle(): array|string
     {
         return $this->style;
     }
@@ -123,6 +123,9 @@ trait PropsRule
         return $this->domProps;
     }
 
+    /**
+     * @return object[]
+     */
     public function parsePropsRule(): array
     {
         $rule = ['props' => (object)$this->props];

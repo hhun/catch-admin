@@ -11,7 +11,7 @@
 
 namespace catch\support\form\element\components;
 
-use Catcher\Exceptions\FailedException;
+use catch\Exceptions\FailedException;
 use catch\support\form\element\driver\FormComponent;
 
 /**

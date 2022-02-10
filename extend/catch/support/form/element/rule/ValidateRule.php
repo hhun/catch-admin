@@ -11,7 +11,7 @@
 
 namespace catch\support\form\element\rule;
 
-use Illuminate\Support\Str;
+use think\helper\Str;
 
 trait ValidateRule
 {
@@ -20,7 +20,7 @@ trait ValidateRule
      *
      * @var array
      */
-    protected $validate = [];
+    protected array $validate = [];
 
     /**
      * validate

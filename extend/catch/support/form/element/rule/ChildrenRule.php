@@ -16,16 +16,16 @@ trait ChildrenRule
     /**
      * 组件的插槽名称,如果组件是其它组件的子组件，需为插槽指定名称
      *
-     * @var
+     * @var string
      */
-    protected $slot;
+    protected string $slot;
 
     /**
      * 设置父级组件的插槽,默认为default.可配合 slot 配置项使用
      *
-     * @var
+     * @var array
      */
-    protected $children = [];
+    protected array $children = [];
 
     /**
      * @param $slot
@@ -53,7 +53,7 @@ trait ChildrenRule
      * @param string|array|self $child
      * @return $this
      */
-    public function appendChild($child)
+    public function appendChild(mixed $child)
     {
         $this->children[] = $child;
 
@@ -64,19 +64,19 @@ trait ChildrenRule
      * @param array $children
      * @return $this
      */
-    public function appendChildren($children)
+    public function appendChildren(array $children)
     {
         $this->children = array_merge($this->children, $children);
 
         return $this;
     }
 
-    public function getSlot()
+    public function getSlot(): string
     {
         return $this->slot;
     }
 
-    public function getChildren()
+    public function getChildren(): array
     {
         return $this->children;
     }
@@ -84,7 +84,7 @@ trait ChildrenRule
     /**
      * @return array
      */
-    public function parseChildrenRule()
+    public function parseChildrenRule(): array
     {
         if (!count($this->children)) {
             return [];

@@ -109,7 +109,7 @@ class Http
      * 获取 Guzzle 客户端
      *
      * @time 2020年05月21日
-     * @return Client
+     * @return Client|null
      */
     public function getClient(): ?Client
     {

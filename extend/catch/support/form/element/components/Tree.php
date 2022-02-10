@@ -49,15 +49,15 @@ class Tree extends FormComponent
     const TYPE_CHECKED = 'checked';
 
 
-    protected $selectComponent = true;
+    protected bool $selectComponent = true;
 
-    protected $defaultProps = [
+    protected array $defaultProps = [
         'type' => self::TYPE_CHECKED,
         'showCheckbox' => true,
         'data' => []
     ];
 
-    protected static $propsRule = [
+    protected static array $propsRule = [
         'type' => 'string',
         'emptyText' => 'string',
         'nodeKey' => 'string',

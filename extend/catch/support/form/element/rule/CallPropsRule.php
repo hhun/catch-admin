@@ -12,7 +12,7 @@
 namespace catch\support\form\element\rule;
 
 
-use Catcher\Exceptions\FailedException;
+use catch\Exceptions\FailedException;
 
 trait CallPropsRule
 {

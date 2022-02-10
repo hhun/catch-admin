@@ -11,7 +11,7 @@
 
 namespace catch\support\form\actions;
 
-use Catcher\Exceptions\FailedException;
+use catch\Exceptions\FailedException;
 use catch\support\form\actions\relation\DestroyRelation;
 
 class Destroy extends Action

@@ -38,13 +38,13 @@ use catch\support\form\element\rule\ValidateFactory;
  */
 class Slider extends FormComponent
 {
-    protected $selectComponent = true;
+    protected bool $selectComponent = true;
 
-    protected $defaultProps = [
+    protected array $defaultProps = [
         'range' => false
     ];
 
-    protected static $propsRule = [
+    protected static array $propsRule = [
         'min' => 'float',
         'max' => 'float',
         'disabled' => 'bool',

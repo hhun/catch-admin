@@ -11,9 +11,10 @@
 
 namespace catch\support\form\actions;
 
-use Catcher\Exceptions\FailedException;
-use Catcher\Support\form\CatchForm;
+use Catch\Exceptions\FailedException;
+use catch\Support\form\CatchForm;
 use think\facade\Db;
+use think\Model;
 
 /**
  * Action
@@ -27,7 +28,7 @@ abstract class Action
      *
      * @var Model
      */
-    protected $model;
+    protected Model $model;
 
     /**
      * @var CatchForm

@@ -11,7 +11,7 @@
 
 namespace catch\support\form\element\rule;
 
-use Catcher\Support\form\Element\Driver\CustomComponent;
+use catch\support\form\Element\Driver\CustomComponent;
 
 trait ControlRule
 {
@@ -20,7 +20,7 @@ trait ControlRule
      *
      * @var
      */
-    protected $control = [];
+    protected array $control = [];
 
 
     /**
@@ -39,7 +39,7 @@ trait ControlRule
      * @param array $rule
      * @return $this
      */
-    public function appendControl($value, array $rule): self
+    public function appendControl(mixed $value, array $rule): self
     {
         $this->control[] = compact('value', 'rule');
 
@@ -53,7 +53,7 @@ trait ControlRule
      * @time 2021年09月22日
      * @param $value
      * @param array $rule
-     * @return CustomComponent|ControlRule
+     * @return ControlRule
      */
     public function when($value, array $rule)
     {

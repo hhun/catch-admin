@@ -34,14 +34,14 @@ use catch\support\form\element\rule\ValidateFactory;
  */
 class Switches extends FormComponent
 {
-    protected $selectComponent = true;
+    protected bool $selectComponent = true;
 
-    protected $defaultProps = [
+    protected array $defaultProps = [
         'activeValue' => '1',
         'inactiveValue' => '0',
     ];
 
-    protected static $propsRule = [
+    protected static array $propsRule = [
         'disabled' => 'bool',
         'width' => 'float',
         'activeIconClass' => 'string',

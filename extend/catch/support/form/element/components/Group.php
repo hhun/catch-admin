@@ -13,6 +13,7 @@ namespace catch\support\form\element\components;
 
 use catch\support\form\element\driver\CustomComponent;
 use catch\support\form\element\driver\FormComponent;
+use catch\support\form\element\rule\Validate;
 use catch\support\form\element\rule\ValidateFactory;
 
 /**
@@ -23,7 +24,7 @@ use catch\support\form\element\rule\ValidateFactory;
  */
 class Group extends FormComponent
 {
-    protected array $defaultValue = [];
+    protected $defaultValue = [];
 
     protected static array $propsRule = [
         'min' => 'string',
@@ -35,7 +36,7 @@ class Group extends FormComponent
      * @param array|CustomComponent $rule
      * @return $this
      */
-    public function rule($rule): Group
+    public function rule(array|CustomComponent $rule): Group
     {
         $this->props['rule'] = $this->tidyRule([$rule])[0];
 
@@ -64,7 +65,12 @@ class Group extends FormComponent
     }
 
 
-    public function min(int $min)
+    /**
+     *
+     * @param int $min
+     * @return $this
+     */
+    public function min(int $min): self
     {
         $this->props['min'] = $min;
 
@@ -72,7 +78,12 @@ class Group extends FormComponent
     }
 
 
-    public function max(int $max)
+    /**
+     *
+     * @param int $max
+     * @return $this
+     */
+    public function max(int $max): self
     {
         $this->props['max'] = $max;
 
@@ -80,9 +91,10 @@ class Group extends FormComponent
     }
 
     /**
-     * @return mixed
+     *
+     * @return Validate
      */
-    public function createValidate()
+    public function createValidate(): Validate
     {
         return ValidateFactory::validateArr();
     }

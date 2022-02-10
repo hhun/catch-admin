@@ -49,14 +49,14 @@ class Frame extends FormComponent
     const TYPE_INPUT = 'input';
 
 
-    protected $selectComponent = true;
+    protected bool $selectComponent = true;
 
-    protected $defaultProps = [
+    protected array $defaultProps = [
         'type' => self::TYPE_INPUT,
         'maxLength' => 0
     ];
 
-    protected static $propsRule = [
+    protected static array $propsRule = [
         'type' => 'string',
         'src' => 'string',
         'maxLength' => 'int',

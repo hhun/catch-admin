@@ -12,7 +12,7 @@
 
 namespace catch\support\form\fields;
 
-use Catcher\Exceptions\FailedException;
+use catch\Exceptions\FailedException;
 use catch\support\form\element\components\InputNumber;
 
 class Number extends InputNumber

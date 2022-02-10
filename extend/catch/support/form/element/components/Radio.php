@@ -26,9 +26,9 @@ use catch\support\form\element\rule\ValidateFactory;
  */
 class Radio extends FormOptionsComponent
 {
-    protected $selectComponent = true;
+    protected bool $selectComponent = true;
 
-    protected static $propsRule = [
+    protected static array $propsRule = [
         'size' => 'string',
         'disabled' => 'bool',
         'textColor' => 'string',

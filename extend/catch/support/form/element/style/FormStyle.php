@@ -11,7 +11,7 @@
 
 namespace catch\support\form\element\style;
 
-use Catcher\Support\form\Element\Rule\CallPropsRule;
+use catch\support\form\Element\Rule\CallPropsRule;
 
 /**
  * form表单样式
@@ -38,7 +38,7 @@ class FormStyle
      */
     protected $props;
 
-    protected static $propsRule = [
+    protected static array $propsRule = [
         'inline' => 'bool',
         'labelPosition' => 'string',
         'labelWidth' => 'string',

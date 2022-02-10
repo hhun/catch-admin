@@ -12,13 +12,13 @@
 namespace catch\support\form\element\driver;
 
 
-use Catcher\Support\form\Element\Rule\BaseRule;
-use Catcher\Support\form\Element\Rule\CallPropsRule;
-use Catcher\Support\form\Element\Rule\ChildrenRule;
-use Catcher\Support\form\Element\Rule\ControlRule;
-use Catcher\Support\form\Element\Rule\EmitRule;
-use Catcher\Support\form\Element\Rule\PropsRule;
-use Catcher\Support\form\Element\Rule\ValidateRule;
+use catch\Support\form\Element\Rule\BaseRule;
+use catch\Support\form\Element\Rule\CallPropsRule;
+use catch\Support\form\Element\Rule\ChildrenRule;
+use catch\Support\form\Element\Rule\ControlRule;
+use catch\Support\form\Element\Rule\EmitRule;
+use catch\Support\form\Element\Rule\PropsRule;
+use catch\Support\form\Element\Rule\ValidateRule;
 
 /**
  * 自定义组件

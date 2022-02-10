@@ -19,7 +19,7 @@ use catch\support\form\element\components\Cascader;
  */
 class Area extends Cascader
 {
-    public static function make(string $name, string $title, array $props = [])
+    public static function make(string $name, string $title, array $props = []): self
     {
         $area = new self($name, $title);
 

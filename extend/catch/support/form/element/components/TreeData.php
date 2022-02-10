@@ -69,7 +69,7 @@ class TreeData
      * @param array $children
      * @return $this
      */
-    public function children(array $children)
+    public function children(array $children): self
     {
         $this->children = array_merge($this->children, $children);
         return $this;

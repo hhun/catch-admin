@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace catch;
 
+use catch\enums\Enum;
 use think\Paginator;
 use think\response\Json;
 use catch\enums\Code;
@@ -28,10 +29,10 @@ class CatchResponse
      * @param Code $code
      * @return Json
      */
-    public static function success(array $data, string $msg = '', Code $code = Code::SUCCESS): Json
+    public static function success(mixed $data = [], string $msg = '', Enum $code = Code::SUCCESS): Json
     {
         return json([
-            'code' => $code->value,
+            'code' => $code->value(),
             'message' => $msg ? : $code->message(),
             'data' => $data,
         ]);
@@ -41,18 +42,18 @@ class CatchResponse
      * 分页
      *
      * @time 2019年12月06日
-     * @param Paginator $list
+     * @param Paginator $paginator
      * @return Json
      */
-    public static function paginate(Paginator $list): Json
+    public static function paginate(Paginator $paginator): Json
     {
         return json([
-            'code' => Code::SUCCESS->value,
+            'code' => Code::SUCCESS->value(),
             'message' => 'success',
-            'count' => $list->total(),
-            'current' => $list->currentPage(),
-            'limit' => $list->listRows(),
-            'data' => $list->getCollection(),
+            'count' => $paginator->total(),
+            'current' => $paginator->currentPage(),
+            'limit' => $paginator->listRows(),
+            'data' => $paginator->getCollection(),
         ]);
     }
 
@@ -64,10 +65,10 @@ class CatchResponse
      * @param Code $code
      * @return Json
      */
-    public static function fail(string $msg = '', Code $code = Code::FAILED): Json
+    public static function fail(string $msg = '', Enum $code = Code::FAILED): Json
     {
         return json([
-            'code' => $code->value,
+            'code' => $code->value(),
             'message' => $msg ? : $code->message(),
         ]);
     }

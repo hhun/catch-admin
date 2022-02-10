@@ -33,7 +33,7 @@ use catch\support\form\element\driver\CustomComponent;
  */
 class Tooltip extends CustomComponent
 {
-    protected static $propsRule = [
+    protected static array $propsRule = [
         'effect' => 'string',
         'content' => 'string',
         'placement' => 'string',

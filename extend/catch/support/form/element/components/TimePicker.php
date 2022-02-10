@@ -40,14 +40,14 @@ use catch\support\form\element\rule\ValidateFactory;
  */
 class TimePicker extends FormComponent
 {
-    protected $selectComponent = true;
+    protected bool $selectComponent = true;
 
-    protected $defaultProps = [
+    protected array $defaultProps = [
         'isRange' => false,
         'editable' => false,
     ];
 
-    protected static $propsRule = [
+    protected static array $propsRule = [
         'readonly' => 'bool',
         'disabled' => 'bool',
         'isRange' => 'bool',
@@ -76,7 +76,7 @@ class TimePicker extends FormComponent
      * @param int $s
      * @return $this
      */
-    public function steps($h, int $i = 0, int $s = 0)
+    public function steps($h, int $i = 0, int $s = 0): self
     {
         $this->props['steps'] = [$h, $i, $s];
 

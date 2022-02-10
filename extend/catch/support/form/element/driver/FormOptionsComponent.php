@@ -12,7 +12,7 @@
 namespace catch\support\form\element\driver;
 
 
-use Catcher\Support\form\Element\Rule\OptionsRule;
+use catch\support\form\Element\Rule\OptionsRule;
 
 abstract class FormOptionsComponent extends FormComponent
 {

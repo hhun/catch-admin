@@ -45,13 +45,13 @@ use catch\support\form\element\rule\ValidateFactory;
  */
 class Select extends FormOptionsComponent
 {
-    protected $selectComponent = true;
+    protected bool $selectComponent = true;
 
-    protected $defaultProps = [
+    protected array $defaultProps = [
         'multiple' => false
     ];
 
-    protected static $propsRule = [
+    protected static array $propsRule = [
         'multiple' => 'bool',
         'disabled' => 'bool',
         'valueKey' => 'string',
@@ -80,9 +80,9 @@ class Select extends FormOptionsComponent
      * create validate
      *
      * @time 2021年08月12日
-     * @return Validate|mixed
+     * @return Validate
      */
-    public function createValidate()
+    public function createValidate(): Validate
     {
         if ($this->props['multiple'] == true) {
             return ValidateFactory::validateArr();

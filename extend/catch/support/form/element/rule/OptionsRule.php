@@ -11,16 +11,15 @@
 
 namespace catch\support\form\element\rule;
 
-use Catcher\Exceptions\FailedException;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Collection;
+use catch\Exceptions\FailedException;
+use think\Collection;
 
 trait OptionsRule
 {
     /**
      * @var array
      */
-    protected $options = [];
+    protected array $options = [];
 
     /**
      * 添加选项
@@ -68,14 +67,14 @@ trait OptionsRule
      * @param array|Collection $options
      * @return $this
      */
-    public function options($options): self
+    public function options(Collection|array $options): self
     {
         if (is_array($options)) {
             $options = collect($options);
         }
 
         if ($options instanceof Collection) {
-            return $this->setOptions($options->toOptions()->toArray());
+            return $this->setOptions($options->toArray());
         }
 
         throw new FailedException('Options Type Not Support');
@@ -116,6 +115,9 @@ trait OptionsRule
         return $options;
     }
 
+    /**
+     * @return array
+     */
     public function parseOptionsRule(): array
     {
         return ['options' => $this->parseOptions()];

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace catch;
 
+use catch\enums\Enum;
 use catch\exceptions\CatchException;
 use catch\exceptions\FailedException;
 use think\db\exception\DataNotFoundException;
@@ -105,6 +106,6 @@ class CatchExceptionHandle extends Handle
         }
 
         // 如果 code 是枚举对象，则使用 code->value 获取值
-        return $code instanceof Code ? $code->value : $code;
+        return $code instanceof Enum ? $code->value() : $code;
     }
 }

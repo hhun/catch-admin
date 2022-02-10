@@ -171,10 +171,10 @@ class Validate
     /**
      * 长度或值必须小于这个值
      *
-     * @param int|float $max
+     * @param float|int $max
      * @return $this
      */
-    public function max($max): Validate
+    public function max(float|int $max): Validate
     {
         $this->validate['max'] = (float)$max;
 

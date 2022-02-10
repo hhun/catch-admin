@@ -32,7 +32,7 @@ class Col
      * @param int|string $span
      * @return $this
      */
-    public function span($span): Col
+    public function span(int|string $span): Col
     {
         $this->rule['span'] = $span;
 
@@ -45,7 +45,7 @@ class Col
      * @param int|string $labelWidth
      * @return $this
      */
-    public function labelWidth($labelWidth): Col
+    public function labelWidth(int|string $labelWidth): Col
     {
         $this->rule['labelWidth'] = $labelWidth;
 
@@ -110,7 +110,7 @@ class Col
      * @param int|self $xs
      * @return $this
      */
-    public function xs($xs): Col
+    public function xs(int|Col $xs): Col
     {
         $this->rule['xs'] = $this->buildGrid($xs);
 
@@ -123,7 +123,7 @@ class Col
      * @param int|self $sm
      * @return $this
      */
-    public function sm($sm): Col
+    public function sm(int|Col $sm): Col
     {
         $this->rule['sm'] = $this->buildGrid($sm);
 
@@ -136,7 +136,7 @@ class Col
      * @param int|self $md
      * @return $this
      */
-    public function md($md): Col
+    public function md(int|Col $md): Col
     {
         $this->rule['md'] = $this->buildGrid($md);
 
@@ -149,7 +149,7 @@ class Col
      * @param int|self $lg
      * @return $this
      */
-    public function lg($lg): Col
+    public function lg(int|Col $lg): Col
     {
         $this->rule['lg'] = $this->buildGrid($lg);
 
