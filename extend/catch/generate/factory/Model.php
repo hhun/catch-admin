@@ -10,6 +10,7 @@ use catch\Utils;
 use JaguarJack\Generate\Build\Class_;
 use JaguarJack\Generate\Build\Property;
 use JaguarJack\Generate\Build\Value;
+use JaguarJack\Generate\Exceptions\TypeNotFoundException;
 use JaguarJack\Generate\Generator;
 use JaguarJack\Generate\Types\Array_;
 use PhpParser\Comment\Doc;
@@ -25,7 +26,7 @@ class Model extends Factory
      * @time 2020年11月19日
      * @param array $params
      * @return string
-     * @throws \JaguarJack\Generate\Exceptions\TypeNotFoundException
+     * @throws TypeNotFoundException
      */
     public function done(array $params): string
     {
@@ -48,9 +49,9 @@ class Model extends Factory
      * @time 2020年04月29日
      * @param $params
      * @return string|string[]
-     * @throws \JaguarJack\Generate\Exceptions\TypeNotFoundException
+     * @throws TypeNotFoundException
      */
-    public function getContent($params)
+    public function getContent($params): array|string
     {
         $extra = $params['extra'];
 
@@ -129,7 +130,7 @@ class Model extends Factory
      * @param $table
      * @return Array_
      */
-    protected function getFields($table)
+    protected function getFields($table): Array_
     {
         $columns = Db::getFields($table);
 

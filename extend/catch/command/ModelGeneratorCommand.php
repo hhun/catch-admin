@@ -32,7 +32,7 @@ class ModelGeneratorCommand extends Command
             'model' => 'catchAdmin\\'.$module.'\\model\\'.$model,
             'table' => Str::snake($model),
             'extra' => [
-                'soft_delete' => $softDelete ? true : false,
+                'soft_delete' => (bool)$softDelete,
             ],
         ];
 

@@ -15,7 +15,7 @@ use catch\support\table\components\Button;
 
 class Actions
 {
-    protected static $noText = false;
+    protected static bool $noText = false;
 
     /**
      * 创建按钮
@@ -62,7 +62,7 @@ class Actions
      * @time 2021年03月23日
      * @param string $text
      * @param string $type
-     * @param string|null $event
+     * @param string $event
      * @return Button
      */
     public static function view(string $text = '查看', string $type = 'success', string $event = 'handleView'): Button

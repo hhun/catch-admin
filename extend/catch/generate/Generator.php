@@ -11,6 +11,10 @@ use catch\generate\factory\SQL;
 use catch\generate\support\Table;
 use catch\library\Composer;
 use catch\Utils;
+use JaguarJack\Generate\Exceptions\TypeNotFoundException;
+use think\db\exception\DataNotFoundException;
+use think\db\exception\DbException;
+use think\db\exception\ModelNotFoundException;
 
 class Generator
 {
@@ -22,9 +26,9 @@ class Generator
      * @time 2020年04月29日
      * @param $params
      * @return array
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\db\exception\DataNotFoundException
+     * @throws DbException
+     * @throws ModelNotFoundException
+     * @throws DataNotFoundException
      */
     public function done($params): array
     {
@@ -86,8 +90,8 @@ class Generator
      *
      * @time 2020年04月29日
      * @param $params
-     * @return bool|string|string[]
-     * @throws \JaguarJack\Generate\Exceptions\TypeNotFoundException
+     * @return string|string[]|void
+     * @throws TypeNotFoundException
      */
     public function preview($params)
     {
@@ -149,9 +153,9 @@ class Generator
      *
      * @param $files
      * @param $migration
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
+     * @throws DataNotFoundException
+     * @throws DbException
+     * @throws ModelNotFoundException
      */
     protected function rollback($files, $migration)
     {
@@ -164,12 +168,11 @@ class Generator
         }
 
         if ($migration && unlink($migration)) {
-            $model = new class () extends \think\Model {
+            $migrationModel = new class extends \think\Model {
                 protected $name = 'migrations';
             };
 
-            $migration = $model->order('version', 'desc')->find();
-            $model->where('version', $migration->version)->delete();
+           $migrationModel->order('version', 'desc')->find()->delete();
         }
     }
 }

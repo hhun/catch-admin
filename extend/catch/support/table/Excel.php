@@ -19,7 +19,7 @@ class Excel
 {
     protected static $label;
 
-    protected $sheets = [];
+    protected array $sheets = [];
 
     /**
      * name

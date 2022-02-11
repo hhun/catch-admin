@@ -16,6 +16,7 @@ namespace catch\support;
 
 use catch\exceptions\FiledNotFoundException;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 
 class FileSystem
 {
@@ -37,7 +38,7 @@ class FileSystem
      * @param  bool  $lock
      * @return string
      **/
-    public function get(string $path, $lock = false): string
+    public function get(string $path, bool $lock = false): string
     {
         if ($this->isFile($path)) {
             return $lock ? $this->sharedGet($path) : file_get_contents($path);
@@ -83,7 +84,7 @@ class FileSystem
      *
      * @throws FiledNotFoundException
      */
-    public function getRequire(string $path)
+    public function getRequire(string $path): mixed
     {
         if ($this->isFile($path)) {
             return require $path;
@@ -96,7 +97,7 @@ class FileSystem
      * 加载文件
      *
      * @param string $file
-     * @return mixed
+     * @return void
      */
     public function requireOnce(string $file)
     {
@@ -122,7 +123,7 @@ class FileSystem
      * @param bool $lock
      * @return int|bool
      */
-    public function put(string $path, string $contents, $lock = false)
+    public function put(string $path, string $contents, bool $lock = false): bool|int
     {
         return file_put_contents($path, $contents, $lock ? LOCK_EX : 0);
     }
@@ -156,7 +157,7 @@ class FileSystem
      * @param string $data
      * @return int
      */
-    public function prepend(string $path, string $data)
+    public function prepend(string $path, string $data): bool|int
     {
         if ($this->exists($path)) {
             return $this->put($path, $data.$this->get($path));
@@ -182,9 +183,9 @@ class FileSystem
      *
      * @param string $path
      * @param int|null $mode
-     * @return mixed
+     * @return string|bool
      */
-    public function chmod(string $path, $mode = null)
+    public function chmod(string $path, int $mode = null): string|bool
     {
         if ($mode) {
             return chmod($path, $mode);
@@ -196,10 +197,10 @@ class FileSystem
     /**
      * 删除文件
      *
-     * @param  string|array  $paths
+     * @param array|string $paths
      * @return bool
      */
-    public function delete($paths): bool
+    public function delete(array|string $paths): bool
     {
         $paths = is_array($paths) ? $paths : func_get_args();
 
@@ -247,7 +248,7 @@ class FileSystem
      *
      * @param string $target
      * @param string $link
-     * @return void|mixed
+     * @return bool|void
      */
     public function link(string $target, string $link)
     {
@@ -322,9 +323,9 @@ class FileSystem
      * @param string $path
      * @return string|false
      */
-    public function mimeType(string $path)
+    public function mimeType(string $path): bool|string
     {
-        return finfo_file(finfo_open(FILEINFO_MIME_TYPE), $path);
+        return \finfo_file(finfo_open(FILEINFO_MIME_TYPE), $path);
     }
 
     /**
@@ -400,7 +401,7 @@ class FileSystem
      * @param int $flags
      * @return array
      */
-    public function glob(string $pattern, $flags = 0): array
+    public function glob(string $pattern, int $flags = 0): array
     {
         return glob($pattern, $flags);
     }
@@ -410,9 +411,9 @@ class FileSystem
      *
      * @param string $directory
      * @param bool $hidden
-     * @return \Symfony\Component\Finder\SplFileInfo[]
+     * @return SplFileInfo[]
      */
-    public function files(string $directory, $hidden = false): array
+    public function files(string $directory, bool $hidden = false): array
     {
         return iterator_to_array(
             Finder::create()->files()->ignoreDotFiles(! $hidden)->in($directory)->depth(0)->sortByName(),
@@ -425,9 +426,9 @@ class FileSystem
      *
      * @param string $directory
      * @param bool $hidden
-     * @return \Symfony\Component\Finder\SplFileInfo[]
+     * @return SplFileInfo[]
      */
-    public function allFiles(string $directory, $hidden = false): array
+    public function allFiles(string $directory, bool $hidden = false): array
     {
         return iterator_to_array(
             Finder::create()->files()->ignoreDotFiles(! $hidden)->in($directory)->sortByName(),
@@ -461,7 +462,7 @@ class FileSystem
      * @param bool $force
      * @return bool
      */
-    public function makeDirectory(string $path, $mode = 0755, $recursive = false, $force = false): bool
+    public function makeDirectory(string $path, int $mode = 0755, bool $recursive = false, bool $force = false): bool
     {
         if ($force) {
             return @mkdir($path, $mode, $recursive);
@@ -478,7 +479,7 @@ class FileSystem
      * @param bool $overwrite
      * @return bool
      */
-    public function moveDirectory(string $from, string $to, $overwrite = false): bool
+    public function moveDirectory(string $from, string $to, bool $overwrite = false): bool
     {
         if ($overwrite && $this->isDirectory($to) && ! $this->deleteDirectory($to)) {
             return false;
@@ -495,7 +496,7 @@ class FileSystem
      * @param int|null $options
      * @return bool
      */
-    public function copyDirectory(string $directory, string $destination, $options = null): bool
+    public function copyDirectory(string $directory, string $destination, int $options = null): bool
     {
         if (! $this->isDirectory($directory)) {
             return false;
@@ -536,7 +537,7 @@ class FileSystem
      * @param bool $preserve
      * @return bool
      */
-    public function deleteDirectory(string $directory, $preserve = false): bool
+    public function deleteDirectory(string $directory, bool $preserve = false): bool
     {
         if (! $this->isDirectory($directory)) {
             return false;

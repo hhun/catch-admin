@@ -13,7 +13,7 @@ namespace catch\support\table\components;
 
 class Button extends Component
 {
-    protected $el = 'button';
+    protected string $el = 'button';
 
     /**
      * icon

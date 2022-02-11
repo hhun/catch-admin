@@ -15,6 +15,8 @@ namespace catch;
 
 use catch\library\excel\Excel;
 use catch\library\excel\ExcelContract;
+use PhpOffice\PhpSpreadsheet\Exception;
+use Psr\SimpleCache\InvalidArgumentException;
 use think\facade\Cache;
 use think\model\Collection;
 
@@ -48,15 +50,15 @@ class CatchModelCollection extends Collection
      * @param $header
      * @param string $path
      * @param string $disk
-     * @return mixed|string[]
-     *@throws \PhpOffice\PhpSpreadsheet\Exception
+     * @return array
+     * @throws Exception
      */
     public function export($header, string $path = '', string $disk = 'local'): array
     {
         $excel = new class ($header, $this->items) implements ExcelContract {
-            protected $headers;
+            protected array $headers;
 
-            protected $sheets;
+            protected array $sheets;
 
             public function __construct($headers, $sheets)
             {
@@ -71,7 +73,7 @@ class CatchModelCollection extends Collection
                 return $this->headers;
             }
 
-            public function sheets()
+            public function sheets(): array
             {
                 // TODO: Implement sheets() method.
                 return $this->sheets;
@@ -89,13 +91,13 @@ class CatchModelCollection extends Collection
      * 缓存 collection
      *
      * @time 2020年10月21日
-     * @param $key
+     * @param string $key
      * @param int $ttl
      * @param string $store
      * @return bool
-     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function cache($key, int $ttl = 0, string $store = 'redis'): bool
+    public function cache(string $key, int $ttl = 0, string $store = 'redis'): bool
     {
         return Cache::store($store)->set($key, $this->items, $ttl);
     }
@@ -117,7 +119,7 @@ class CatchModelCollection extends Collection
 
         $childIds = $this->whereIn($parentFields, $ids)->column($column);
 
-        if (! empty($childIds)) {
+        if (count($childIds)) {
             $childIds = array_merge($childIds, $this->getAllChildrenIds($childIds));
         }
 

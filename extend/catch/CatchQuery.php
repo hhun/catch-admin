@@ -32,7 +32,7 @@ class CatchQuery extends Query
      * @param array $bind
      * @return CatchQuery
      */
-    public function catchJoin($model, string $joinField, string $currentJoinField, array $field = [], string $type = 'INNER', array $bind = []): self
+    public function catchJoin(mixed $model, string $joinField, string $currentJoinField, array $field = [], string $type = 'INNER', array $bind = []): self
     {
         $tableAlias = null;
 
@@ -61,7 +61,7 @@ class CatchQuery extends Query
      * @param array $bind
      * @return CatchQuery
      */
-    public function catchLeftJoin($model, string $joinField, string $currentJoinField, array $field = [], array $bind = []): self
+    public function catchLeftJoin(mixed $model, string $joinField, string $currentJoinField, array $field = [], array $bind = []): self
     {
         return $this->catchJoin($model, $joinField, $currentJoinField, $field, 'LEFT', $bind);
     }
@@ -76,7 +76,7 @@ class CatchQuery extends Query
      * @param array $bind
      * @return CatchQuery
      */
-    public function catchRightJoin($model, string $joinField, string $currentJoinField, array $field = [], array $bind = []): self
+    public function catchRightJoin(mixed $model, string $joinField, string $currentJoinField, array $field = [], array $bind = []): self
     {
         return $this->catchJoin($model, $joinField, $currentJoinField, $field, 'RIGHT', $bind);
     }
@@ -89,7 +89,7 @@ class CatchQuery extends Query
      * @param bool $needAlias
      * @return $this|Query
      */
-    public function withoutField($field, bool $needAlias = false)
+    public function withoutField($field, bool $needAlias = false): Query|static
     {
         if (empty($field)) {
             return $this;
@@ -207,7 +207,7 @@ class CatchQuery extends Query
      * @time 2020年01月13日
      * @return mixed
      */
-    public function getAlias()
+    public function getAlias(): mixed
     {
         return isset($this->options['alias']) ? $this->options['alias'][$this->getTable()] : $this->getTable();
     }
@@ -313,14 +313,14 @@ class CatchQuery extends Query
     public function catchOrder(string $order = 'desc'): self
     {
         if (in_array('sort', array_keys($this->getFields()))) {
-            $this->order($this->getTable().'.sort', $order);
+            $this->order($this->getTable() . '.sort', $order);
         }
 
         if (in_array('weight', array_keys($this->getFields()))) {
-            $this->order($this->getTable().'.weight', $order);
+            $this->order($this->getTable() . '.weight', $order);
         }
 
-        $this->order($this->getTable().'.'.$this->getPk(), $order);
+        $this->order($this->getTable() . '.' . $this->getPk(), $order);
 
         return $this;
     }
@@ -329,7 +329,7 @@ class CatchQuery extends Query
      * @param array|string $field
      * @return CatchQuery
      */
-    public function orderDesc($field): CatchQuery
+    public function orderDesc(array|string $field): CatchQuery
     {
         if (is_string($field)) {
             return $this->order($field, 'desc');
@@ -360,29 +360,29 @@ class CatchQuery extends Query
     }
 
     /**
-     * 字段增加
+     * 自增
      *
      * @time 2020年11月04日
-     * @param $field
+     * @param string $field
      * @param int $amount
      * @return int
      *@throws DbException
      */
-    public function increment($field, int $amount = 1): int
+    public function increment(string $field, int $amount = 1): int
     {
         return $this->inc($field, $amount)->update();
     }
 
     /**
-     * 字段减少
+     * 自减
      *
      * @time 2020年11月04日
-     * @param $field
+     * @param string $field
      * @param int $amount
      * @return int
      *@throws DbException
      */
-    public function decrement($field, int $amount = 1): int
+    public function decrement(string $field, int $amount = 1): int
     {
         return $this->dec($field, $amount)->update();
     }

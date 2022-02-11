@@ -33,7 +33,8 @@ class CompressPackageCommand extends Command
         try {
             (new Compress())->moduleToZip($package);
         } catch (\Exception $e) {
-            exit($output->error($e->getMessage()));
+            $output->error($e->getMessage());
+            exit;
         }
 
         $output->info($package.' zip successfully~');

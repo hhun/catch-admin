@@ -225,7 +225,7 @@ class CreateModule
 <?php
 namespace catchAdmin\\{$this->module}\\tables\\forms;
 
-use catch\\library\\form\\FormFactory;
+use catch\\support\\form\\FormFactory;
 
 class Factory extends FormFactory
 {

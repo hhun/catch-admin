@@ -19,7 +19,7 @@ use ZipArchive;
 
 class ZipRepository
 {
-    private $archive;
+    private mixed $archive;
 
     /**
      * Construct with a given path
@@ -105,9 +105,9 @@ class ZipRepository
      *
      * @param $pathInArchive
      *
-     * @return mixed
+     * @return bool
      */
-    public function getFileStream($pathInArchive)
+    public function getFileStream($pathInArchive): bool
     {
         return $this->archive->getStream($pathInArchive);
     }
@@ -176,27 +176,24 @@ class ZipRepository
         @$this->archive->close();
     }
 
+    /**
+     * get error message
+     *
+     * @param $resultCode
+     * @return string
+     */
     private function getErrorMessage($resultCode): string
     {
-        switch ($resultCode) {
-            case ZipArchive::ER_EXISTS:
-                return 'ZipArchive::ER_EXISTS - File already exists.';
-            case ZipArchive::ER_INCONS:
-                return 'ZipArchive::ER_INCONS - Zip archive inconsistent.';
-            case ZipArchive::ER_MEMORY:
-                return 'ZipArchive::ER_MEMORY - Malloc failure.';
-            case ZipArchive::ER_NOENT:
-                return 'ZipArchive::ER_NOENT - No such file.';
-            case ZipArchive::ER_NOZIP:
-                return 'ZipArchive::ER_NOZIP - Not a zip archive.';
-            case ZipArchive::ER_OPEN:
-                return 'ZipArchive::ER_OPEN - Can\'t open file.';
-            case ZipArchive::ER_READ:
-                return 'ZipArchive::ER_READ - Read error.';
-            case ZipArchive::ER_SEEK:
-                return 'ZipArchive::ER_SEEK - Seek error.';
-            default:
-                return "An unknown error [$resultCode] has occurred.";
-        }
+        return match ($resultCode) {
+            ZipArchive::ER_EXISTS => 'ZipArchive::ER_EXISTS - File already exists.',
+            ZipArchive::ER_INCONS => 'ZipArchive::ER_INCONS - Zip archive inconsistent.',
+            ZipArchive::ER_MEMORY => 'ZipArchive::ER_MEMORY - Malloc failure.',
+            ZipArchive::ER_NOENT => 'ZipArchive::ER_NOENT - No such file.',
+            ZipArchive::ER_NOZIP => 'ZipArchive::ER_NOZIP - Not a zip archive.',
+            ZipArchive::ER_OPEN => 'ZipArchive::ER_OPEN - Can\'t open file.',
+            ZipArchive::ER_READ => 'ZipArchive::ER_READ - Read error.',
+            ZipArchive::ER_SEEK => 'ZipArchive::ER_SEEK - Seek error.',
+            default => "An unknown error [$resultCode] has occurred.",
+        };
     }
 }

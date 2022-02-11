@@ -60,7 +60,7 @@ class Controller extends Factory
 
         [$model, $modelNamespace] = $this->parseFilename($params['model']);
 
-        $asModel = lcfirst(Str::contains($model, 'Model') ?: $model.'Model');
+        $asModel = lcfirst(Str::contains($model, 'Model') ? : $model . 'Model');
 
         if (! $className) {
             throw new FailedException('未填写控制器名称');

@@ -45,22 +45,22 @@ class Zipper
     /**
      * @var string Represents the current location in the archive
      */
-    private $currentFolder = '';
+    private string $currentFolder = '';
 
     /**
      * @var Filesystem Handler to the file system
      */
-    private $file;
+    private FileSystem $file;
 
     /**
      * @var ZipRepository Handler to the archive
      */
-    private $repository;
+    private ZipRepository $repository;
 
     /**
      * @var string The path to the current zip file
      */
-    private $filePath;
+    private string $filePath;
 
     /**
      * Constructor
@@ -221,15 +221,16 @@ class Zipper
      *
      * @param $filePath string The full path (including all folders) of the file in the zip
      *
-     * @return mixed returns the content or throws an exception
+     * @return string returns the content or throws an exception
      *@throws \Exception
      *
      */
-    public function getFileContent(string $filePath)
+    public function getFileContent(string $filePath): string
     {
         if ($this->repository->fileExists($filePath) === false) {
             throw new Exception(sprintf('The file "%s" cannot be found', $filePath));
         }
+
         return $this->repository->getFileContent($filePath);
     }
 
@@ -237,11 +238,11 @@ class Zipper
      * Add one or multiple files to the zip.
      *
      * @param $pathToAdd array|string An array or string of files and folders to add
-     * @param null|mixed $fileName
+     * @param mixed|null $fileName
      *
      * @return $this Zipper instance
      */
-    public function add($pathToAdd, $fileName = null): Zipper
+    public function add(array|string $pathToAdd, mixed $fileName = null): Zipper
     {
         if (is_array($pathToAdd)) {
             foreach ($pathToAdd as $key=>$dir) {
@@ -310,7 +311,7 @@ class Zipper
      *
      * @return $this Zipper instance
      */
-    public function remove($fileToRemove): Zipper
+    public function remove(array|string $fileToRemove): Zipper
     {
         if (is_array($fileToRemove)) {
             $self = $this;
@@ -607,7 +608,7 @@ class Zipper
         $tmpPath = str_replace($this->getInternalPath(), '', $fileName);
 
         //Prevent Zip traversal attacks
-        if (strpos($fileName, '../') !== false || strpos($fileName, '..\\') !== false) {
+        if (str_contains($fileName, '../') || str_contains($fileName, '..\\')) {
             throw new \RuntimeException('Special characters found within filenames');
         }
 

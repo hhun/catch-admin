@@ -24,7 +24,7 @@ class HeaderItem
     /**
      * @var array
      */
-    protected $attributes = [];
+    protected array $attributes = [];
 
     /**
      * HeaderItem constructor.
@@ -235,7 +235,7 @@ class HeaderItem
      * @param bool|string $fixed
      * @return HeaderItem
      */
-    public function fixed($fixed = true): HeaderItem
+    public function fixed(bool $fixed = true): HeaderItem
     {
         $this->attributes['fixed'] = $fixed;
 
@@ -297,10 +297,10 @@ class HeaderItem
      * 关联关系
      *
      * @time 2021年08月13日
-     * @param array|\Closure $fields
+     * @param array|\Closure|null $fields
      * @return $this
      */
-    public function relations($fields = null): HeaderItem
+    public function relations(array|\Closure $fields = null): HeaderItem
     {
         $this->attributes['relations'] = $fields;
 

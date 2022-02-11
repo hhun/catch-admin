@@ -205,6 +205,8 @@ class CreateModuleCommand extends Command
      */
     protected function createRoute()
     {
-        FileSystem::put($this->moduleDir.'route.php', file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'route.stub'));
+        FileSystem::put($this->moduleDir.'route.php',
+            FileSystem::sharedGet(__DIR__ . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'route.stub')
+        );
     }
 }

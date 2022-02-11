@@ -18,7 +18,7 @@ class Component
      */
     protected array $attributes = [];
 
-    protected $el;
+    protected string $el;
 
     public function __construct()
     {

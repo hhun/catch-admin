@@ -17,7 +17,7 @@ namespace catch\support\table;
  */
 class Export
 {
-    protected $table;
+    protected CatchTable $table;
 
     public function __construct(CatchTable $table)
     {
@@ -30,7 +30,7 @@ class Export
      * @time 2021年09月18日
      * @return mixed
      */
-    public function export()
+    public function export(): mixed
     {
         $headers = $this->table->create()['headers'];
 
