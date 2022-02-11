@@ -3,14 +3,14 @@ namespace app;
 
 // 应用请求对象类
 
-use catcher\CatchAuth;
-use catcher\enums\Status;
-use catcher\exceptions\FailedException;
-use catcher\exceptions\LoginFailedException;
+use catch\CatchAuth;
+use catch\enums\Status;
+use catch\exceptions\FailedException;
+use catch\exceptions\LoginFailedException;
 use catchAdmin\jwt\exception\TokenBlacklistException;
 use catchAdmin\jwt\exception\TokenExpiredException;
 use catchAdmin\jwt\exception\TokenInvalidException;
-use catcher\enums\Code;
+use catch\enums\Code;
 
 class Request extends \think\Request
 {
