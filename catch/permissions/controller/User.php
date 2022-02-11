@@ -25,7 +25,10 @@ use catch\CatchResponse;
 use catch\enums\Status;
 use catch\library\excel\Excel;
 use catch\Utils;
+use PhpOffice\PhpSpreadsheet\Exception;
+use think\db\exception\DataNotFoundException;
 use think\db\exception\DbException;
+use think\db\exception\ModelNotFoundException;
 use think\facade\Cache;
 use think\response\Json;
 
@@ -42,7 +45,7 @@ class User extends CatchController
      * @throws DbException
      * @return Json
      */
-    public function index()
+    public function index(): Json
     {
         return CatchResponse::paginate($this->user->getList());
     }
@@ -52,12 +55,12 @@ class User extends CatchController
      *
      * @time 2020年01月07日
      * @param CatchAuth $auth
-     * @throws \think\db\exception\DataNotFoundException
+     * @throws DataNotFoundException
      * @throws DbException
-     * @throws \think\db\exception\ModelNotFoundException
+     * @throws ModelNotFoundException
      * @return Json
      */
-    public function info(CatchAuth $auth)
+    public function info(CatchAuth $auth): Json
     {
         $user = $auth->user();
 
@@ -83,7 +86,7 @@ class User extends CatchController
      * @time 2019年12月06日
      * @return Json
      */
-    public function save(CreateRequest $request)
+    public function save(CreateRequest $request): Json
     {
         $this->user->storeBy($request->param());
 
@@ -102,7 +105,7 @@ class User extends CatchController
      * @param $id
      * @return Json
      */
-    public function read($id)
+    public function read($id): Json
     {
         $user = $this->user->findBy($id);
         $user->roles = $user->getRoles();
@@ -116,8 +119,11 @@ class User extends CatchController
      * @param $id
      * @param UpdateRequest $request
      * @return Json
+     * @throws DataNotFoundException
+     * @throws DbException
+     * @throws ModelNotFoundException
      */
-    public function update($id, UpdateRequest $request)
+    public function update($id, UpdateRequest $request): Json
     {
         $this->user->updateBy($id, $request->filterEmptyField()->param());
 
@@ -129,9 +135,11 @@ class User extends CatchController
         if (! empty($request->param('roles'))) {
             $user->attachRoles($request->param('roles'));
         }
+
         if (! empty($request->param('jobs'))) {
             $user->attachJobs($request->param('jobs'));
         }
+
         return CatchResponse::success();
     }
 
@@ -141,7 +149,7 @@ class User extends CatchController
      * @param $id
      * @return Json
      */
-    public function delete($id)
+    public function delete($id): Json
     {
         $ids = Utils::stringToArrayBy($id);
 
@@ -163,6 +171,9 @@ class User extends CatchController
      * @time 2019年12月07日
      * @param $id
      * @return Json
+     * @throws DataNotFoundException
+     * @throws DbException
+     * @throws ModelNotFoundException
      */
     public function switchStatus($id): Json
     {
@@ -185,10 +196,10 @@ class User extends CatchController
      * @time 2020年09月08日
      * @param Excel $excel
      * @param UserExport $userExport
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws Exception
      * @return Json
      */
-    public function export(Excel $excel, UserExport $userExport)
+    public function export(Excel $excel, UserExport $userExport): Json
     {
         return CatchResponse::success($excel->save($userExport, Utils::publicPath('export/users')));
     }
@@ -199,8 +210,11 @@ class User extends CatchController
      * @time 2020年09月20日
      * @param ProfileRequest $request
      * @return Json
+     * @throws DataNotFoundException
+     * @throws DbException
+     * @throws ModelNotFoundException
      */
-    public function profile(ProfileRequest $request)
+    public function profile(ProfileRequest $request): Json
     {
         return CatchResponse::success($this->user->updateBy($request->user()->id, $request->filterEmptyField()->param()));
     }
